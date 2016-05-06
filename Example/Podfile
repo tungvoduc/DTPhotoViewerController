@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'DTPhotoViewerController_Example', :exclusive => true do
+  pod 'DTPhotoViewerController', :path => '../'
+end
+
+target 'DTPhotoViewerController_Tests', :exclusive => true do
+  pod 'DTPhotoViewerController', :path => '../'
+
+  
+end
