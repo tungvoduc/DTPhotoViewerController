@@ -1,0 +1,19 @@
+{
+  "name": "DTPhotoViewerController",
+  "version": "0.1.0",
+  "summary": "A short description of DTPhotoViewerController.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/DTPhotoViewerController",
+  "license": "MIT",
+  "authors": {
+    "Tung Vo": "tung98.dn@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/DTPhotoViewerController.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "DTPhotoViewerController/Classes/**/*"
+}

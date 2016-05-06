@@ -1,0 +1,14 @@
+PODS:
+  - DTPhotoViewerController (0.1.0)
+
+DEPENDENCIES:
+  - DTPhotoViewerController (from `../`)
+
+EXTERNAL SOURCES:
+  DTPhotoViewerController:
+    :path: ../
+
+SPEC CHECKSUMS:
+  DTPhotoViewerController: 6bfd31a3b5390609aa9338c15e07d55249894101
+
+COCOAPODS: 0.39.0
