@@ -8,6 +8,13 @@
 ## Example
 ![Screenshot](example.gif)
 
+It is very easy to use DTPhotoViewerController, all you need to do is to get UIImageView and UIImage instances, then:
+```
+if let viewController = DTPhotoViewerController(referenceView: imageView, image: image) {
+    self.presentViewController(viewController, animated: true, completion: nil)
+}
+```
+
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
