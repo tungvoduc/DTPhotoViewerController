@@ -1,0 +1,689 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0917360F1CDD5BB5005FD7ED /* DTPhotoViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0917360C1CDD5BB5005FD7ED /* DTPhotoViewerController.swift */; };
+		091736101CDD5BB5005FD7ED /* DTPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0917360D1CDD5BB5005FD7ED /* DTPhotoViewer.swift */; };
+		091736111CDD5BB5005FD7ED /* DTPhotoAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0917360E1CDD5BB5005FD7ED /* DTPhotoAnimator.swift */; };
+		13040D1E84F3303EACA106444E767D9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		1B4904511BCEFC1FA153DC8C86DF9EAB /* Pods-DTPhotoViewerController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699BAE033F1B5C6054A1C5DED78CB9 /* Pods-DTPhotoViewerController_Tests-dummy.m */; };
+		1E4B71EFAD16673A57E605DA7864FB64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		3F86677FCF3A986B6C44B25F2B26A921 /* DTPhotoViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AE581DCD803FD45616BE6FCF09D75FF /* DTPhotoViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4A88E55A642C10133D8CE18F8E268CF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		5B7EDBAA7DD4CFA58A06AFF775DE89B4 /* Pods-DTPhotoViewerController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AAB0965CDE6B86B22E3D4822685024 /* Pods-DTPhotoViewerController_Example-dummy.m */; };
+		9AD1B5CC8B38846892D5CA9CF6EC8F6E /* DTPhotoViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C005ED56D0A3852268853DCE61F15682 /* DTPhotoViewerController-dummy.m */; };
+		A01A8A026F0F5FC6344D13B13D3B3BA2 /* Pods-DTPhotoViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C94527595D482DE2229985D9476BC4 /* Pods-DTPhotoViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0740406BE2BAC20072DC4F1BC455087 /* Pods-DTPhotoViewerController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB7F71FF6F2226E171756C7770D7DDE /* Pods-DTPhotoViewerController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		03B083AA29D2D37418890ABA41677B78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35ED704DB1FB61515D29FB020049D18F;
+			remoteInfo = DTPhotoViewerController;
+		};
+		694C6265A7A50682D5EF796505314802 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35ED704DB1FB61515D29FB020049D18F;
+			remoteInfo = DTPhotoViewerController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		001AB10BA838ADFF5BD6612146D887BE /* Pods_DTPhotoViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTPhotoViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0917360C1CDD5BB5005FD7ED /* DTPhotoViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoViewerController.swift; sourceTree = "<group>"; };
+		0917360D1CDD5BB5005FD7ED /* DTPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoViewer.swift; sourceTree = "<group>"; };
+		0917360E1CDD5BB5005FD7ED /* DTPhotoAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoAnimator.swift; sourceTree = "<group>"; };
+		1548F9A201D6E47940BA1958CDDDA3BF /* Pods_DTPhotoViewerController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTPhotoViewerController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E00DBA07B1D5A5735EF4E22AEB9EE31 /* Pods-DTPhotoViewerController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DTPhotoViewerController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		332A8EF99060FCF9ECD2CD0C787821D8 /* Pods-DTPhotoViewerController_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-DTPhotoViewerController_Tests.modulemap"; sourceTree = "<group>"; };
+		34AAB0965CDE6B86B22E3D4822685024 /* Pods-DTPhotoViewerController_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DTPhotoViewerController_Example-dummy.m"; sourceTree = "<group>"; };
+		3AE581DCD803FD45616BE6FCF09D75FF /* DTPhotoViewerController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DTPhotoViewerController-umbrella.h"; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		42138C2AF36D2CFFCA6E63E210521A81 /* Pods-DTPhotoViewerController_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-DTPhotoViewerController_Example.modulemap"; sourceTree = "<group>"; };
+		4A96BD994F84F0666A28612977391130 /* Pods-DTPhotoViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DTPhotoViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
+		4BB7F71FF6F2226E171756C7770D7DDE /* Pods-DTPhotoViewerController_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DTPhotoViewerController_Tests-umbrella.h"; sourceTree = "<group>"; };
+		4C0BD9D85D0C828BF88D49545C793FAC /* Pods-DTPhotoViewerController_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DTPhotoViewerController_Tests-resources.sh"; sourceTree = "<group>"; };
+		51C94527595D482DE2229985D9476BC4 /* Pods-DTPhotoViewerController_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DTPhotoViewerController_Example-umbrella.h"; sourceTree = "<group>"; };
+		56699BAE033F1B5C6054A1C5DED78CB9 /* Pods-DTPhotoViewerController_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DTPhotoViewerController_Tests-dummy.m"; sourceTree = "<group>"; };
+		5946F7408170570F8F60447C08388F60 /* Pods-DTPhotoViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DTPhotoViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		594CB728DA27863A943DA25DB577C248 /* Pods-DTPhotoViewerController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DTPhotoViewerController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		778C85DE3B6D47C699FB7CAE36D067F2 /* Pods-DTPhotoViewerController_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DTPhotoViewerController_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		817F6DECFB59FB9F89637FF15D0C0429 /* DTPhotoViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTPhotoViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F014BBA41B07908CC400CE6E63CAEDA /* Pods-DTPhotoViewerController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DTPhotoViewerController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		9165427BAC1A6AA33C0AAA1736413DC2 /* Pods-DTPhotoViewerController_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DTPhotoViewerController_Example-resources.sh"; sourceTree = "<group>"; };
+		9EE43D2881055500F8620754601DF8DE /* Pods-DTPhotoViewerController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DTPhotoViewerController_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		A05F7ADAA193E2FDDB79930040ACB857 /* Pods-DTPhotoViewerController_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DTPhotoViewerController_Tests-frameworks.sh"; sourceTree = "<group>"; };
+		A5D5F1E2F1B4B38158D8C99ED9A4C11A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B20925000D6DC2C691609C77E61BEC1E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BC874A6C9DBFE31FF3A84CA80C083A76 /* DTPhotoViewerController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = DTPhotoViewerController.modulemap; sourceTree = "<group>"; };
+		C005ED56D0A3852268853DCE61F15682 /* DTPhotoViewerController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DTPhotoViewerController-dummy.m"; sourceTree = "<group>"; };
+		DA9D11226BEF1CA616343FBC7A07B112 /* DTPhotoViewerController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DTPhotoViewerController-prefix.pch"; sourceTree = "<group>"; };
+		DD00A7FCFC37F2D473354675483E6EB4 /* Pods-DTPhotoViewerController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DTPhotoViewerController_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		DDA4A5F58D760C8F4992C32598959991 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4FDF3A145839BA4123ED564C0FB958F /* Pods-DTPhotoViewerController_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DTPhotoViewerController_Example-frameworks.sh"; sourceTree = "<group>"; };
+		E5E3DCAB8946FC4718CC2A4A98D296AA /* DTPhotoViewerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DTPhotoViewerController.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F4AD6D0217FAD6753D1280EBA59E667 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A88E55A642C10133D8CE18F8E268CF3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51C19685AEA2A0F5396DB4A7879EBD65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E4B71EFAD16673A57E605DA7864FB64 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757C0FA6ECD558E0729909F092A5777C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13040D1E84F3303EACA106444E767D9F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		108D58FC08C154182AF0D034F185BCB0 /* DTPhotoViewerController */ = {
+			isa = PBXGroup;
+			children = (
+				23839F9B397D75A1ABC086827F7BE332 /* DTPhotoViewerController */,
+				84075BD96014A3D7278714F979A4E810 /* Support Files */,
+			);
+			name = DTPhotoViewerController;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		23839F9B397D75A1ABC086827F7BE332 /* DTPhotoViewerController */ = {
+			isa = PBXGroup;
+			children = (
+				4431B3C9B89FE19CEBF5F9F58D52EFCF /* Classes */,
+			);
+			path = DTPhotoViewerController;
+			sourceTree = "<group>";
+		};
+		284F29D309D157E00578272748836DF5 /* Pods-DTPhotoViewerController_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DDA4A5F58D760C8F4992C32598959991 /* Info.plist */,
+				332A8EF99060FCF9ECD2CD0C787821D8 /* Pods-DTPhotoViewerController_Tests.modulemap */,
+				594CB728DA27863A943DA25DB577C248 /* Pods-DTPhotoViewerController_Tests-acknowledgements.markdown */,
+				8F014BBA41B07908CC400CE6E63CAEDA /* Pods-DTPhotoViewerController_Tests-acknowledgements.plist */,
+				56699BAE033F1B5C6054A1C5DED78CB9 /* Pods-DTPhotoViewerController_Tests-dummy.m */,
+				A05F7ADAA193E2FDDB79930040ACB857 /* Pods-DTPhotoViewerController_Tests-frameworks.sh */,
+				4C0BD9D85D0C828BF88D49545C793FAC /* Pods-DTPhotoViewerController_Tests-resources.sh */,
+				4BB7F71FF6F2226E171756C7770D7DDE /* Pods-DTPhotoViewerController_Tests-umbrella.h */,
+				5946F7408170570F8F60447C08388F60 /* Pods-DTPhotoViewerController_Tests.debug.xcconfig */,
+				9EE43D2881055500F8620754601DF8DE /* Pods-DTPhotoViewerController_Tests.release.xcconfig */,
+			);
+			name = "Pods-DTPhotoViewerController_Tests";
+			path = "Target Support Files/Pods-DTPhotoViewerController_Tests";
+			sourceTree = "<group>";
+		};
+		4431B3C9B89FE19CEBF5F9F58D52EFCF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0917360C1CDD5BB5005FD7ED /* DTPhotoViewerController.swift */,
+				0917360D1CDD5BB5005FD7ED /* DTPhotoViewer.swift */,
+				0917360E1CDD5BB5005FD7ED /* DTPhotoAnimator.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		61AEAC8BED8A0E0C1257987C9C01BFEA /* Pods-DTPhotoViewerController_Example */ = {
+			isa = PBXGroup;
+			children = (
+				B20925000D6DC2C691609C77E61BEC1E /* Info.plist */,
+				42138C2AF36D2CFFCA6E63E210521A81 /* Pods-DTPhotoViewerController_Example.modulemap */,
+				2E00DBA07B1D5A5735EF4E22AEB9EE31 /* Pods-DTPhotoViewerController_Example-acknowledgements.markdown */,
+				778C85DE3B6D47C699FB7CAE36D067F2 /* Pods-DTPhotoViewerController_Example-acknowledgements.plist */,
+				34AAB0965CDE6B86B22E3D4822685024 /* Pods-DTPhotoViewerController_Example-dummy.m */,
+				E4FDF3A145839BA4123ED564C0FB958F /* Pods-DTPhotoViewerController_Example-frameworks.sh */,
+				9165427BAC1A6AA33C0AAA1736413DC2 /* Pods-DTPhotoViewerController_Example-resources.sh */,
+				51C94527595D482DE2229985D9476BC4 /* Pods-DTPhotoViewerController_Example-umbrella.h */,
+				DD00A7FCFC37F2D473354675483E6EB4 /* Pods-DTPhotoViewerController_Example.debug.xcconfig */,
+				4A96BD994F84F0666A28612977391130 /* Pods-DTPhotoViewerController_Example.release.xcconfig */,
+			);
+			name = "Pods-DTPhotoViewerController_Example";
+			path = "Target Support Files/Pods-DTPhotoViewerController_Example";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				9ABB746A9FD7763F82D15BB4A0E99343 /* Development Pods */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				86384F3F00BEFB1BFA688F72F2C7184D /* Products */,
+				90436CBF984EB98BD64A0E90C52AD605 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		84075BD96014A3D7278714F979A4E810 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC874A6C9DBFE31FF3A84CA80C083A76 /* DTPhotoViewerController.modulemap */,
+				E5E3DCAB8946FC4718CC2A4A98D296AA /* DTPhotoViewerController.xcconfig */,
+				C005ED56D0A3852268853DCE61F15682 /* DTPhotoViewerController-dummy.m */,
+				DA9D11226BEF1CA616343FBC7A07B112 /* DTPhotoViewerController-prefix.pch */,
+				3AE581DCD803FD45616BE6FCF09D75FF /* DTPhotoViewerController-umbrella.h */,
+				A5D5F1E2F1B4B38158D8C99ED9A4C11A /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/DTPhotoViewerController";
+			sourceTree = "<group>";
+		};
+		86384F3F00BEFB1BFA688F72F2C7184D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				817F6DECFB59FB9F89637FF15D0C0429 /* DTPhotoViewerController.framework */,
+				001AB10BA838ADFF5BD6612146D887BE /* Pods_DTPhotoViewerController_Example.framework */,
+				1548F9A201D6E47940BA1958CDDDA3BF /* Pods_DTPhotoViewerController_Tests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		90436CBF984EB98BD64A0E90C52AD605 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				61AEAC8BED8A0E0C1257987C9C01BFEA /* Pods-DTPhotoViewerController_Example */,
+				284F29D309D157E00578272748836DF5 /* Pods-DTPhotoViewerController_Tests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		9ABB746A9FD7763F82D15BB4A0E99343 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				108D58FC08C154182AF0D034F185BCB0 /* DTPhotoViewerController */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0D671EF4A63390C8384EEE4BDF6716AC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A01A8A026F0F5FC6344D13B13D3B3BA2 /* Pods-DTPhotoViewerController_Example-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0FA068338D4B27A2E8F2E197A8E8EBB5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F86677FCF3A986B6C44B25F2B26A921 /* DTPhotoViewerController-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7FEC6D2320EBC2AC94F2943C1167C8C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0740406BE2BAC20072DC4F1BC455087 /* Pods-DTPhotoViewerController_Tests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		323F74BD818F56AF862FFFE9EA17A85F /* Pods-DTPhotoViewerController_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0BF6E7DD1B632D74F6B436E7257B2CD /* Build configuration list for PBXNativeTarget "Pods-DTPhotoViewerController_Tests" */;
+			buildPhases = (
+				1BF31326C196BCB208A1E71D490168EF /* Sources */,
+				1F4AD6D0217FAD6753D1280EBA59E667 /* Frameworks */,
+				B7FEC6D2320EBC2AC94F2943C1167C8C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81B1CD9547157FAC5EC250A34EDE6059 /* PBXTargetDependency */,
+			);
+			name = "Pods-DTPhotoViewerController_Tests";
+			productName = "Pods-DTPhotoViewerController_Tests";
+			productReference = 1548F9A201D6E47940BA1958CDDDA3BF /* Pods_DTPhotoViewerController_Tests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		35ED704DB1FB61515D29FB020049D18F /* DTPhotoViewerController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32A653F0435FDAAF599D3EA4381AE1A6 /* Build configuration list for PBXNativeTarget "DTPhotoViewerController" */;
+			buildPhases = (
+				04F851AC15CA0E55A3950617F72B11CC /* Sources */,
+				757C0FA6ECD558E0729909F092A5777C /* Frameworks */,
+				0FA068338D4B27A2E8F2E197A8E8EBB5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DTPhotoViewerController;
+			productName = DTPhotoViewerController;
+			productReference = 817F6DECFB59FB9F89637FF15D0C0429 /* DTPhotoViewerController.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C9004F48718D229582BE47352BA426BC /* Pods-DTPhotoViewerController_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0CAB189D20CC3D99F0F54B7A2583407 /* Build configuration list for PBXNativeTarget "Pods-DTPhotoViewerController_Example" */;
+			buildPhases = (
+				8654C384ECF3BCFC341DF27886EE9879 /* Sources */,
+				51C19685AEA2A0F5396DB4A7879EBD65 /* Frameworks */,
+				0D671EF4A63390C8384EEE4BDF6716AC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F41DA90253FA5D760C80066D6D8FBB6F /* PBXTargetDependency */,
+			);
+			name = "Pods-DTPhotoViewerController_Example";
+			productName = "Pods-DTPhotoViewerController_Example";
+			productReference = 001AB10BA838ADFF5BD6612146D887BE /* Pods_DTPhotoViewerController_Example.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 86384F3F00BEFB1BFA688F72F2C7184D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				35ED704DB1FB61515D29FB020049D18F /* DTPhotoViewerController */,
+				C9004F48718D229582BE47352BA426BC /* Pods-DTPhotoViewerController_Example */,
+				323F74BD818F56AF862FFFE9EA17A85F /* Pods-DTPhotoViewerController_Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		04F851AC15CA0E55A3950617F72B11CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0917360F1CDD5BB5005FD7ED /* DTPhotoViewerController.swift in Sources */,
+				091736111CDD5BB5005FD7ED /* DTPhotoAnimator.swift in Sources */,
+				9AD1B5CC8B38846892D5CA9CF6EC8F6E /* DTPhotoViewerController-dummy.m in Sources */,
+				091736101CDD5BB5005FD7ED /* DTPhotoViewer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1BF31326C196BCB208A1E71D490168EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B4904511BCEFC1FA153DC8C86DF9EAB /* Pods-DTPhotoViewerController_Tests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8654C384ECF3BCFC341DF27886EE9879 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B7EDBAA7DD4CFA58A06AFF775DE89B4 /* Pods-DTPhotoViewerController_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		81B1CD9547157FAC5EC250A34EDE6059 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DTPhotoViewerController;
+			target = 35ED704DB1FB61515D29FB020049D18F /* DTPhotoViewerController */;
+			targetProxy = 694C6265A7A50682D5EF796505314802 /* PBXContainerItemProxy */;
+		};
+		F41DA90253FA5D760C80066D6D8FBB6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DTPhotoViewerController;
+			target = 35ED704DB1FB61515D29FB020049D18F /* DTPhotoViewerController */;
+			targetProxy = 03B083AA29D2D37418890ABA41677B78 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		10DE1947DAC0ED28F6C0A9F9BD75D546 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4FD2475A4DEF129AD4EF702CA1B41DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD00A7FCFC37F2D473354675483E6EB4 /* Pods-DTPhotoViewerController_Example.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-DTPhotoViewerController_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DTPhotoViewerController_Example/Pods-DTPhotoViewerController_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_DTPhotoViewerController_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		552D02D5BA751AC2E8790D2811D496CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		62FFC7365D7716B10C579868EB222B6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5E3DCAB8946FC4718CC2A4A98D296AA /* DTPhotoViewerController.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/DTPhotoViewerController/DTPhotoViewerController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DTPhotoViewerController/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DTPhotoViewerController/DTPhotoViewerController.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = DTPhotoViewerController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		77A7CDC26A6E7F71E1D675E89DD81C3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5E3DCAB8946FC4718CC2A4A98D296AA /* DTPhotoViewerController.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/DTPhotoViewerController/DTPhotoViewerController-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DTPhotoViewerController/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DTPhotoViewerController/DTPhotoViewerController.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = DTPhotoViewerController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AF810FA6293B85C7555A1A48CE266923 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EE43D2881055500F8620754601DF8DE /* Pods-DTPhotoViewerController_Tests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-DTPhotoViewerController_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DTPhotoViewerController_Tests/Pods-DTPhotoViewerController_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_DTPhotoViewerController_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D6B24A365933B89BFC19C81A641CA74A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A96BD994F84F0666A28612977391130 /* Pods-DTPhotoViewerController_Example.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-DTPhotoViewerController_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DTPhotoViewerController_Example/Pods-DTPhotoViewerController_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_DTPhotoViewerController_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E05C8C778544B6C80A5E28B1F4335C90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5946F7408170570F8F60447C08388F60 /* Pods-DTPhotoViewerController_Tests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-DTPhotoViewerController_Tests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-DTPhotoViewerController_Tests/Pods-DTPhotoViewerController_Tests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_DTPhotoViewerController_Tests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				552D02D5BA751AC2E8790D2811D496CA /* Debug */,
+				10DE1947DAC0ED28F6C0A9F9BD75D546 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32A653F0435FDAAF599D3EA4381AE1A6 /* Build configuration list for PBXNativeTarget "DTPhotoViewerController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77A7CDC26A6E7F71E1D675E89DD81C3B /* Debug */,
+				62FFC7365D7716B10C579868EB222B6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0BF6E7DD1B632D74F6B436E7257B2CD /* Build configuration list for PBXNativeTarget "Pods-DTPhotoViewerController_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E05C8C778544B6C80A5E28B1F4335C90 /* Debug */,
+				AF810FA6293B85C7555A1A48CE266923 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0CAB189D20CC3D99F0F54B7A2583407 /* Build configuration list for PBXNativeTarget "Pods-DTPhotoViewerController_Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FD2475A4DEF129AD4EF702CA1B41DB3 /* Debug */,
+				D6B24A365933B89BFC19C81A641CA74A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

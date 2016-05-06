@@ -6,6 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/DTPhotoViewerController.svg?style=flat)](http://cocoapods.org/pods/DTPhotoViewerController)
 
 ## Example
+![Screenshot](example.gif)
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
