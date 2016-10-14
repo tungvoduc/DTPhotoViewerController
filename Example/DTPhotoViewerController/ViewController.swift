@@ -16,8 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dynamicType.imageViewTapped(_:)))
-        imageView.userInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.imageViewTapped(_:)))
+        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
     }
 
@@ -26,14 +26,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func imageViewTapped(gesture: UITapGestureRecognizer) {
+    func imageViewTapped(_ gesture: UITapGestureRecognizer) {
         if let imageView = gesture.view as? UIImageView {
             guard let image = imageView.image else {
                 return
             }
             
             if let viewController = DTPhotoViewerController(referenceView: imageView, image: image) {
-                self.presentViewController(viewController, animated: true, completion: nil)
+                self.present(viewController, animated: true, completion: nil)
             }
         }
     }
