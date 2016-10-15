@@ -8,6 +8,8 @@
 ## Example
 ![Screenshot](example.gif)
 
+Demo video: https://www.youtube.com/watch?v=ccvrV8UdUhE&feature=youtu.be
+
 It is very easy to use DTPhotoViewerController, all you need to do is to get UIImageView and UIImage instances, then:
 ```
 if let viewController = DTPhotoViewerController(referenceView: imageView, image: image) {
