@@ -179,18 +179,18 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-        imageView.addGestureRecognizer(tapGesture)
+        scrollView.addGestureRecognizer(tapGesture)
         
         //Double tap gesture recognizer
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(_handleDoubleTapGesture))
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.numberOfTouchesRequired = 1
         tapGesture.require(toFail: doubleTapGesture)
-        imageView.addGestureRecognizer(doubleTapGesture)
+        scrollView.addGestureRecognizer(doubleTapGesture)
         
         //Pan gesture recognizer
         _panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(_handlePanGesture))
-        imageView.addGestureRecognizer(_panGestureRecognizer)
+        scrollView.addGestureRecognizer(_panGestureRecognizer)
         
         super.viewDidLoad()
     }
@@ -412,7 +412,7 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
         
         //Change status bar to black style
         self._defaultStatusBarStyle = true
-        self._shouldHideStatusBar = false
+        self._shouldHideStatusBar = true
         self.setNeedsStatusBarAppearanceUpdate()
         
         //Animate background alpha
@@ -425,10 +425,7 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
     }
     
     open func presentingEnded() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self._shouldHideStatusBar = true
-            self.setNeedsStatusBarAppearanceUpdate()
-        })
+        
     }
     
     open func dismissingEnded() {
