@@ -8,9 +8,12 @@
 
 import UIKit
 
+private let kInitialSpringVelocity: CGFloat = 2.0
+private let kDamping: CGFloat = 0.75
+
 @objc public enum DTPhotoAnimatorType: Int {
-    case Dismissing = 0
-    case Presenting = 1
+    case dismissing = 0
+    case presenting = 1
 }
 
 ///
@@ -40,7 +43,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     /// Type of animator
     /// Default value is Presenting
     ///
-    var type = DTPhotoAnimatorType.Presenting
+    var type = DTPhotoAnimatorType.presenting
     
     ///
     /// Indicates if using spring animation
@@ -50,7 +53,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         //return correct duration
-        var duration = type == .Presenting ? presentingDuration : dismissingDuration
+        var duration = type == .presenting ? presentingDuration : dismissingDuration
         if spring {
             //Spring animation's duration should be longer than normal animation
             duration = duration * 2.5
@@ -62,7 +65,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         let container = transitionContext.containerView
         let duration = self.transitionDuration(using: transitionContext)
         
-        if type == .Presenting {
+        if type == .presenting {
             let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
             guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)! as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
@@ -86,7 +89,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             container.addSubview(toView!)
             
             if spring {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
                     toViewController.presentingAnimation()
                     }, completion: { (finished) in
@@ -131,7 +134,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             container.addSubview(fromView!)
             
             if spring {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
                     fromViewController.dismissingAnimation()
                     }, completion: { (finished) in
