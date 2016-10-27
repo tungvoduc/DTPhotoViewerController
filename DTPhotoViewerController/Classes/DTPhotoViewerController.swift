@@ -326,7 +326,7 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
     }
     
     func _handleDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
-        let location = gesture.location(in: gesture.view)
+        let location = gesture.location(in: imageView)
         if let center = gesture.view?.superview?.convert(location, to: scrollView) {
             // Double tap
             self.imageViewerControllerDidDoubleTapImageView()
@@ -436,12 +436,12 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
 //MARK: - UIViewControllerTransitioningDelegate
 extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.type = .Presenting
+        animator.type = .presenting
         return animator
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.type = .Dismissing
+        animator.type = .dismissing
         return animator
     }
 }
