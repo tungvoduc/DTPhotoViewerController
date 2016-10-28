@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "DTPhotoViewerController"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "DTPhotoViewerController provides a Facebook-like photo viewer."
   s.platform 	     = :ios, '8.0'
 # This description is used to generate tags and improve search results.
@@ -38,5 +38,4 @@ DESC
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
