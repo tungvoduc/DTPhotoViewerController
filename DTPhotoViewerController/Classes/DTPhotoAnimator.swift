@@ -18,7 +18,7 @@ private let kDamping: CGFloat = 0.75
 
 ///
 /// If you wish to provide a custom transition animator, you just need to create a new class
-/// that conforms this protocol and assign 
+/// that conforms this protocol and assign
 ///
 public protocol DTPhotoViewerBaseAnimator: NSObjectProtocol, UIViewControllerAnimatedTransitioning {
     var type: DTPhotoAnimatorType {get set}
@@ -70,31 +70,24 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)! as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
-            let fromView = fromViewController.view
-            let toView = toViewController.view
+            let fromView = fromViewController.view!
+            let toView = toViewController.view!
+            toView.frame = container.bounds
             
             let completeTransition: () -> () = {
-                // Add subview before completing transition
-                UIApplication.shared.delegate?.window??.addSubview(toViewController.view)
-                
                 let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
-                
-                if isCancelled {
-                    container.insertSubview(toView!, belowSubview: fromView!)
-                }
             }
             
-            container.addSubview(fromView!)
-            container.addSubview(toView!)
+            container.addSubview(toView)
             
             if spring {
                 UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
                     toViewController.presentingAnimation()
-                    }, completion: { (finished) in
-                        toViewController.presentingEnded()
-                        completeTransition()
+                }, completion: { (finished) in
+                    toViewController.presentingEnded()
+                    completeTransition()
                 })
             }
             else {
@@ -105,7 +98,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //Hide status bar
                     toViewController.presentingEnded()
                     completeTransition()
-                }) 
+                })
             }
             
         }
@@ -115,32 +108,23 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             }
             
             let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-            let fromView = fromViewController.view
-            let toView = toViewController.view
+            let fromView = fromViewController.view!
+            let toView = toViewController.view!
+            // toView.frame.size = container.bounds
             
             let completeTransition: () -> () = {
-                // Add subview before completing transition
-                UIApplication.shared.delegate?.window??.addSubview(toViewController.view)
-                
                 let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
-                
-                if isCancelled {
-                    container.insertSubview(toView!, belowSubview: fromView!)
-                }
             }
-            
-            container.addSubview(toView!)
-            container.addSubview(fromView!)
             
             if spring {
                 UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
                     fromViewController.dismissingAnimation()
-                    }, completion: { (finished) in
-                        //End transition
-                        fromViewController.dismissingEnded()
-                        completeTransition()
+                }, completion: { (finished) in
+                    //End transition
+                    fromViewController.dismissingEnded()
+                    completeTransition()
                 })
             }
             else {
@@ -152,7 +136,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //End transition
                     fromViewController.dismissingEnded()
                     completeTransition()
-                }) 
+                })
             }
         }
     }
