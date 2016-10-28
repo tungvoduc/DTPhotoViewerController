@@ -142,7 +142,15 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
         //Calculate originalFrame
         if let view = referenceView {
             if let superview = view.superview {
-                originalFrame = (superview.convert(view.frame, to: self.view))
+                let frame = (superview.convert(view.frame, to: self.view))
+                
+                if frame.size != view.frame.size {
+                    // This is workaround for bug in ios 8, everything is double.
+                    originalFrame = CGRect(x: frame.origin.x/2, y: frame.origin.y/2, width: frame.size.width/2, height: frame.size.height/2)
+                }
+                else {
+                    originalFrame = frame
+                }
             }
             
             // Content mode should be identical between image view and reference view
