@@ -125,16 +125,6 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
             _referenceView = referenceView
             self.image = newImage
             
-            //Calculate originalFrame
-            if let view = referenceView {
-                if let superview = view.superview {
-                    originalFrame = (superview.convert(view.frame, to: nil))
-                }
-                
-                // Content mode should be identical between image view and reference view
-                imageView.contentMode = view.contentMode
-            }
-            
             modalPresentationStyle = UIModalPresentationStyle.custom
             modalTransitionStyle = UIModalTransitionStyle.crossDissolve
             modalPresentationCapturesStatusBarAppearance = true
@@ -149,7 +139,16 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
     }
     
     override open func viewDidLoad() {
-        if _referenceView == nil {
+        //Calculate originalFrame
+        if let view = referenceView {
+            if let superview = view.superview {
+                originalFrame = (superview.convert(view.frame, to: self.view))
+            }
+            
+            // Content mode should be identical between image view and reference view
+            imageView.contentMode = view.contentMode
+        }
+        else {
             // Work around when there is no reference view, dragging might behave oddly
             // Should be fixed in the future
             originalFrame = CGRect(x: self.view.frame.midX - 0.5, y: self.view.frame.midY - 0.5, width: 1, height: 1)
@@ -514,27 +513,27 @@ extension DTPhotoViewerController: UIScrollViewDelegate {
 
 //MARK: Required overriding methods
 extension DTPhotoViewerController {
-    public func imageViewerControllerWillDragImageView() {
+    open func imageViewerControllerWillDragImageView() {
         // assert(false, "This method must be overriden by the subclass")
     }
     
-    public func imageViewerControllerDidFinishPresentingAnimation() {
+    open func imageViewerControllerDidFinishPresentingAnimation() {
         // assert(false, "This method must be overriden by the subclass")
     }
     
-    public func imageViewerControllerDidTapImageView() {
+    open func imageViewerControllerDidTapImageView() {
         // assert(false, "This method must be overriden by the subclass")
     }
     
-    public func imageViewerControllerDidDoubleTapImageView() {
+    open func imageViewerControllerDidDoubleTapImageView() {
         // assert(false, "This method must be overriden by the subclass")
     }
     
-    public func imageViewerControllerDidZoom(_ zoomScale: CGFloat) {
+    open func imageViewerControllerDidZoom(_ zoomScale: CGFloat) {
         // assert(false, "This method must be overriden by the subclass")
     }
     
-    public func imageViewerControllerWillZoom() {
+    open func imageViewerControllerWillZoom() {
         // assert(false, "This method must be overriden by the subclass")
     }
 }
