@@ -11,17 +11,11 @@ import UIKit
 private let kInitialSpringVelocity: CGFloat = 2.0
 private let kDamping: CGFloat = 0.75
 
-@objc public enum DTPhotoAnimatorType: Int {
-    case dismissing = 0
-    case presenting = 1
-}
-
 ///
 /// If you wish to provide a custom transition animator, you just need to create a new class
 /// that conforms this protocol and assign
 ///
 public protocol DTPhotoViewerBaseAnimator: NSObjectProtocol, UIViewControllerAnimatedTransitioning {
-    var type: DTPhotoAnimatorType {get set}
     var presentingDuration: TimeInterval {get set}
     var dismissingDuration: TimeInterval {get set}
 }
@@ -40,12 +34,6 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     var dismissingDuration: TimeInterval = 0.2
     
     ///
-    /// Type of animator
-    /// Default value is Presenting
-    ///
-    var type = DTPhotoAnimatorType.presenting
-    
-    ///
     /// Indicates if using spring animation
     /// Default value is true
     ///
@@ -53,7 +41,10 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         //return correct duration
-        var duration = type == .presenting ? presentingDuration : dismissingDuration
+        let fromViewController = transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.from)
+        let viewController = transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.to)
+        let presenting = viewController?.presentingViewController == fromViewController
+        var duration = presenting ? presentingDuration : dismissingDuration
         if spring {
             //Spring animation's duration should be longer than normal animation
             duration = duration * 2.5
@@ -65,9 +56,12 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         let container = transitionContext.containerView
         let duration = self.transitionDuration(using: transitionContext)
         
-        if type == .presenting {
-            let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
-            guard let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)! as? DTPhotoViewerController else {
+        let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        let presenting = toViewController.presentingViewController == fromViewController
+        
+        if presenting {
+            guard let photoViewerController = toViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
             let fromView = fromViewController.view!
@@ -84,33 +78,30 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             if spring {
                 UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
-                    toViewController.presentingAnimation()
+                    photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
-                    toViewController.presentingEnded()
+                    photoViewerController.presentingEnded()
                     completeTransition()
                 })
             }
             else {
                 UIView.animate(withDuration: duration, animations: {
                     //Animate image view to the center
-                    toViewController.presentingAnimation()
+                    photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
                     //Hide status bar
-                    toViewController.presentingEnded()
+                    photoViewerController.presentingEnded()
                     completeTransition()
                 })
             }
             
         }
         else {
-            guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? DTPhotoViewerController else {
+            guard let photoViewerController = fromViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
-            
-            let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
             let fromView = fromViewController.view!
             let toView = toViewController.view!
-            // toView.frame.size = container.bounds
             
             let completeTransition: () -> () = {
                 let isCancelled = transitionContext.transitionWasCancelled
@@ -120,21 +111,21 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             if spring {
                 UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
-                    fromViewController.dismissingAnimation()
+                    photoViewerController.dismissingAnimation()
                 }, completion: { (finished) in
                     //End transition
-                    fromViewController.dismissingEnded()
+                    photoViewerController.dismissingEnded()
                     completeTransition()
                 })
             }
             else {
                 UIView.animate(withDuration: duration, animations: {
                     //Animate image view to the center
-                    fromViewController.dismissingAnimation()
+                    photoViewerController.dismissingAnimation()
                     
                 }, completion: { (finished) in
                     //End transition
-                    fromViewController.dismissingEnded()
+                    photoViewerController.dismissingEnded()
                     completeTransition()
                 })
             }
