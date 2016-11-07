@@ -64,7 +64,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             guard let photoViewerController = toViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
-            let fromView = fromViewController.view!
+            
             let toView = toViewController.view!
             toView.frame = container.bounds
             
@@ -100,8 +100,6 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             guard let photoViewerController = fromViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
-            let fromView = fromViewController.view!
-            let toView = toViewController.view!
             
             let completeTransition: () -> () = {
                 let isCancelled = transitionContext.transitionWasCancelled
