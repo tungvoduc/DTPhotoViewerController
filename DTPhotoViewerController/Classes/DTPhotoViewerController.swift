@@ -125,8 +125,7 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
             _referenceView = referenceView
             self.image = newImage
             
-            modalPresentationStyle = UIModalPresentationStyle.custom
-            modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+            modalPresentationStyle = UIModalPresentationStyle.overFullScreen
             modalPresentationCapturesStatusBarAppearance = true
         }
         else {
@@ -163,7 +162,6 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
         }
         
         //Background view
-        backgroundView.frame = self.view.bounds
         view.addSubview(backgroundView)
         backgroundView.alpha = 0
         backgroundView.backgroundColor = self.backgroundColor
@@ -175,7 +173,6 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
         imageView.image = image
         
         //Scroll view
-        scrollView.frame = self.view.bounds
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
         scrollView.delegate = self
@@ -204,6 +201,8 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        backgroundView.frame = self.view.bounds
+        scrollView.frame = self.view.bounds
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -443,12 +442,10 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
 //MARK: - UIViewControllerTransitioningDelegate
 extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.type = .presenting
         return animator
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.type = .dismissing
         return animator
     }
 }

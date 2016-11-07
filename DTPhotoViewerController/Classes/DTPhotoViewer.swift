@@ -12,7 +12,6 @@ public protocol DTPhotoViewer: class {
     var imageView: UIImageView {get}
     var scrollView: UIScrollView {get}
     weak var referenceView: UIView? {get}
-    var backgroundView: UIView {get}
     var originalFrame: CGRect {get}
     var backgroundColor: UIColor {get set}
     var image: UIImage {get set}
