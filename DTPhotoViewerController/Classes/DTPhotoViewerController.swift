@@ -143,7 +143,7 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
             if let superview = view.superview {
                 let frame = (superview.convert(view.frame, to: self.view))
                 
-                if frame.size != view.frame.size {
+                if abs(frame.size.width - view.frame.size.width) > 1 {
                     // This is workaround for bug in ios 8, everything is double.
                     originalFrame = CGRect(x: frame.origin.x/2, y: frame.origin.y/2, width: frame.size.width/2, height: frame.size.height/2)
                 }
@@ -383,7 +383,11 @@ open class DTPhotoViewerController: UIViewController, DTPhotoViewer {
                     //imageView.transform = CGAffineTransformMakeScale(scale, scale)
                     // Do not use transform to scale down image view
                     // Instead change width & height
-                    imageView.frame.size = CGSize(width: _presentedImageViewSize.width * scale, height: _presentedImageViewSize.height * scale)
+                    print("scale = \(scale)\n")
+                    
+                    if scale < 1 && scale >= ratio {
+                        imageView.frame.size = CGSize(width: _presentedImageViewSize.width * scale, height: _presentedImageViewSize.height * scale)
+                    }
                 }
                 
             default:
