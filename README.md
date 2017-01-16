@@ -10,8 +10,11 @@
 
 Demo video: https://www.youtube.com/watch?v=ccvrV8UdUhE&feature=youtu.be
 
-It is very easy to use DTPhotoViewerController, all you need to do is to get UIImageView and UIImage instances, then:
-```
+It is very easy to use DTPhotoViewerController, all you need to do is:
+`import DTPhotoViewerController`
+
+then (when you receive the event for the image tapped:
+```swift
 if let viewController = DTPhotoViewerController(referenceView: imageView, image: image) {
     self.presentViewController(viewController, animated: true, completion: nil)
 }
