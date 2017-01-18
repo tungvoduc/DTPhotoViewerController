@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0917360F1CDD5BB5005FD7ED /* DTPhotoViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0917360C1CDD5BB5005FD7ED /* DTPhotoViewerController.swift */; };
-		091736101CDD5BB5005FD7ED /* DTPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0917360D1CDD5BB5005FD7ED /* DTPhotoViewer.swift */; };
 		091736111CDD5BB5005FD7ED /* DTPhotoAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0917360E1CDD5BB5005FD7ED /* DTPhotoAnimator.swift */; };
 		13040D1E84F3303EACA106444E767D9F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		1B4904511BCEFC1FA153DC8C86DF9EAB /* Pods-DTPhotoViewerController_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 56699BAE033F1B5C6054A1C5DED78CB9 /* Pods-DTPhotoViewerController_Tests-dummy.m */; };
@@ -16,6 +15,13 @@
 		3F86677FCF3A986B6C44B25F2B26A921 /* DTPhotoViewerController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AE581DCD803FD45616BE6FCF09D75FF /* DTPhotoViewerController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A88E55A642C10133D8CE18F8E268CF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		5B7EDBAA7DD4CFA58A06AFF775DE89B4 /* Pods-DTPhotoViewerController_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 34AAB0965CDE6B86B22E3D4822685024 /* Pods-DTPhotoViewerController_Example-dummy.m */; };
+		847821DE1E2D7F0A00B6647D /* DTPhotoViewerControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821DD1E2D7F0A00B6647D /* DTPhotoViewerControllerDataSource.swift */; };
+		847821E01E2D7F1700B6647D /* DTPhotoViewerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821DF1E2D7F1700B6647D /* DTPhotoViewerControllerDelegate.swift */; };
+		847821E41E2E3F8600B6647D /* DTPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821E31E2E3F8600B6647D /* DTPhotoCollectionViewCell.swift */; };
+		847821E61E2E828100B6647D /* DTCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821E51E2E828100B6647D /* DTCollectionViewFlowLayout.swift */; };
+		847821E81E2EA65A00B6647D /* DTPhotoViewerController+UISrcrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821E71E2EA65A00B6647D /* DTPhotoViewerController+UISrcrollViewDelegate.swift */; };
+		847821EA1E2EB24C00B6647D /* DTImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821E91E2EB24C00B6647D /* DTImageView.swift */; };
+		847821F41E30007A00B6647D /* DTScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821F31E30007A00B6647D /* DTScrollView.swift */; };
 		9AD1B5CC8B38846892D5CA9CF6EC8F6E /* DTPhotoViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C005ED56D0A3852268853DCE61F15682 /* DTPhotoViewerController-dummy.m */; };
 		A01A8A026F0F5FC6344D13B13D3B3BA2 /* Pods-DTPhotoViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C94527595D482DE2229985D9476BC4 /* Pods-DTPhotoViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0740406BE2BAC20072DC4F1BC455087 /* Pods-DTPhotoViewerController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB7F71FF6F2226E171756C7770D7DDE /* Pods-DTPhotoViewerController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,7 +47,6 @@
 /* Begin PBXFileReference section */
 		001AB10BA838ADFF5BD6612146D887BE /* Pods_DTPhotoViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTPhotoViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0917360C1CDD5BB5005FD7ED /* DTPhotoViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoViewerController.swift; sourceTree = "<group>"; };
-		0917360D1CDD5BB5005FD7ED /* DTPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoViewer.swift; sourceTree = "<group>"; };
 		0917360E1CDD5BB5005FD7ED /* DTPhotoAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoAnimator.swift; sourceTree = "<group>"; };
 		1548F9A201D6E47940BA1958CDDDA3BF /* Pods_DTPhotoViewerController_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTPhotoViewerController_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E00DBA07B1D5A5735EF4E22AEB9EE31 /* Pods-DTPhotoViewerController_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DTPhotoViewerController_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -59,6 +64,13 @@
 		594CB728DA27863A943DA25DB577C248 /* Pods-DTPhotoViewerController_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DTPhotoViewerController_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		778C85DE3B6D47C699FB7CAE36D067F2 /* Pods-DTPhotoViewerController_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DTPhotoViewerController_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		817F6DECFB59FB9F89637FF15D0C0429 /* DTPhotoViewerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTPhotoViewerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		847821DD1E2D7F0A00B6647D /* DTPhotoViewerControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoViewerControllerDataSource.swift; sourceTree = "<group>"; };
+		847821DF1E2D7F1700B6647D /* DTPhotoViewerControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoViewerControllerDelegate.swift; sourceTree = "<group>"; };
+		847821E31E2E3F8600B6647D /* DTPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		847821E51E2E828100B6647D /* DTCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		847821E71E2EA65A00B6647D /* DTPhotoViewerController+UISrcrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DTPhotoViewerController+UISrcrollViewDelegate.swift"; sourceTree = "<group>"; };
+		847821E91E2EB24C00B6647D /* DTImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTImageView.swift; sourceTree = "<group>"; };
+		847821F31E30007A00B6647D /* DTScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTScrollView.swift; sourceTree = "<group>"; };
 		8F014BBA41B07908CC400CE6E63CAEDA /* Pods-DTPhotoViewerController_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DTPhotoViewerController_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9165427BAC1A6AA33C0AAA1736413DC2 /* Pods-DTPhotoViewerController_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DTPhotoViewerController_Example-resources.sh"; sourceTree = "<group>"; };
 		9EE43D2881055500F8620754601DF8DE /* Pods-DTPhotoViewerController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DTPhotoViewerController_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,8 +155,14 @@
 			isa = PBXGroup;
 			children = (
 				0917360C1CDD5BB5005FD7ED /* DTPhotoViewerController.swift */,
-				0917360D1CDD5BB5005FD7ED /* DTPhotoViewer.swift */,
+				847821E71E2EA65A00B6647D /* DTPhotoViewerController+UISrcrollViewDelegate.swift */,
+				847821DD1E2D7F0A00B6647D /* DTPhotoViewerControllerDataSource.swift */,
+				847821DF1E2D7F1700B6647D /* DTPhotoViewerControllerDelegate.swift */,
+				847821E31E2E3F8600B6647D /* DTPhotoCollectionViewCell.swift */,
+				847821E51E2E828100B6647D /* DTCollectionViewFlowLayout.swift */,
 				0917360E1CDD5BB5005FD7ED /* DTPhotoAnimator.swift */,
+				847821F31E30007A00B6647D /* DTScrollView.swift */,
+				847821E91E2EB24C00B6647D /* DTImageView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -362,10 +380,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847821E61E2E828100B6647D /* DTCollectionViewFlowLayout.swift in Sources */,
+				847821E41E2E3F8600B6647D /* DTPhotoCollectionViewCell.swift in Sources */,
 				0917360F1CDD5BB5005FD7ED /* DTPhotoViewerController.swift in Sources */,
+				847821E01E2D7F1700B6647D /* DTPhotoViewerControllerDelegate.swift in Sources */,
 				091736111CDD5BB5005FD7ED /* DTPhotoAnimator.swift in Sources */,
 				9AD1B5CC8B38846892D5CA9CF6EC8F6E /* DTPhotoViewerController-dummy.m in Sources */,
-				091736101CDD5BB5005FD7ED /* DTPhotoViewer.swift in Sources */,
+				847821EA1E2EB24C00B6647D /* DTImageView.swift in Sources */,
+				847821DE1E2D7F0A00B6647D /* DTPhotoViewerControllerDataSource.swift in Sources */,
+				847821E81E2EA65A00B6647D /* DTPhotoViewerController+UISrcrollViewDelegate.swift in Sources */,
+				847821F41E30007A00B6647D /* DTScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
