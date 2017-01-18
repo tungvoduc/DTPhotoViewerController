@@ -17,5 +17,12 @@ class DTImageView: UIImageView {
         // Drawing code
     }
     */
-
+    
+    override var image: UIImage? {
+        didSet {
+            imageChangeBlock?(image)
+        }
+    }
+    
+    var imageChangeBlock: ((UIImage?) -> Void)?
 }

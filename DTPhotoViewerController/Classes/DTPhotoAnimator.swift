@@ -80,7 +80,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //Animate image view to the center
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
-                    photoViewerController.presentingEnded()
+                    photoViewerController.presentationAnimationDidFinish()
                     completeTransition()
                 })
             }
@@ -90,7 +90,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
                     //Hide status bar
-                    photoViewerController.presentingEnded()
+                    photoViewerController.presentationAnimationDidFinish()
                     completeTransition()
                 })
             }
@@ -112,7 +112,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     photoViewerController.dismissingAnimation()
                 }, completion: { (finished) in
                     //End transition
-                    photoViewerController.dismissingEnded()
+                    photoViewerController.dismissalAnimationDidFinish()
                     completeTransition()
                 })
             }
@@ -123,7 +123,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     
                 }, completion: { (finished) in
                     //End transition
-                    photoViewerController.dismissingEnded()
+                    photoViewerController.dismissalAnimationDidFinish()
                     completeTransition()
                 })
             }
