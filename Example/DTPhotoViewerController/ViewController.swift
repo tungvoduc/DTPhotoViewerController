@@ -81,7 +81,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 }
 
 extension ViewController: DTPhotoViewerControllerDataSource {
-    public func photoViewerController(_ photoViewerController: DTPhotoViewerController, referencedViewForPhotoAt index: Int) -> UIView? {
+    func photoViewerController(_ photoViewerController: DTPhotoViewerController, referencedViewForPhotoAt index: Int) -> UIView? {
         let indexPath = IndexPath(item: index, section: 0)
         if let cell = self.collectionView?.cellForItem(at: indexPath) as? CollectionViewCell {
             return cell.imageView
