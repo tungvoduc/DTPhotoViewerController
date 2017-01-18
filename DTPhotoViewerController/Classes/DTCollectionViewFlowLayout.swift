@@ -9,5 +9,7 @@
 import UIKit
 
 class DTCollectionViewFlowLayout: UICollectionViewFlowLayout {
-
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
+    }
 }

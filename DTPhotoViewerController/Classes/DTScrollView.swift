@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DTScrollView: UIScrollView {
+public class DTScrollView: UIScrollView {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -17,5 +17,26 @@ class DTScrollView: UIScrollView {
         // Drawing code
     }
     */
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.panGestureRecognizer.delegate = self
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
 
+//MARK:
+extension DTScrollView: UIGestureRecognizerDelegate {
+    public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == self.panGestureRecognizer {
+            if gestureRecognizer.numberOfTouches == 1 && zoomScale == 1.0 {
+                return false
+            }
+        }
+        
+        return true
+    }
 }
