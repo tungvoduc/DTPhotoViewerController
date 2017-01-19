@@ -105,7 +105,7 @@ extension ViewController: DTPhotoViewerControllerDelegate {
     }
     
     func photoViewerControllerDidEndPresentingAnimation(_ photoViewerController: DTPhotoViewerController) {
-        photoViewerController.scrollToPhotoAtIndex(index: selectedImageIndex, animated: false)
+        photoViewerController.scrollToPhoto(at: selectedImageIndex, animated: false)
         
         // Show layer
         (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
