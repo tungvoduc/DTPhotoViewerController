@@ -156,6 +156,12 @@ open class DTPhotoViewerController: UIViewController {
                 strongSelf._presentedImageViewSize = strongSelf.imageViewSizeForImage(image: image)
                 strongSelf.imageView.frame.size = strongSelf._presentedImageViewSize
                 strongSelf.imageView.center = strongSelf.view.center
+                
+                // No datasource, only 1 item in collection view --> reloadData
+                guard let dataSource = strongSelf.dataSource else {
+                    strongSelf.collectionView.reloadData()
+                    return
+                }
             }
         }
         
@@ -297,29 +303,6 @@ open class DTPhotoViewerController: UIViewController {
             return statusBarStyleOnPresenting
         }
         return statusBarStyleOnDismissing
-    }
-    
-    //MARK: Public methods
-    open func scrollToPhotoAtIndex(index: Int, animated: Bool) {
-        if self.collectionView.numberOfItems(inSection: 0) > index {
-            let contentOffset = CGPoint(x: scrollView.frame.size.width * CGFloat(index), y: 0)
-            scrollView.setContentOffset(contentOffset, animated: animated)
-        }
-    }
-    
-    open var currentPhotoIndex: Int {
-        return Int(scrollView.contentOffset.x / scrollView.frame.width)
-    }
-    
-    open var currentPhotoZoomScale: CGFloat {
-        let index = currentPhotoIndex
-        let indexPath = IndexPath(item: index, section: 0)
-        
-        if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
-            return cell.scrollView.zoomScale
-        }
-        
-        return 1.0
     }
     
     //MARK: Private methods
@@ -495,7 +478,9 @@ open class DTPhotoViewerController: UIViewController {
             let size = image.size
             var destinationSize = CGSize.zero
             
-            if image.size.height/image.size.width > view.frame.size.width/view.frame.size.height {
+            // Calculate size of image view so that it would fit in self.view
+            // This will make the transition more perfect than setting frame of UIImageView as self.view.bounds
+            if image.size.width/image.size.height > view.frame.size.width/view.frame.size.height {
                 destinationSize.width = view.frame.size.width
                 destinationSize.height = view.frame.size.width * (size.height / size.width)
             }
@@ -577,6 +562,22 @@ extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
 
 //MARK: UICollectionViewDataSource
 extension DTPhotoViewerController: UICollectionViewDataSource {
+    //MARK: Public methods
+    public var currentPhotoIndex: Int {
+        return Int(scrollView.contentOffset.x / scrollView.frame.width)
+    }
+    
+    public var currentPhotoZoomScale: CGFloat {
+        let index = currentPhotoIndex
+        let indexPath = IndexPath(item: index, section: 0)
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
+            return cell.scrollView.zoomScale
+        }
+        
+        return 1.0
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource?.numberOfItems(in: self) ?? 1
     }
@@ -599,20 +600,44 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
 //MARK: Public data methods
 extension DTPhotoViewerController {
     // Update data before calling theses methods
-    public func insertPhotos(_ at: [Int], completion: ((Bool) -> Void)?) {
-        let indexPaths = indexPathsForIndexes(indexes: at)
+    open func reloadData() {
+        collectionView.reloadData()
+    }
+    
+    open func insertPhotos(at indexes: [Int], completion: ((Bool) -> Void)?) {
+        let indexPaths = indexPathsForIndexes(indexes: indexes)
         
         collectionView.performBatchUpdates({ 
             self.collectionView.insertItems(at: indexPaths)
         }, completion: completion)
     }
     
-    public func deletePhotos(_ at: [Int], completion: ((Bool) -> Void)?) {
-        let indexPaths = indexPathsForIndexes(indexes: at)
+    open func deletePhotos(at indexes: [Int], completion: ((Bool) -> Void)?) {
+        let indexPaths = indexPathsForIndexes(indexes: indexes)
         
         collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: indexPaths)
         }, completion: completion)
+    }
+    
+    open func reloadPhotos(at indexes: [Int]) {
+        let indexPaths = indexPathsForIndexes(indexes: indexes)
+        
+        collectionView.reloadItems(at: indexPaths)
+    }
+    
+    open func movePhoto(at index: Int, to newIndex: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        let newIndexPath = IndexPath(item: newIndex, section: 0)
+        
+        collectionView.moveItem(at: indexPath, to: newIndexPath)
+    }
+    
+    open func scrollToPhoto(at index: Int, animated: Bool) {
+        if self.collectionView.numberOfItems(inSection: 0) > index {
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.right, animated: animated)
+        }
     }
     
     // Helper for indexpaths
