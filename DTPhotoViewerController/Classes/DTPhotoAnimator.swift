@@ -74,6 +74,14 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             let completeTransition: () -> () = {
                 let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
+                
+                if !isCancelled {
+                    photoViewerController.presentationAnimationDidFinish()
+                }
+                
+                // View controller appearance status
+                toViewController.endAppearanceTransition()
+                fromViewController.endAppearanceTransition()
             }
             
             container.addSubview(toView)
@@ -83,10 +91,6 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //Animate image view to the center
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
-                    toViewController.endAppearanceTransition()
-                    fromViewController.endAppearanceTransition()
-                    
-                    photoViewerController.presentationAnimationDidFinish()
                     completeTransition()
                 })
             }
@@ -95,11 +99,6 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //Animate image view to the center
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
-                    toViewController.endAppearanceTransition()
-                    fromViewController.endAppearanceTransition()
-                    
-                    //Hide status bar
-                    photoViewerController.presentationAnimationDidFinish()
                     completeTransition()
                 })
             }
@@ -113,6 +112,14 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             let completeTransition: () -> () = {
                 let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
+                
+                if !isCancelled {
+                    photoViewerController.dismissalAnimationDidFinish()
+                }
+                
+                // View controller appearance status
+                toViewController.endAppearanceTransition()
+                fromViewController.endAppearanceTransition()
             }
             
             if spring {
@@ -121,7 +128,6 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     photoViewerController.dismissingAnimation()
                 }, completion: { (finished) in
                     //End transition
-                    photoViewerController.dismissalAnimationDidFinish()
                     completeTransition()
                 })
             }
@@ -132,7 +138,6 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     
                 }, completion: { (finished) in
                     //End transition
-                    photoViewerController.dismissalAnimationDidFinish()
                     completeTransition()
                 })
             }
