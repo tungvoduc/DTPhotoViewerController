@@ -158,7 +158,7 @@ open class DTPhotoViewerController: UIViewController {
                 strongSelf.imageView.center = strongSelf.view.center
                 
                 // No datasource, only 1 item in collection view --> reloadData
-                guard let dataSource = strongSelf.dataSource else {
+                guard let _ = strongSelf.dataSource else {
                     strongSelf.collectionView.reloadData()
                     return
                 }
