@@ -26,6 +26,7 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
         cancelButton = UIButton(type: UIButtonType.custom)
         cancelButton.setImage(UIImage.cancelIcon(size: CGSize(width: 15, height: 15), color: UIColor.white), for: UIControlState())
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: UIControlEvents.touchUpInside)
+        cancelButton.isHidden = true
         
         self.view.addSubview(cancelButton)
         // Do any additional setup after loading the view.
@@ -49,36 +50,27 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
         self.dismiss(animated: true, completion: nil)
     }
     
-//    override func imageViewerControllerWillZoom() {
-//        hideInfoOverlayView(false)
-//    }
-//    
-//    override func imageViewerControllerDidTapImageView() {
-//        reverseInfoOverlayViewDisplayStatus()
-//    }
-//    
-    
     // Hide & Show info layer view
-    func reverseInfoOverlayViewDisplayStatus() {
+    func reverseCancelButtonDisplayStatus() {
         if self.currentPhotoZoomScale == 1.0 {
             if cancelButton.isHidden == true {
-                showInfoOverlayView(true)
+                showCancelButton(animated: true)
             }
             else {
-                hideInfoOverlayView(true)
+                hideCancelButton(animated: true)
             }
         }
     }
     
-    func hideInfoOverlayView(_ animated: Bool) {
-        setInfoOverlayViewHidden(true, animated: animated)
+    func hideCancelButton(animated: Bool) {
+        setCancelButtonHidden(true, animated: animated)
     }
     
-    func showInfoOverlayView(_ animated: Bool) {
-        setInfoOverlayViewHidden(false, animated: animated)
+    func showCancelButton(animated: Bool) {
+        setCancelButtonHidden(false, animated: animated)
     }
     
-    fileprivate func setInfoOverlayViewHidden(_ hidden: Bool, animated: Bool) {
+    fileprivate func setCancelButtonHidden(_ hidden: Bool, animated: Bool) {
         if hidden != cancelButton.isHidden {
             let duration: TimeInterval = animated ? 0.2 : 0.0
             let alpha: CGFloat = hidden ? 0.0 : 1.0
