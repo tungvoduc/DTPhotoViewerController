@@ -108,24 +108,24 @@ extension ViewController: DTPhotoViewerControllerDelegate {
         photoViewerController.scrollToPhotoAtIndex(index: selectedImageIndex, animated: false)
         
         // Show layer
-        (photoViewerController as? BDFPostPhotoViewerController)?.showInfoOverlayView(true)
+        (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, didZoomOnImageAtIndex: Int, withZoomScale zoomScale: CGFloat) {
         if zoomScale == 1 {
-            (photoViewerController as? BDFPostPhotoViewerController)?.showInfoOverlayView(true)
+            (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
         }
         else {
-            (photoViewerController as? BDFPostPhotoViewerController)?.hideInfoOverlayView(false)
+            (photoViewerController as? BDFPostPhotoViewerController)?.hideCancelButton(animated: false)
         }
     }
     
     func photoViewerControllerDidReceiveTapGesture(_ photoViewerController: DTPhotoViewerController) {
-        (photoViewerController as? BDFPostPhotoViewerController)?.reverseInfoOverlayViewDisplayStatus()
+        (photoViewerController as? BDFPostPhotoViewerController)?.reverseCancelButtonDisplayStatus()
     }
     
     func photoViewerControllerDidReceiveDoubleTapGesture(_ photoViewerController: DTPhotoViewerController) {
-        (photoViewerController as? BDFPostPhotoViewerController)?.hideInfoOverlayView(false)
+        (photoViewerController as? BDFPostPhotoViewerController)?.hideCancelButton(animated: false)
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, didEndPanGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
@@ -133,7 +133,7 @@ extension ViewController: DTPhotoViewerControllerDelegate {
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, willBeginPanGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
-        (photoViewerController as? BDFPostPhotoViewerController)?.hideInfoOverlayView(false)
+        (photoViewerController as? BDFPostPhotoViewerController)?.hideCancelButton(animated: false)
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, scrollViewDidScroll scrollView: UIScrollView) {
