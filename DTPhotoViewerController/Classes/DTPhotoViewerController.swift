@@ -175,7 +175,6 @@ open class DTPhotoViewerController: UIViewController {
         
         //Pan gesture recognizer
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(_handlePanGesture))
-        panGestureRecognizer.delegate = self
         panGestureRecognizer.maximumNumberOfTouches = 1
         self.view.isUserInteractionEnabled = true
         
@@ -399,9 +398,6 @@ open class DTPhotoViewerController: UIViewController {
                 
                 return frame
             }
-            
-            // Content mode should be identical between image view and reference view
-            imageView.contentMode = view.contentMode
         }
         
         // Work around when there is no reference view, dragging might behave oddly
@@ -634,31 +630,5 @@ extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
             // Call delegate
             delegate?.photoViewerController?(self, didZoomOnImageAtIndex: indexPath.row, withZoomScale: zoomScale)
         }
-    }
-}
-
-//MARK: 
-extension DTPhotoViewerController: UIGestureRecognizerDelegate {
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let pan1 = gestureRecognizer as? UIPanGestureRecognizer, let pan2 = otherGestureRecognizer as? UIPanGestureRecognizer {
-            if pan1 == self.panGestureRecognizer && pan2 == scrollView.panGestureRecognizer {
-                return false
-            }
-            else if pan2 == self.panGestureRecognizer && pan1 == scrollView.panGestureRecognizer {
-                return false
-            }
-            
-            let indexPath = IndexPath(item: currentPhotoIndex, section: 0)
-            if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
-                if pan1 == self.panGestureRecognizer && pan2 == cell.scrollView.panGestureRecognizer {
-                    return false
-                }
-                else if pan2 == self.panGestureRecognizer && pan1 == cell.scrollView.panGestureRecognizer {
-                    return true
-                }
-            }
-        }
-        
-        return true
     }
 }
