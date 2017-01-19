@@ -60,6 +60,9 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
         let presenting = toViewController.presentingViewController == fromViewController
         
+        fromViewController.beginAppearanceTransition(false, animated: true)
+        toViewController.beginAppearanceTransition(true, animated: true)
+        
         if presenting {
             guard let photoViewerController = toViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
@@ -80,6 +83,9 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //Animate image view to the center
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
+                    toViewController.endAppearanceTransition()
+                    fromViewController.endAppearanceTransition()
+                    
                     photoViewerController.presentationAnimationDidFinish()
                     completeTransition()
                 })
@@ -89,6 +95,9 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //Animate image view to the center
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
+                    toViewController.endAppearanceTransition()
+                    fromViewController.endAppearanceTransition()
+                    
                     //Hide status bar
                     photoViewerController.presentationAnimationDidFinish()
                     completeTransition()
