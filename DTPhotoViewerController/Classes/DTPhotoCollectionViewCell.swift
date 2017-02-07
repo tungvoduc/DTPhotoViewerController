@@ -9,7 +9,9 @@
 import UIKit
 
 public protocol DTPhotoCollectionViewCellDelegate: NSObjectProtocol {
-    func collectionViewCellDidZoomOnImage(_ cell: DTPhotoCollectionViewCell, zoomScale: CGFloat)
+    func collectionViewCellDidZoomOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat)
+    func collectionViewCellWillZoomOnPhoto(_ cell: DTPhotoCollectionViewCell)
+    func collectionViewCellDidEndZoomingOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat)
 }
 
 public class DTPhotoCollectionViewCell: UICollectionViewCell {
@@ -35,8 +37,16 @@ public class DTPhotoCollectionViewCell: UICollectionViewCell {
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
         
-        imageView = UIImageView(frame: CGRect.zero)
+        let imageView = DTImageView(frame: CGRect.zero)
+        // Layout subviews every time getting new image
+        imageView.imageChangeBlock = {[weak self](image: UIImage?) -> Void in
+            // Update image frame whenever image changes
+            if let strongSelf = self, let image = image {
+                strongSelf.setNeedsLayout()
+            }
+        }
         imageView.contentMode = .scaleAspectFit
+        self.imageView = imageView
         scrollView.delegate = self
         addSubview(scrollView)
         scrollView.addSubview(imageView)
@@ -45,7 +55,24 @@ public class DTPhotoCollectionViewCell: UICollectionViewCell {
     override public func layoutSubviews() {
         super.layoutSubviews()
         scrollView.frame = self.bounds
-        imageView.frame = self.bounds
+        
+        //Set the aspect ration of the image
+        if let image = imageView.image {
+            let size = image.size
+            let horizontalScale = size.width / self.bounds.width
+            let verticalScale = size.height / self.bounds.height
+            let factor = max(horizontalScale, verticalScale)
+            
+            //Divide the size by the greater of the vertical or horizontal shrinkage factor
+            let width = size.width / factor
+            let height = size.height / factor
+            
+            //Then figure out offset to center vertically or horizontally
+            let x = (self.bounds.width - width) / 2
+            let y = (self.bounds.height - height) / 2
+            
+            self.imageView.frame = CGRect(x: x, y: y, width: width, height: height)
+        }
     }
 }
 
@@ -55,10 +82,14 @@ extension DTPhotoCollectionViewCell: UIScrollViewDelegate {
         return imageView
     }
     
+    public func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        delegate?.collectionViewCellWillZoomOnPhoto(self)
+    }
+    
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.updateImageViewFrameForSize(self.frame.size)
         
-        delegate?.collectionViewCellDidZoomOnImage(self, zoomScale: scrollView.zoomScale)
+        delegate?.collectionViewCellDidZoomOnPhoto(self, atScale: scrollView.zoomScale)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -66,7 +97,7 @@ extension DTPhotoCollectionViewCell: UIScrollViewDelegate {
     }
     
     public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        
+        delegate?.collectionViewCellDidEndZoomingOnPhoto(self, atScale: scale)
     }
     
     fileprivate func updateImageViewFrameForSize(_ size: CGSize) {
