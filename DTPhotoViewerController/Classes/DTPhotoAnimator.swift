@@ -18,25 +18,20 @@ private let kDamping: CGFloat = 0.75
 public protocol DTPhotoViewerBaseAnimator: NSObjectProtocol, UIViewControllerAnimatedTransitioning {
     var presentingDuration: TimeInterval {get set}
     var dismissingDuration: TimeInterval {get set}
+    var spring: Bool { get set}
 }
 
 class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
-    ///
     /// Preseting transition duration
     /// Default value is 0.2
-    ///
     var presentingDuration: TimeInterval = 0.2
     
-    ///
     /// Dismissing transition duration
     /// Default value is 0.5
-    ///
     var dismissingDuration: TimeInterval = 0.2
     
-    ///
     /// Indicates if using spring animation
     /// Default value is true
-    ///
     var spring = true
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -60,8 +55,8 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
         let presenting = toViewController.presentingViewController == fromViewController
         
-        fromViewController.beginAppearanceTransition(false, animated: true)
-        toViewController.beginAppearanceTransition(true, animated: true)
+        fromViewController.beginAppearanceTransition(false, animated: transitionContext.isAnimated)
+        toViewController.beginAppearanceTransition(true, animated: transitionContext.isAnimated)
         
         if presenting {
             guard let photoViewerController = toViewController as? DTPhotoViewerController else {
@@ -69,7 +64,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             }
             
             let toView = toViewController.view!
-            toView.frame = container.bounds
+            toView.frame = transitionContext.finalFrame(for: toViewController)
             
             let completeTransition: () -> () = {
                 let isCancelled = transitionContext.transitionWasCancelled
@@ -103,6 +98,34 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 })
             }
             
+            // Layer animation
+            if let referencedView = photoViewerController.referencedView {
+                let animation = CABasicAnimation(keyPath: "cornerRadius")
+                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                animation.fromValue = referencedView.layer.cornerRadius
+                animation.toValue = 0
+                animation.duration = presentingDuration
+                photoViewerController.imageView.layer.add(animation, forKey: "cornerRadius")
+                photoViewerController.imageView.layer.cornerRadius = 0
+                
+                // Border color
+                let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
+                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderColorAnimation.fromValue = referencedView.layer.borderColor
+                borderColorAnimation.toValue = UIColor.clear.cgColor
+                borderColorAnimation.duration = presentingDuration
+                photoViewerController.imageView.layer.add(animation, forKey: "borderColor")
+                photoViewerController.imageView.layer.borderColor = UIColor.clear.cgColor
+                
+                // Border width
+                let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
+                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderWidthAnimation.fromValue = referencedView.layer.borderWidth
+                borderWidthAnimation.toValue = 0
+                borderWidthAnimation.duration = presentingDuration
+                photoViewerController.imageView.layer.add(animation, forKey: "borderWidth")
+                photoViewerController.imageView.layer.borderWidth = referencedView.layer.borderWidth
+            }
         }
         else {
             guard let photoViewerController = fromViewController as? DTPhotoViewerController else {
@@ -140,6 +163,35 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                     //End transition
                     completeTransition()
                 })
+            }
+            
+            // Layer animation
+            if let referencedView = photoViewerController.referencedView {
+                let animation = CABasicAnimation(keyPath: "cornerRadius")
+                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                animation.fromValue = 0
+                animation.toValue = referencedView.layer.cornerRadius
+                animation.duration = dismissingDuration
+                photoViewerController.imageView.layer.add(animation, forKey: "cornerRadius")
+                photoViewerController.imageView.layer.cornerRadius = referencedView.layer.cornerRadius
+                
+                // Border color
+                let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
+                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderColorAnimation.fromValue = UIColor.clear.cgColor
+                borderColorAnimation.toValue = referencedView.layer.borderColor
+                borderColorAnimation.duration = dismissingDuration
+                photoViewerController.imageView.layer.add(animation, forKey: "borderColor")
+                photoViewerController.imageView.layer.borderColor = referencedView.layer.borderColor
+                
+                // Border width
+                let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
+                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderWidthAnimation.fromValue = 0
+                borderWidthAnimation.toValue = referencedView.layer.borderWidth
+                borderWidthAnimation.duration = dismissingDuration
+                photoViewerController.imageView.layer.add(animation, forKey: "borderWidth")
+                photoViewerController.imageView.layer.borderWidth = referencedView.layer.borderWidth
             }
         }
     }
