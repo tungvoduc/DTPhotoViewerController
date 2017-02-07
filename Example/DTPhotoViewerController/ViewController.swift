@@ -100,7 +100,7 @@ extension ViewController: DTPhotoViewerControllerDataSource {
 }
 
 extension ViewController: DTPhotoViewerControllerDelegate {
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToItemAt index: Int) {
+    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToPhotoAt index: Int) {
         selectedImageIndex = index
     }
     
