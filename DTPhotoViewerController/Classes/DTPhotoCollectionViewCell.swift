@@ -41,7 +41,7 @@ public class DTPhotoCollectionViewCell: UICollectionViewCell {
         // Layout subviews every time getting new image
         imageView.imageChangeBlock = {[weak self](image: UIImage?) -> Void in
             // Update image frame whenever image changes
-            if let strongSelf = self, let image = image {
+            if let strongSelf = self, let _ = image {
                 strongSelf.setNeedsLayout()
             }
         }
