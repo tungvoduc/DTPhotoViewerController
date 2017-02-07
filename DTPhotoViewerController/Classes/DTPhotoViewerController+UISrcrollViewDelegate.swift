@@ -17,6 +17,14 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         setGestureRecognizers(true)
+        
+        let index = self.currentPhotoIndex
+        
+        // Method to override
+        didScrollToPhoto(at: index)
+        
+        // Call delegate
+        delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -91,16 +99,19 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         let index = self.currentPhotoIndex
         
         // Update image view before pan gesture happens
-        if let dataSource = dataSource {
+        if let dataSource = dataSource, dataSource.numberOfItems(in: self) > 0 {
             dataSource.photoViewerController(self, configurePhotoAt: index, withImageView: imageView)
         }
         
+        // Method to override
+        didScrollToPhoto(at: index)
+        
         // Call delegate
-        delegate?.photoViewerController?(self, didScrollToItemAt: index)
+        delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
         
         // Change referenced image view
-        if let dataSource = dataSource {
-            referencedView = dataSource.photoViewerController(self, referencedViewForPhotoAt: index)
+        if let view = dataSource?.photoViewerController?(self, referencedViewForPhotoAt: index) {
+            referencedView = view
         }
     }
     
