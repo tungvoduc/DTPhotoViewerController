@@ -52,7 +52,7 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
     
     // Hide & Show info layer view
     func reverseCancelButtonDisplayStatus() {
-        if self.currentPhotoZoomScale == 1.0 {
+        if self.zoomScale == 1.0 {
             if cancelButton.isHidden == true {
                 showCancelButton(animated: true)
             }
