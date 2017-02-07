@@ -167,7 +167,6 @@ open class DTPhotoViewerController: UIViewController {
         
         imageView.frame = _frameForReferencedView()
         imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
         
         //Scroll view
         scrollView.delegate = self
@@ -212,34 +211,6 @@ open class DTPhotoViewerController: UIViewController {
         }
         else {
             self.presentationAnimationWillStart()
-            
-            if let referencedView = referencedView {
-                let animation = CABasicAnimation(keyPath: "cornerRadius")
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                animation.fromValue = referencedView.layer.cornerRadius
-                animation.toValue = 0
-                animation.duration = animator.presentingDuration
-                imageView.layer.add(animation, forKey: "cornerRadius")
-                imageView.layer.cornerRadius = 0
-                
-                // Border color
-                let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                borderColorAnimation.fromValue = referencedView.layer.borderColor
-                borderColorAnimation.toValue = UIColor.clear.cgColor
-                borderColorAnimation.duration = animator.presentingDuration
-                imageView.layer.add(animation, forKey: "borderColor")
-                imageView.layer.borderColor = UIColor.clear.cgColor
-                
-                // Border width
-                let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                borderWidthAnimation.fromValue = referencedView.layer.borderWidth
-                borderWidthAnimation.toValue = 0
-                borderWidthAnimation.duration = animator.presentingDuration
-                imageView.layer.add(animation, forKey: "borderWidth")
-                imageView.layer.borderWidth = referencedView.layer.borderWidth
-            }
         }
     }
     
@@ -256,34 +227,6 @@ open class DTPhotoViewerController: UIViewController {
         }
         else {
             self.dismissalAnimationWillStart()
-            
-            if let referencedView = referencedView {
-                let animation = CABasicAnimation(keyPath: "cornerRadius")
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                animation.fromValue = 0
-                animation.toValue = referencedView.layer.cornerRadius
-                animation.duration = animator.presentingDuration
-                imageView.layer.add(animation, forKey: "cornerRadius")
-                imageView.layer.cornerRadius = referencedView.layer.cornerRadius
-                
-                // Border color
-                let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                borderColorAnimation.fromValue = UIColor.clear.cgColor
-                borderColorAnimation.toValue = referencedView.layer.borderColor
-                borderColorAnimation.duration = animator.presentingDuration
-                imageView.layer.add(animation, forKey: "borderColor")
-                imageView.layer.borderColor = referencedView.layer.borderColor
-                
-                // Border width
-                let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                borderWidthAnimation.fromValue = 0
-                borderWidthAnimation.toValue = referencedView.layer.borderWidth
-                borderWidthAnimation.duration = animator.presentingDuration
-                imageView.layer.add(animation, forKey: "borderWidth")
-                imageView.layer.borderWidth = referencedView.layer.borderWidth
-            }
         }
     }
     
@@ -334,11 +277,17 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     func _handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        // Method to override
+        didReceiveTapGesture()
+        
         // Delegate method
         delegate?.photoViewerControllerDidReceiveTapGesture?(self)
     }
     
     func _handleDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
+        // Method to override
+        didReceiveDoubleTapGesture()
+        
         // Delegate method
         delegate?.photoViewerControllerDidReceiveDoubleTapGesture?(self)
         
@@ -346,23 +295,22 @@ open class DTPhotoViewerController: UIViewController {
         let indexPath = IndexPath(item: index, section: 0)
         
         if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
-            let location = gesture.location(in: cell.imageView)
+            // Double tap
+            // self.imageViewerControllerDidDoubleTapImageView()
             
-            if let center = gesture.view?.superview?.convert(location, to: cell.scrollView) {
-                // Double tap
-                // self.imageViewerControllerDidDoubleTapImageView()
+            if (cell.scrollView.zoomScale == cell.scrollView.maximumZoomScale) {
+                // Zoom out
+                cell.scrollView.minimumZoomScale = 1.0
+                cell.scrollView.setZoomScale(cell.scrollView.minimumZoomScale, animated: true)
                 
-                if (cell.scrollView.zoomScale == cell.scrollView.maximumZoomScale) {
-                    // Zoom out
-                    cell.scrollView.minimumZoomScale = 1.0
-                    cell.scrollView.setZoomScale(cell.scrollView.minimumZoomScale, animated: true)
-                    
-                } else {
-                    // Zoom in
-                    cell.scrollView.minimumZoomScale = 1.0
-                    let rect = zoomRectForScrollView(cell.scrollView, withScale: cell.scrollView.maximumZoomScale, withCenter: center)
-                    cell.scrollView.zoom(to: rect, animated: true)
-                }
+            } else {
+                let location = gesture.location(in: view)
+                let center = cell.imageView.convert(location, from: view)
+                
+                // Zoom in
+                cell.scrollView.minimumZoomScale = 1.0
+                let rect = zoomRect(for: cell.imageView, withScale: cell.scrollView.maximumZoomScale, withCenter: center)
+                cell.scrollView.zoom(to: rect, animated: true)
             }
         }
     }
@@ -399,7 +347,7 @@ open class DTPhotoViewerController: UIViewController {
         cell.scrollView.maximumZoomScale = zoomScale
     }
     
-    fileprivate func zoomRectForScrollView(_ scrollView: UIScrollView, withScale scale: CGFloat, withCenter center: CGPoint) -> CGRect {
+    fileprivate func zoomRect(for imageView: UIImageView, withScale scale: CGFloat, withCenter center: CGPoint) -> CGRect {
         var zoomRect = CGRect.zero
         
         // The zoom rect is in the content view's coordinates.
@@ -407,8 +355,8 @@ open class DTPhotoViewerController: UIViewController {
         // imageScrollView's bounds.
         // As the zoom scale decreases, so more content is visible,
         // the size of the rect grows.
-        zoomRect.size.height = scrollView.frame.size.height / scale
-        zoomRect.size.width  = scrollView.frame.size.width  / scale
+        zoomRect.size.height = imageView.frame.size.height / scale
+        zoomRect.size.width  = imageView.frame.size.width  / scale
         
         // choose an origin so as to get the right center.
         zoomRect.origin.x = center.x - (zoomRect.size.width  / 2.0)
@@ -429,6 +377,9 @@ open class DTPhotoViewerController: UIViewController {
                 
                 // Hide collection view & display image view
                 _hideImageView(false)
+                
+                // Method to override
+                willBegin(panGestureRecognizer: panGestureRecognizer)
                 
                 // Delegate method
                 delegate?.photoViewerController?(self, willBeginPanGestureRecognizer: panGestureRecognizer)
@@ -466,6 +417,9 @@ open class DTPhotoViewerController: UIViewController {
                 else {
                     _animateToCenter()
                 }
+                
+                // Method to override
+                didEnd(panGestureRecognizer: panGestureRecognizer)
                 
                 // Delegate method
                 delegate?.photoViewerController?(self, didEndPanGestureRecognizer: panGestureRecognizer)
@@ -527,6 +481,9 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     func presentationAnimationDidFinish() {
+        // Method to override
+        didEndPresentingAnimation()
+        
         // Delegate method
         self.delegate?.photoViewerControllerDidEndPresentingAnimation?(self)
         
@@ -564,10 +521,13 @@ extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
 extension DTPhotoViewerController: UICollectionViewDataSource {
     //MARK: Public methods
     public var currentPhotoIndex: Int {
+        if scrollView.frame.width == 0 {
+            return 0
+        }
         return Int(scrollView.contentOffset.x / scrollView.frame.width)
     }
     
-    public var currentPhotoZoomScale: CGFloat {
+    public var zoomScale: CGFloat {
         let index = currentPhotoIndex
         let indexPath = IndexPath(item: index, section: 0)
         
@@ -579,7 +539,11 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource?.numberOfItems(in: self) ?? 1
+        if let dataSource = dataSource {
+            let count = dataSource.numberOfItems(in: self)
+            return count > 0 ? count : 1
+        }
+        return 1
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -587,12 +551,13 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
         cell.delegate = self
         
         if let dataSource = dataSource {
-            dataSource.photoViewerController(self, configurePhotoAt: indexPath.row, withImageView: cell.imageView)
-        }
-        else {
-            cell.imageView.image = imageView.image
+            if dataSource.numberOfItems(in: self) > 0 {
+                dataSource.photoViewerController(self, configurePhotoAt: indexPath.row, withImageView: cell.imageView)
+                return cell
+            }
         }
         
+        cell.imageView.image = imageView.image
         return cell
     }
 }
@@ -607,7 +572,7 @@ extension DTPhotoViewerController {
     open func insertPhotos(at indexes: [Int], completion: ((Bool) -> Void)?) {
         let indexPaths = indexPathsForIndexes(indexes: indexes)
         
-        collectionView.performBatchUpdates({ 
+        collectionView.performBatchUpdates({
             self.collectionView.insertItems(at: indexPaths)
         }, completion: completion)
     }
@@ -648,12 +613,74 @@ extension DTPhotoViewerController {
     }
 }
 
+//MARK: Public behavior methods
+extension DTPhotoViewerController {
+    open func didScrollToPhoto(at index: Int) {
+        
+    }
+    
+    open func didZoomOnPhoto(at index: Int, atScale scale: CGFloat) {
+        
+    }
+    
+    open func didEndZoomingOnPhoto(at index: Int, atScale scale: CGFloat) {
+        
+    }
+    
+    open func willZoomOnPhoto(at index: Int) {
+        
+    }
+    
+    open func didReceiveTapGesture() {
+        
+    }
+    
+    open func didReceiveDoubleTapGesture() {
+        
+    }
+    
+    open func willBegin(panGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
+        
+    }
+    
+    open func didEnd(panGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
+        
+    }
+    
+    open func didEndPresentingAnimation() {
+        
+    }
+}
+
 //MARK: DTPhotoCollectionViewCellDelegate
 extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
-    public func collectionViewCellDidZoomOnImage(_ cell: DTPhotoCollectionViewCell, zoomScale: CGFloat) {
+    public func collectionViewCellDidZoomOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
         if let indexPath = collectionView.indexPath(for: cell) {
+            // Method to override
+            didZoomOnPhoto(at: indexPath.row, atScale: scale)
+            
             // Call delegate
-            delegate?.photoViewerController?(self, didZoomOnImageAtIndex: indexPath.row, withZoomScale: zoomScale)
+            delegate?.photoViewerController?(self, didZoomOnPhotoAtIndex: indexPath.row, atScale: scale)
+        }
+    }
+    
+    public func collectionViewCellDidEndZoomingOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
+        if let indexPath = collectionView.indexPath(for: cell) {
+            // Method to override
+            didEndZoomingOnPhoto(at: indexPath.row, atScale: scale)
+            
+            // Call delegate
+            delegate?.photoViewerController!(self, didEndZoomingOnPhotoAtIndex: indexPath.row, atScale: scale)
+        }
+    }
+    
+    public func collectionViewCellWillZoomOnPhoto(_ cell: DTPhotoCollectionViewCell) {
+        if let indexPath = collectionView.indexPath(for: cell) {
+            // Method to override
+            willZoomOnPhoto(at: indexPath.row)
+            
+            // Call delegate
+            delegate?.photoViewerController?(self, willZoomOnPhotoAtIndex: indexPath.row)
         }
     }
 }
