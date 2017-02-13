@@ -602,6 +602,18 @@ extension DTPhotoViewerController {
         if self.collectionView.numberOfItems(inSection: 0) > index {
             let indexPath = IndexPath(item: index, section: 0)
             collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.right, animated: animated)
+            
+            if !animated {
+                // Update image view's image as current collection view image
+                updateImageView(scrollView: scrollView)
+                
+                // Need to call these methods since scrollView delegate method won't be called when not animated
+                // Method to override
+                didScrollToPhoto(at: index)
+                
+                // Call delegate
+                delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
+            }
         }
     }
     
@@ -670,7 +682,7 @@ extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
             didEndZoomingOnPhoto(at: indexPath.row, atScale: scale)
             
             // Call delegate
-            delegate?.photoViewerController!(self, didEndZoomingOnPhotoAtIndex: indexPath.row, atScale: scale)
+            delegate?.photoViewerController?(self, didEndZoomingOnPhotoAtIndex: indexPath.row, atScale: scale)
         }
     }
     
