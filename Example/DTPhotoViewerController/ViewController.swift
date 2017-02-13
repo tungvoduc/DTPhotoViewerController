@@ -111,7 +111,7 @@ extension ViewController: DTPhotoViewerControllerDelegate {
         (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
     }
     
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didZoomOnImageAtIndex: Int, withZoomScale zoomScale: CGFloat) {
+    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didZoomOnPhotoAtIndex: Int, atScale scale: CGFloat) {
         if zoomScale == 1 {
             (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
         }
