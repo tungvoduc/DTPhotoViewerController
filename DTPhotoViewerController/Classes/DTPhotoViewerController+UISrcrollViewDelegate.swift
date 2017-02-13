@@ -20,6 +20,9 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         
         let index = self.currentPhotoIndex
         
+        // Update image view's image as current collection view image
+        updateImageView(scrollView: scrollView)
+        
         // Method to override
         didScrollToPhoto(at: index)
         
@@ -49,12 +52,29 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
+            let index = self.currentPhotoIndex
+            // Method to override
+            didScrollToPhoto(at: index)
+            
+            // Call delegate
+            delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
+            
+            // Update image view's image as current collection view image
             updateImageView(scrollView: scrollView)
+            
             setGestureRecognizers(true)
         }
     }
     
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = self.currentPhotoIndex
+        // Method to override
+        didScrollToPhoto(at: index)
+        
+        // Call delegate
+        delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
+        
+        // Update image view's image as current collection view image
         updateImageView(scrollView: scrollView)
         setGestureRecognizers(true)
     }
@@ -102,12 +122,6 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         if let dataSource = dataSource, dataSource.numberOfItems(in: self) > 0 {
             dataSource.photoViewerController(self, configurePhotoAt: index, withImageView: imageView)
         }
-        
-        // Method to override
-        didScrollToPhoto(at: index)
-        
-        // Call delegate
-        delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
         
         // Change referenced image view
         if let view = dataSource?.photoViewerController?(self, referencedViewForPhotoAt: index) {

@@ -18,20 +18,26 @@ private let kDamping: CGFloat = 0.75
 public protocol DTPhotoViewerBaseAnimator: NSObjectProtocol, UIViewControllerAnimatedTransitioning {
     var presentingDuration: TimeInterval {get set}
     var dismissingDuration: TimeInterval {get set}
-    var spring: Bool { get set}
+    var spring: Bool { get set }
 }
 
 class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
+    ///
     /// Preseting transition duration
     /// Default value is 0.2
+    ///
     var presentingDuration: TimeInterval = 0.2
     
+    ///
     /// Dismissing transition duration
     /// Default value is 0.5
+    ///
     var dismissingDuration: TimeInterval = 0.2
     
+    ///
     /// Indicates if using spring animation
     /// Default value is true
+    ///
     var spring = true
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
