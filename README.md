@@ -17,7 +17,7 @@ if let viewController = DTPhotoViewerController(referencedView: imageView, image
 }
 ```
 
-For multiple images, what you have to do is providing an dataSource to the DTPhotoViewerController instance. DTPhotoViewerControllerDataSource has three required methods, here is an example how to implement them which is also available in the Demo:
+For multiple images, what you have to do is providing an dataSource to the DTPhotoViewerController instance. DTPhotoViewerControllerDataSource has three required methods and one optional method, here is an example how to implement them which is also available in the Demo:
 
 ```
 func photoViewerController(_ photoViewerController: DTPhotoViewerController, referencedViewForPhotoAt index: Int) -> UIView? {
@@ -32,9 +32,20 @@ func photoViewerController(_ photoViewerController: DTPhotoViewerController, ref
 func numberOfItems(in photoViewerController: DTPhotoViewerController) -> Int {
     return images.count
 }
+
+func photoViewerController(_ photoViewerController: DTPhotoViewerController, configureCell cell: DTPhotoCollectionViewCell, forPhotoAt index: Int) {
+     // You need to implement this method usually when using custom DTPhotoCollectionViewCell and configure each photo differently.
+}
     
 func photoViewerController(_ photoViewerController: DTPhotoViewerController, configurePhotoAt index: Int, withImageView imageView: UIImageView) {
     imageView.image = images[index]
+}
+```
+
+In case you want to add more UI elements to each photo, the best way is to create a subclass of DTPhotoCollectionViewCell and then call either one of these methods registerClassPhotoViewer: or registerNibForPhotoViewer:
+```
+if let viewController = BDFPostPhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
+     viewController.registerClassPhotoViewer(DTCustomPhotoCollectionViewCell.self)
 }
 ```
 
