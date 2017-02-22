@@ -44,6 +44,18 @@ open class DTPhotoViewerController: UIViewController {
         }
     }
     
+    /// Indicates if referencedView should be shown or hidden automatically during presentation and dismissal.
+    /// Setting automaticallyUpdateReferencedViewVisibility to false means you need to update isHidden property of this view by yourself.
+    /// Setting automaticallyUpdateReferencedViewVisibility will also set referencedView isHidden property to false.
+    /// Default value is true
+    open var automaticallyUpdateReferencedViewVisibility = true {
+        didSet {
+            if !automaticallyUpdateReferencedViewVisibility {
+                referencedView?.isHidden = false
+            }
+        }
+    }
+    
     /// Indicates where image should be scaled smaller when being dragged.
     /// Default value is true.
     open var scaleWhileDragging = true
@@ -52,34 +64,31 @@ open class DTPhotoViewerController: UIViewController {
     open fileprivate(set) var referenceSize: CGSize = CGSize.zero
     
     
-    /// Presenting size
-    /// The final size after image View is presented.
-    fileprivate var _presentedImageViewSize: CGSize = CGSize.zero
-    
-    
     /// This is the image view that is mainly used for the presentation and dismissal effect.
-    /// How it animate from the original view to fullscreen and vice versa.
-    open fileprivate(set) var imageView: UIImageView
+    /// How it animates from the original view to fullscreen and vice versa.
+    public fileprivate(set) var imageView: UIImageView
     
-    /// The view where photo viewer origibally animates from.
+    /// The view where photo viewer originally animates from.
     /// Provide this correctly so that you can have a nice effect.
-    weak internal(set) open var referencedView: UIView? {
+    public weak internal(set) var referencedView: UIView? {
         didSet {
             // Unhide old referenced view and hide the new one
             oldValue?.isHidden = false
-            referencedView?.isHidden = true
+            if automaticallyUpdateReferencedViewVisibility {
+                referencedView?.isHidden = true
+            }
         }
     }
     
     /// Collection view.
     /// This will be used when displaying multiple images.
     fileprivate(set) var collectionView: UICollectionView
-    open var scrollView: UIScrollView {
+    public var scrollView: UIScrollView {
         return collectionView
     }
     
     /// View that has fading effect during presentation and dismissal animation or when controller is being dragged.
-    open fileprivate(set) var backgroundView: UIView
+    public fileprivate(set) var backgroundView: UIView
     
     /// Pan gesture for dragging controller
     var panGestureRecognizer: UIPanGestureRecognizer!
@@ -99,7 +108,7 @@ open class DTPhotoViewerController: UIViewController {
     
     public init?(referencedView: UIView?, image: UIImage?) {
         if let newImage = image {
-            let flowLayout = UICollectionViewFlowLayout()
+            let flowLayout = DTCollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
             flowLayout.sectionInset = UIEdgeInsets.zero
             flowLayout.minimumLineSpacing = 0
@@ -151,10 +160,11 @@ open class DTPhotoViewerController: UIViewController {
         //Image view
         // Configure this block for changing image size when image changed
         (imageView as? DTImageView)?.imageChangeBlock = {[weak self](image: UIImage?) -> Void in
-            // Update image frame whenever image changes
-            if let strongSelf = self, let image = image {
-                strongSelf._presentedImageViewSize = strongSelf.imageViewSizeForImage(image: image)
-                strongSelf.imageView.frame.size = strongSelf._presentedImageViewSize
+            // Update image frame whenever image changes and when the imageView is not being visible
+            // imageView is only being visible during presentation or dismissal
+            // For that reason, we should not update frame of imageView no matter what.
+            if let strongSelf = self, let image = image, strongSelf.imageView.isHidden == true {
+                strongSelf.imageView.frame.size = strongSelf.imageViewSizeForImage(image: image)
                 strongSelf.imageView.center = strongSelf.view.center
                 
                 // No datasource, only 1 item in collection view --> reloadData
@@ -200,6 +210,16 @@ open class DTPhotoViewerController: UIViewController {
         super.viewWillLayoutSubviews()
         backgroundView.frame = self.view.bounds
         scrollView.frame = self.view.bounds
+        
+        // Update iamge view frame everytime view changes frame
+        (imageView as? DTImageView)?.imageChangeBlock?(imageView.image)
+    }
+    
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        // Update layout
+        (collectionView.collectionViewLayout as? DTCollectionViewFlowLayout)?.currentIndex = currentPhotoIndex
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -251,7 +271,9 @@ open class DTPhotoViewerController: UIViewController {
     //MARK: Private methods
     fileprivate func startAnimation() {
         //Hide reference image view
-        referencedView?.isHidden = true
+        if automaticallyUpdateReferencedViewVisibility {
+            referencedView?.isHidden = true
+        }
         
         //Animate to center
         _animateToCenter()
@@ -405,7 +427,8 @@ open class DTPhotoViewerController: UIViewController {
                     // Do not use transform to scale down image view
                     // Instead change width & height
                     if scale < 1 && scale >= ratio {
-                        imageView.frame.size = CGSize(width: _presentedImageViewSize.width * scale, height: _presentedImageViewSize.height * scale)
+                        let size = imageViewSizeForImage(image: imageView.image)
+                        imageView.frame.size = CGSize(width: size.width * scale, height: size.height * scale)
                     }
                 }
                 
@@ -443,7 +466,7 @@ open class DTPhotoViewerController: UIViewController {
                 destinationSize.width = view.frame.size.height * (size.width / size.height)
             }
             
-            print("\(destinationSize)\n")
+            print("\(view.frame)\n")
             
             return destinationSize
         }
@@ -453,14 +476,13 @@ open class DTPhotoViewerController: UIViewController {
     
     func presentingAnimation() {
         //Hide reference view
-        referencedView?.isHidden = true
+        if automaticallyUpdateReferencedViewVisibility {
+            referencedView?.isHidden = true
+        }
         
         //Calculate final frame
         var destinationFrame = CGRect.zero
         destinationFrame.size = imageViewSizeForImage(image: imageView.image)
-        
-        // Store presented size
-        _presentedImageViewSize = destinationFrame.size
         
         //Animate image view to the center
         self.imageView.frame = destinationFrame
@@ -502,7 +524,9 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     func dismissalAnimationDidFinish() {
-        referencedView?.isHidden = false
+        if automaticallyUpdateReferencedViewVisibility {
+            referencedView?.isHidden = false
+        }
     }
 }
 
@@ -547,12 +571,15 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kPhotoCollectionViewCellIdentifier, for: indexPath) as!DTPhotoCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kPhotoCollectionViewCellIdentifier, for: indexPath) as! DTPhotoCollectionViewCell
         cell.delegate = self
         
         if let dataSource = dataSource {
             if dataSource.numberOfItems(in: self) > 0 {
+                
                 dataSource.photoViewerController(self, configurePhotoAt: indexPath.row, withImageView: cell.imageView)
+                dataSource.photoViewerController(self, configureCell: cell, forPhotoAt: indexPath.row)
+                
                 return cell
             }
         }
@@ -564,6 +591,22 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
 
 //MARK: Public data methods
 extension DTPhotoViewerController {
+    // For each reuse identifier that the collection view will use, register either a class or a nib from which to instantiate a cell.
+    // If a nib is registered, it must contain exactly 1 top level object which is a DTPhotoCollectionViewCell.
+    // If a class is registered, it will be instantiated via alloc/initWithFrame:
+    open func registerClassPhotoViewer(_ cellClass: Swift.AnyClass?) {
+        if cellClass is DTPhotoCollectionViewCell {
+            collectionView.register(cellClass, forCellWithReuseIdentifier: kPhotoCollectionViewCellIdentifier)
+        }
+        else {
+            fatalError("Cell class must be subclass of DTPhotoCollectionViewCell.")
+        }
+    }
+    
+    open func registerNibForPhotoViewer(_ nib: UINib?) {
+        collectionView.register(nib, forCellWithReuseIdentifier: kPhotoCollectionViewCellIdentifier)
+    }
+    
     // Update data before calling theses methods
     open func reloadData() {
         collectionView.reloadData()
