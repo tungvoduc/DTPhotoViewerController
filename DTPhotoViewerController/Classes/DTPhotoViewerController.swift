@@ -576,9 +576,8 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
         
         if let dataSource = dataSource {
             if dataSource.numberOfItems(in: self) > 0 {
-                
                 dataSource.photoViewerController(self, configurePhotoAt: indexPath.row, withImageView: cell.imageView)
-                dataSource.photoViewerController(self, configureCell: cell, forPhotoAt: indexPath.row)
+                dataSource.photoViewerController?(self, configureCell: cell, forPhotoAt: indexPath.row)
                 
                 return cell
             }
