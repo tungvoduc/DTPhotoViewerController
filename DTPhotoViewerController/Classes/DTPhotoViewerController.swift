@@ -595,12 +595,7 @@ extension DTPhotoViewerController {
     // If a nib is registered, it must contain exactly 1 top level object which is a DTPhotoCollectionViewCell.
     // If a class is registered, it will be instantiated via alloc/initWithFrame:
     open func registerClassPhotoViewer(_ cellClass: Swift.AnyClass?) {
-        if cellClass is DTPhotoCollectionViewCell {
-            collectionView.register(cellClass, forCellWithReuseIdentifier: kPhotoCollectionViewCellIdentifier)
-        }
-        else {
-            fatalError("Cell class must be subclass of DTPhotoCollectionViewCell.")
-        }
+        collectionView.register(cellClass, forCellWithReuseIdentifier: kPhotoCollectionViewCellIdentifier)
     }
     
     open func registerNibForPhotoViewer(_ nib: UINib?) {
