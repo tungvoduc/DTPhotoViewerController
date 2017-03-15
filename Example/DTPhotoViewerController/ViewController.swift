@@ -82,7 +82,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 extension ViewController: DTPhotoViewerControllerDataSource {
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, configureCell cell: DTPhotoCollectionViewCell, forPhotoAt index: Int) {
-        // No need to implement
+        // Set text for each item
+        if let cell = cell as? CustomPhotoCollectionViewCell {
+            cell.extraLabel.text = "No \(index + 1)"
+        }
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, referencedViewForPhotoAt index: Int) -> UIView? {
