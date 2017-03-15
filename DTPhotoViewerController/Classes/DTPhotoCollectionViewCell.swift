@@ -14,7 +14,7 @@ public protocol DTPhotoCollectionViewCellDelegate: NSObjectProtocol {
     func collectionViewCellDidEndZoomingOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat)
 }
 
-public class DTPhotoCollectionViewCell: UICollectionViewCell {
+open class DTPhotoCollectionViewCell: UICollectionViewCell {
     public private(set) var scrollView: DTScrollView!
     public private(set) var imageView: UIImageView!
     
@@ -52,7 +52,7 @@ public class DTPhotoCollectionViewCell: UICollectionViewCell {
         scrollView.addSubview(imageView)
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         scrollView.frame = self.bounds
         

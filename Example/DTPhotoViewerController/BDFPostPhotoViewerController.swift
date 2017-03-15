@@ -22,7 +22,7 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        registerClassPhotoViewer(CustomPhotoCollectionViewCell.self)
         cancelButton = UIButton(type: UIButtonType.custom)
         cancelButton.setImage(UIImage.cancelIcon(size: CGSize(width: 15, height: 15), color: UIColor.white), for: UIControlState())
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: UIControlEvents.touchUpInside)
@@ -84,5 +84,35 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
                   self.cancelButton.isHidden = hidden
             })
         }
+    }
+}
+
+class CustomPhotoCollectionViewCell: DTPhotoCollectionViewCell {
+    lazy var extraLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        addSubview(extraLabel)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let width: CGFloat = 70
+        extraLabel.frame = CGRect(x: self.bounds.size.width - width - 20, y: 0, width: width, height: 60)
     }
 }
