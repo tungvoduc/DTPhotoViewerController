@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import Photos
 
 private let kPhotoCollectionViewCellIdentifier = "Cell"
 
@@ -59,9 +61,6 @@ open class DTPhotoViewerController: UIViewController {
     /// Indicates where image should be scaled smaller when being dragged.
     /// Default value is true.
     open var scaleWhileDragging = true
-    
-    /// This variable sets original frame of image view to animate from
-    open fileprivate(set) var referenceSize: CGSize = CGSize.zero
     
     
     /// This is the image view that is mainly used for the presentation and dismissal effect.
@@ -164,7 +163,7 @@ open class DTPhotoViewerController: UIViewController {
             // imageView is only being visible during presentation or dismissal
             // For that reason, we should not update frame of imageView no matter what.
             if let strongSelf = self, let image = image, strongSelf.imageView.isHidden == true {
-                strongSelf.imageView.frame.size = strongSelf.imageViewSizeForImage(image: image)
+                strongSelf.imageView.frame.size = AVMakeRect(aspectRatio: image.size, insideRect: strongSelf.view.bounds).size
                 strongSelf.imageView.center = strongSelf.view.center
                 
                 // No datasource, only 1 item in collection view --> reloadData
@@ -341,12 +340,10 @@ open class DTPhotoViewerController: UIViewController {
         if let view = referencedView {
             if let superview = view.superview {
                 var frame = (superview.convert(view.frame, to: self.view))
-                referenceSize = frame.size
                 
                 if abs(frame.size.width - view.frame.size.width) > 1 {
                     // This is workaround for bug in ios 8, everything is double.
                     frame = CGRect(x: frame.origin.x/2, y: frame.origin.y/2, width: frame.size.width/2, height: frame.size.height/2)
-                    referenceSize = frame.size
                 }
                 
                 return frame
@@ -356,7 +353,6 @@ open class DTPhotoViewerController: UIViewController {
         // Work around when there is no reference view, dragging might behave oddly
         // Should be fixed in the future
         let defaultSize: CGFloat = 1
-        referenceSize = CGSize(width: defaultSize, height: defaultSize)
         return CGRect(x: self.view.frame.midX - defaultSize/2, y: self.view.frame.midY - defaultSize/2, width: defaultSize, height: defaultSize)
     }
     
@@ -408,28 +404,33 @@ open class DTPhotoViewerController: UIViewController {
                 
             case .changed:
                 let translation = gesture.translation(in: view)
-                self.imageView.center = CGPoint(x: self.view.center.x + translation.x, y: self.view.center.y + translation.y)
-                
                 //Change opacity of background view based on vertical distance from center
                 let yDistance = CGFloat(abs(self.imageView.center.y - self.view.center.y))
-                let alpha = 1.0 - yDistance/(self.view.center.y)
-                self.backgroundView.alpha = alpha
+                let offset = yDistance/(self.view.center.y)
+                let progressStep = 1.0 - (offset > 1 ? 1 : offset)
+                self.backgroundView.alpha = progressStep
                 
                 //Scale image
                 //Should not go smaller than max ratio
-                if scaleWhileDragging {
-                    let ratio = max(referenceSize.height/imageView.frame.height, referenceSize.width/imageView.frame.width)
+                if let image = imageView.image, scaleWhileDragging {
+                    let initialSize: CGSize
                     
-                    //If alpha = 0, then scale is max ratio, if alpha = 1, then scale is 1
-                    let scale = 1 + (1 - alpha)*(ratio - 1)
-                    
-                    //imageView.transform = CGAffineTransformMakeScale(scale, scale)
-                    // Do not use transform to scale down image view
-                    // Instead change width & height
-                    if scale < 1 && scale >= ratio {
-                        let size = imageViewSizeForImage(image: imageView.image)
-                        imageView.frame.size = CGSize(width: size.width * scale, height: size.height * scale)
+                    if let view = referencedView {
+                        initialSize = view.frame.size
                     }
+                    else {
+                        let defaultSize: CGFloat = 1
+                        initialSize = CGSize(width: defaultSize, height: defaultSize)
+                    }
+                    
+                    let finalSize = AVMakeRect(aspectRatio: image.size, insideRect: self.view.frame).size
+                    
+                    let itemPercentComplete = clip(-0.05, 1.05, progressStep)
+                    let itemWidth = lerp(initialSize.width, finalSize.width, itemPercentComplete)
+                    let itemHeight = lerp(initialSize.height, finalSize.height, itemPercentComplete)
+                    
+                    imageView.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: itemWidth, height: itemHeight))
+                    imageView.center = CGPoint(x: self.view.center.x + translation.x, y: self.view.center.y + translation.y)
                 }
                 
             default:
@@ -481,11 +482,13 @@ open class DTPhotoViewerController: UIViewController {
         }
         
         //Calculate final frame
-        var destinationFrame = CGRect.zero
-        destinationFrame.size = imageViewSizeForImage(image: imageView.image)
+        var destinationSize = CGSize.zero
+        if let size = imageView.image?.size {
+            destinationSize = AVMakeRect(aspectRatio: size, insideRect: self.view.bounds).size
+        }
         
         //Animate image view to the center
-        self.imageView.frame = destinationFrame
+        self.imageView.frame.size = destinationSize
         self.imageView.center = self.view.center
         
         //Change status bar to black style
