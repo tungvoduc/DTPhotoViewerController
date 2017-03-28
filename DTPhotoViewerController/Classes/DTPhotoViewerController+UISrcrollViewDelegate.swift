@@ -12,16 +12,10 @@ import Foundation
 extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.photoViewerController?(self, scrollViewDidScroll: scrollView)
-        setGestureRecognizers(false)
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        setGestureRecognizers(true)
-        
         let index = self.currentPhotoIndex
-        
-        // Update image view's image as current collection view image
-        updateImageView(scrollView: scrollView)
         
         // Method to override
         didScrollToPhoto(at: index)
@@ -58,11 +52,6 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
             
             // Call delegate
             delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
-            
-            // Update image view's image as current collection view image
-            updateImageView(scrollView: scrollView)
-            
-            setGestureRecognizers(true)
         }
     }
     
@@ -73,10 +62,6 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         
         // Call delegate
         delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
-        
-        // Update image view's image as current collection view image
-        updateImageView(scrollView: scrollView)
-        setGestureRecognizers(true)
     }
     
     //MARK: Helpers
@@ -127,11 +112,5 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         if let view = dataSource?.photoViewerController?(self, referencedViewForPhotoAt: index) {
             referencedView = view
         }
-    }
-    
-    // Enable/diable gesture recoginzers
-    private func setGestureRecognizers(_ enabled: Bool) {
-        // doubleTapGestureRecognizer.isEnabled = enabled
-        // singleTapGestureRecognizer.isEnabled = enabled
     }
 }
