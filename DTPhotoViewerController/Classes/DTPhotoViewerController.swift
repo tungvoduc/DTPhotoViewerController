@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import Photos
 
 private let kPhotoCollectionViewCellIdentifier = "Cell"
 
@@ -344,12 +346,10 @@ open class DTPhotoViewerController: UIViewController {
         if let view = referencedView {
             if let superview = view.superview {
                 var frame = (superview.convert(view.frame, to: self.view))
-                referenceSize = frame.size
                 
                 if abs(frame.size.width - view.frame.size.width) > 1 {
                     // This is workaround for bug in ios 8, everything is double.
                     frame = CGRect(x: frame.origin.x/2, y: frame.origin.y/2, width: frame.size.width/2, height: frame.size.height/2)
-                    referenceSize = frame.size
                 }
                 
                 return frame
@@ -359,7 +359,6 @@ open class DTPhotoViewerController: UIViewController {
         // Work around when there is no reference view, dragging might behave oddly
         // Should be fixed in the future
         let defaultSize: CGFloat = 1
-        referenceSize = CGSize(width: defaultSize, height: defaultSize)
         return CGRect(x: self.view.frame.midX - defaultSize/2, y: self.view.frame.midY - defaultSize/2, width: defaultSize, height: defaultSize)
     }
     
@@ -418,23 +417,32 @@ open class DTPhotoViewerController: UIViewController {
                 
                 //Change opacity of background view based on vertical distance from center
                 let yDistance = CGFloat(abs(self.imageView.center.y - self.view.center.y))
-                let alpha = 1.0 - yDistance/(self.view.center.y)
+                var alpha = 1.0 - yDistance/(self.view.center.y)
+                
+                if alpha < 0 {
+                    alpha = 0
+                }
+                
                 self.backgroundView.alpha = alpha
                 
                 //Scale image
                 //Should not go smaller than max ratio
-                if scaleWhileDragging {
-                    let ratio = max(referenceSize.height/imageView.frame.height, referenceSize.width/imageView.frame.width)
+                if let image = imageView.image, scaleWhileDragging {
+                    let referenceSize = _frameForReferencedView().size
                     
                     //If alpha = 0, then scale is max ratio, if alpha = 1, then scale is 1
-                    let scale = 1 + (1 - alpha)*(ratio - 1)
+                    let scale = alpha
                     
                     //imageView.transform = CGAffineTransformMakeScale(scale, scale)
                     // Do not use transform to scale down image view
                     // Instead change width & height
-                    if scale < 1 && scale >= ratio {
-                        let size = imageViewSizeForImage(image: imageView.image)
-                        imageView.frame.size = CGSize(width: size.width * scale, height: size.height * scale)
+                    if scale < 1 && scale >= 0 {
+                        let maxSize = imageViewSizeForImage(image: image)
+                        let scaleSize = CGSize(width: maxSize.width * scale, height: maxSize.height * scale)
+                        
+                        if scaleSize.width >= referenceSize.width || scaleSize.height >= referenceSize.height {
+                            imageView.frame.size = scaleSize
+                        }
                     }
                 }
                 
@@ -458,23 +466,8 @@ open class DTPhotoViewerController: UIViewController {
     
     private func imageViewSizeForImage(image: UIImage?) -> CGSize {
         if let image = image {
-            let size = image.size
-            var destinationSize = CGSize.zero
-            
-            // Calculate size of image view so that it would fit in self.view
-            // This will make the transition more perfect than setting frame of UIImageView as self.view.bounds
-            if image.size.width/image.size.height > view.frame.size.width/view.frame.size.height {
-                destinationSize.width = view.frame.size.width
-                destinationSize.height = view.frame.size.width * (size.height / size.width)
-            }
-            else {
-                destinationSize.height = view.frame.size.height
-                destinationSize.width = view.frame.size.height * (size.width / size.height)
-            }
-            
-            print("\(view.frame)\n")
-            
-            return destinationSize
+            let rect = AVMakeRect(aspectRatio: image.size, insideRect: self.view.bounds)
+            return rect.size
         }
         
         return CGSize.zero
