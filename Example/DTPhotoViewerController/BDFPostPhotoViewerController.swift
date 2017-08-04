@@ -19,6 +19,10 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print("BDFPostPhotoViewerController deinit")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +32,7 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: UIControlEvents.touchUpInside)
         cancelButton.isHidden = true
         
-        self.view.addSubview(cancelButton)
+        view.addSubview(cancelButton)
         // Do any additional setup after loading the view.
     }
     
@@ -52,7 +56,7 @@ class BDFPostPhotoViewerController: DTPhotoViewerController {
     
     // Hide & Show info layer view
     func reverseCancelButtonDisplayStatus() {
-        if self.zoomScale == 1.0 {
+        if zoomScale == 1.0 {
             if cancelButton.isHidden == true {
                 showCancelButton(animated: true)
             }
