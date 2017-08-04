@@ -14,6 +14,8 @@ private let kNumberOfRows: Int = 3
 private let kRowSpacing: CGFloat = 5
 private let kColumnSpacing: CGFloat = 5
 
+/// Class ViewController
+/// Display collection of photos
 class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     fileprivate var selectedImageIndex: Int = 0
     
@@ -71,7 +73,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         selectedImageIndex = indexPath.row
         
         if let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell {
-            if let viewController = BDFPostPhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
+            if let viewController = BDFSimplePhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
                 viewController.dataSource = self
                 viewController.delegate = self
                 self.present(viewController, animated: true, completion: nil)
@@ -80,6 +82,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 }
 
+//MARK: DTPhotoViewerControllerDataSource
 extension ViewController: DTPhotoViewerControllerDataSource {
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, configureCell cell: DTPhotoCollectionViewCell, forPhotoAt index: Int) {
         // Set text for each item
@@ -106,48 +109,15 @@ extension ViewController: DTPhotoViewerControllerDataSource {
     }
 }
 
+//MARK: DTPhotoViewerControllerDelegate
 extension ViewController: DTPhotoViewerControllerDelegate {
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToPhotoAt index: Int) {
-        selectedImageIndex = index
-    }
-    
     func photoViewerControllerDidEndPresentingAnimation(_ photoViewerController: DTPhotoViewerController) {
         photoViewerController.scrollToPhoto(at: selectedImageIndex, animated: false)
-        
-        // Show layer
-        (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
-    }
-    
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didZoomOnPhotoAtIndex: Int, atScale zoomScale: CGFloat) {
-        if zoomScale == 1 {
-            (photoViewerController as? BDFPostPhotoViewerController)?.showCancelButton(animated: true)
-        }
-        else {
-            (photoViewerController as? BDFPostPhotoViewerController)?.hideCancelButton(animated: false)
-        }
-    }
-    
-    func photoViewerControllerDidReceiveTapGesture(_ photoViewerController: DTPhotoViewerController) {
-        (photoViewerController as? BDFPostPhotoViewerController)?.reverseCancelButtonDisplayStatus()
-    }
-    
-    func photoViewerControllerDidReceiveDoubleTapGesture(_ photoViewerController: DTPhotoViewerController) {
-        (photoViewerController as? BDFPostPhotoViewerController)?.hideCancelButton(animated: false)
-    }
-    
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didEndPanGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
-        
-    }
-    
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, willBeginPanGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
-        (photoViewerController as? BDFPostPhotoViewerController)?.hideCancelButton(animated: false)
-    }
-    
-    func photoViewerController(_ photoViewerController: DTPhotoViewerController, scrollViewDidScroll scrollView: UIScrollView) {
-        
     }
 }
 
+/// Class CollectionViewCell
+/// Add extra UI element to photo.
 public class CollectionViewCell: UICollectionViewCell {
     public private(set) var imageView: UIImageView!
     
