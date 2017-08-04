@@ -72,7 +72,6 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell {
             if let viewController = BDFPostPhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
-                viewController.scrollDirection = .vertical
                 viewController.dataSource = self
                 viewController.delegate = self
                 self.present(viewController, animated: true, completion: nil)
