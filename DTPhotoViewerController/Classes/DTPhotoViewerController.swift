@@ -13,13 +13,21 @@ import Photos
 private let kPhotoCollectionViewCellIdentifier = "Cell"
 
 open class DTPhotoViewerController: UIViewController {
+    /// Scroll direction
+    /// Default value is UICollectionViewScrollDirectionVertical
+    public var scrollDirection: UICollectionViewScrollDirection = UICollectionViewScrollDirection.horizontal {
+        didSet {
+            // Update collection view flow layout
+            (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = scrollDirection
+        }
+    }
     
     /// Datasource
     /// Providing number of image items to controller and how to confiure image for each image view in it.
-    public var dataSource: DTPhotoViewerControllerDataSource?
+    public weak var dataSource: DTPhotoViewerControllerDataSource?
     
     /// Delegate
-    public var delegate: DTPhotoViewerControllerDelegate?
+    public weak var delegate: DTPhotoViewerControllerDelegate?
     
     /// Indicates if status bar should be hidden after photo viewer controller is presented.
     /// Default value is true
@@ -111,7 +119,7 @@ open class DTPhotoViewerController: UIViewController {
     public init?(referencedView: UIView?, image: UIImage?) {
         if let newImage = image {
             let flowLayout = DTCollectionViewFlowLayout()
-            flowLayout.scrollDirection = .horizontal
+            flowLayout.scrollDirection = scrollDirection
             flowLayout.sectionInset = UIEdgeInsets.zero
             flowLayout.minimumLineSpacing = 0
             flowLayout.minimumInteritemSpacing = 0
@@ -318,8 +326,16 @@ open class DTPhotoViewerController: UIViewController {
         // Delegate method
         delegate?.photoViewerControllerDidReceiveDoubleTapGesture?(self)
         
-        let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
-        let indexPath = IndexPath(item: index, section: 0)
+        let indexPath: IndexPath
+        
+        if scrollDirection == .horizontal {
+            let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
+            indexPath = IndexPath(item: index, section: 0)
+        }
+        else {
+            let index = Int(scrollView.contentOffset.y / scrollView.bounds.size.height)
+            indexPath = IndexPath(item: index, section: 0)
+        }
         
         if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
             // Double tap
@@ -544,10 +560,18 @@ extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
 extension DTPhotoViewerController: UICollectionViewDataSource {
     //MARK: Public methods
     public var currentPhotoIndex: Int {
-        if scrollView.frame.width == 0 {
-            return 0
+        if scrollDirection == .horizontal {
+            if scrollView.frame.width == 0 {
+                return 0
+            }
+            return Int(scrollView.contentOffset.x / scrollView.frame.width)
         }
-        return Int(scrollView.contentOffset.x / scrollView.frame.width)
+        else {
+            if scrollView.frame.height == 0 {
+                return 0
+            }
+            return Int(scrollView.contentOffset.y / scrollView.frame.height)
+        }
     }
     
     public var zoomScale: CGFloat {
@@ -586,7 +610,7 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
     }
 }
 
-//MARK: Public data methods
+//MARK: Open methods
 extension DTPhotoViewerController {
     // For each reuse identifier that the collection view will use, register either a class or a nib from which to instantiate a cell.
     // If a nib is registered, it must contain exactly 1 top level object which is a DTPhotoCollectionViewCell.
@@ -636,7 +660,17 @@ extension DTPhotoViewerController {
     open func scrollToPhoto(at index: Int, animated: Bool) {
         if self.collectionView.numberOfItems(inSection: 0) > index {
             let indexPath = IndexPath(item: index, section: 0)
-            collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.right, animated: animated)
+            
+            let position: UICollectionViewScrollPosition
+            
+            if scrollDirection == .vertical {
+                position = .bottom
+            }
+            else {
+                position = .right
+            }
+            
+            collectionView.scrollToItem(at: indexPath, at: position, animated: animated)
             
             if !animated {
                 // Need to call these methods since scrollView delegate method won't be called when not animated
@@ -698,7 +732,7 @@ extension DTPhotoViewerController {
 
 //MARK: DTPhotoCollectionViewCellDelegate
 extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
-    public func collectionViewCellDidZoomOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
+    open func collectionViewCellDidZoomOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
         if let indexPath = collectionView.indexPath(for: cell) {
             // Method to override
             didZoomOnPhoto(at: indexPath.row, atScale: scale)
@@ -708,7 +742,7 @@ extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
         }
     }
     
-    public func collectionViewCellDidEndZoomingOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
+    open func collectionViewCellDidEndZoomingOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
         if let indexPath = collectionView.indexPath(for: cell) {
             // Method to override
             didEndZoomingOnPhoto(at: indexPath.row, atScale: scale)
@@ -718,7 +752,7 @@ extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
         }
     }
     
-    public func collectionViewCellWillZoomOnPhoto(_ cell: DTPhotoCollectionViewCell) {
+    open func collectionViewCellWillZoomOnPhoto(_ cell: DTPhotoCollectionViewCell) {
         if let indexPath = collectionView.indexPath(for: cell) {
             // Method to override
             willZoomOnPhoto(at: indexPath.row)
