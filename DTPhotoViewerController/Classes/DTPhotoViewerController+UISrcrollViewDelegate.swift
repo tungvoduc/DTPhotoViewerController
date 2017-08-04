@@ -10,11 +10,11 @@ import Foundation
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.photoViewerController?(self, scrollViewDidScroll: scrollView)
     }
     
-    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         let index = self.currentPhotoIndex
         
         // Method to override
@@ -24,15 +24,15 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         delegate?.photoViewerController?(self, didScrollToPhotoAt: index)
     }
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
     }
     
-    public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    public func scrollViewDidZoom(_ scrollView: UIScrollView) {
+    open func scrollViewDidZoom(_ scrollView: UIScrollView) {
         self.updateFrameFor(self.view.frame.size)
         
         //Disable pan gesture if zoom scale is not 1
@@ -44,7 +44,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             let index = self.currentPhotoIndex
             // Method to override
@@ -55,7 +55,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let index = self.currentPhotoIndex
         // Method to override
         didScrollToPhoto(at: index)
