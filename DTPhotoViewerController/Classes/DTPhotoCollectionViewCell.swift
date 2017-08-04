@@ -18,7 +18,7 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
     public private(set) var scrollView: DTScrollView!
     public private(set) var imageView: UIImageView!
     
-    var delegate: DTPhotoCollectionViewCellDelegate?
+    weak var delegate: DTPhotoCollectionViewCellDelegate?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
