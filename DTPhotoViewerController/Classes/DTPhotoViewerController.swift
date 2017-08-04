@@ -326,8 +326,16 @@ open class DTPhotoViewerController: UIViewController {
         // Delegate method
         delegate?.photoViewerControllerDidReceiveDoubleTapGesture?(self)
         
-        let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
-        let indexPath = IndexPath(item: index, section: 0)
+        let indexPath: IndexPath
+        
+        if scrollDirection == .horizontal {
+            let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
+            indexPath = IndexPath(item: index, section: 0)
+        }
+        else {
+            let index = Int(scrollView.contentOffset.y / scrollView.bounds.size.height)
+            indexPath = IndexPath(item: index, section: 0)
+        }
         
         if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
             // Double tap
@@ -552,10 +560,18 @@ extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
 extension DTPhotoViewerController: UICollectionViewDataSource {
     //MARK: Public methods
     public var currentPhotoIndex: Int {
-        if scrollView.frame.width == 0 {
-            return 0
+        if scrollDirection == .horizontal {
+            if scrollView.frame.width == 0 {
+                return 0
+            }
+            return Int(scrollView.contentOffset.x / scrollView.frame.width)
         }
-        return Int(scrollView.contentOffset.x / scrollView.frame.width)
+        else {
+            if scrollView.frame.height == 0 {
+                return 0
+            }
+            return Int(scrollView.contentOffset.y / scrollView.frame.height)
+        }
     }
     
     public var zoomScale: CGFloat {
