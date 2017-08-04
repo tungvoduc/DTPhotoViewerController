@@ -7,137 +7,68 @@
 //
 
 import UIKit
+import AVKit
+import Photos
 
 extension UIImage {
-    public class func likeIconSolid(size: CGSize, color fillColor: UIColor!) -> UIImage {
-        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-        
-        //PaintCode here
-        //// Subframes
-        let subframe: CGRect = CGRect(x: frame.minX + floor(frame.width * 0.01000 + 0.32) + 0.18, y: frame.minY + floor(frame.height * 0.04333 - 0.28) + 0.78, width: floor(frame.width * 0.99000 - 0.32) - floor(frame.width * 0.01000 + 0.32) + 0.64, height: floor(frame.height * 0.95667 + 0.28) - floor(frame.height * 0.04333 - 0.28) - 0.56)
-        
-        
-        //// subframe
-        //// Group 2
-        //// Bezier Drawing
-        let bezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: subframe.minX + 1.00000 * subframe.width, y: subframe.minY + 0.29015 * subframe.height))
-        bezierPath.addCurve(to: CGPoint(x: subframe.minX + 0.51814 * subframe.width, y: subframe.minY + 0.99148 * subframe.height), controlPoint1: CGPoint(x: subframe.minX + 1.00000 * subframe.width, y: subframe.minY + 0.48540 * subframe.height), controlPoint2: CGPoint(x: subframe.minX + 0.75283 * subframe.width, y: subframe.minY + 0.83698 * subframe.height))
-        bezierPath.addLine(to: CGPoint(x: subframe.minX + 0.50000 * subframe.width, y: subframe.minY + 1.00000 * subframe.height))
-        bezierPath.addLine(to: CGPoint(x: subframe.minX + 0.48186 * subframe.width, y: subframe.minY + 0.99148 * subframe.height))
-        bezierPath.addCurve(to: CGPoint(x: subframe.minX + 0.00000 * subframe.width, y: subframe.minY + 0.29015 * subframe.height), controlPoint1: CGPoint(x: subframe.minX + 0.24717 * subframe.width, y: subframe.minY + 0.83698 * subframe.height), controlPoint2: CGPoint(x: subframe.minX + 0.00000 * subframe.width, y: subframe.minY + 0.48540 * subframe.height))
-        bezierPath.addCurve(to: CGPoint(x: subframe.minX + 0.27268 * subframe.width, y: subframe.minY + -0.00000 * subframe.height), controlPoint1: CGPoint(x: subframe.minX + 0.00057 * subframe.width, y: subframe.minY + 0.13017 * subframe.height), controlPoint2: CGPoint(x: subframe.minX + 0.12302 * subframe.width, y: subframe.minY + -0.00000 * subframe.height))
-        bezierPath.addCurve(to: CGPoint(x: subframe.minX + 0.50000 * subframe.width, y: subframe.minY + 0.13078 * subframe.height), controlPoint1: CGPoint(x: subframe.minX + 0.36735 * subframe.width, y: subframe.minY + -0.00000 * subframe.height), controlPoint2: CGPoint(x: subframe.minX + 0.45125 * subframe.width, y: subframe.minY + 0.05231 * subframe.height))
-        bezierPath.addCurve(to: CGPoint(x: subframe.minX + 0.72732 * subframe.width, y: subframe.minY + -0.00000 * subframe.height), controlPoint1: CGPoint(x: subframe.minX + 0.54875 * subframe.width, y: subframe.minY + 0.05231 * subframe.height), controlPoint2: CGPoint(x: subframe.minX + 0.63265 * subframe.width, y: subframe.minY + -0.00000 * subframe.height))
-        bezierPath.addCurve(to: CGPoint(x: subframe.minX + 1.00000 * subframe.width, y: subframe.minY + 0.29015 * subframe.height), controlPoint1: CGPoint(x: subframe.minX + 0.87698 * subframe.width, y: subframe.minY + -0.00000 * subframe.height), controlPoint2: CGPoint(x: subframe.minX + 0.99943 * subframe.width, y: subframe.minY + 0.13017 * subframe.height))
-        bezierPath.close()
-        bezierPath.miterLimit = 4;
-        
-        fillColor.setFill()
-        bezierPath.fill()
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
     
-    public class func likeIconLine(size: CGSize, color fillColor: UIColor!) -> UIImage {
-        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+    public class func preferredImageSize(for size: CGSize, with aspectRatio: CGFloat) -> CGSize {
+        guard aspectRatio != 1.0 else {
+            return CGSize(width: size.height, height: size.height)
+        }
         
-        //PaintCode here
-        //// Bezier Drawing
-        let bezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: frame.minX + 0.51789 * frame.width, y: frame.minY + 0.94856 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.49994 * frame.width, y: frame.minY + 0.95644 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.48206 * frame.width, y: frame.minY + 0.94856 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.01000 * frame.width, y: frame.minY + 0.30794 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.25189 * frame.width, y: frame.minY + 0.80750 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.01000 * frame.width, y: frame.minY + 0.48633 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.27728 * frame.width, y: frame.minY + 0.04333 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.01078 * frame.width, y: frame.minY + 0.16189 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.13039 * frame.width, y: frame.minY + 0.04333 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.16250 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.37011 * frame.width, y: frame.minY + 0.04333 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.45206 * frame.width, y: frame.minY + 0.09072 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.72272 * frame.width, y: frame.minY + 0.04333 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.54789 * frame.width, y: frame.minY + 0.09072 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.62989 * frame.width, y: frame.minY + 0.04333 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.99006 * frame.width, y: frame.minY + 0.30794 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.86967 * frame.width, y: frame.minY + 0.04333 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.98922 * frame.width, y: frame.minY + 0.16189 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.51789 * frame.width, y: frame.minY + 0.94856 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.98994 * frame.width, y: frame.minY + 0.48633 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.74800 * frame.width, y: frame.minY + 0.80750 * frame.height))
-        bezierPath.close()
-        bezierPath.move(to: CGPoint(x: frame.minX + 0.72267 * frame.width, y: frame.minY + 0.08772 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.53706 * frame.width, y: frame.minY + 0.18706 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.64794 * frame.width, y: frame.minY + 0.08772 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.57861 * frame.width, y: frame.minY + 0.12483 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.49994 * frame.width, y: frame.minY + 0.24256 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.46289 * frame.width, y: frame.minY + 0.18700 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.27728 * frame.width, y: frame.minY + 0.08767 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.42133 * frame.width, y: frame.minY + 0.12478 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.35194 * frame.width, y: frame.minY + 0.08767 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.05456 * frame.width, y: frame.minY + 0.30794 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.15517 * frame.width, y: frame.minY + 0.08767 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.05522 * frame.width, y: frame.minY + 0.18661 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.90744 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.05456 * frame.width, y: frame.minY + 0.46528 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.28250 * frame.width, y: frame.minY + 0.77133 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.94544 * frame.width, y: frame.minY + 0.30822 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.71750 * frame.width, y: frame.minY + 0.77139 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.94544 * frame.width, y: frame.minY + 0.46533 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.72267 * frame.width, y: frame.minY + 0.08772 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.94472 * frame.width, y: frame.minY + 0.18661 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.84478 * frame.width, y: frame.minY + 0.08772 * frame.height))
-        bezierPath.close()
-        bezierPath.miterLimit = 4;
+        let widthDifference = abs(size.width - size.height * aspectRatio) // /
+        let heightDiffence = abs(size.height - size.width / aspectRatio)  // *
         
-        fillColor.setFill()
-        bezierPath.fill()
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return image
+        if (widthDifference < heightDiffence) {
+            return CGSize(width: size.height * aspectRatio, height: size.height)
+        } else if (widthDifference > heightDiffence) {
+            return CGSize(width: size.width, height: size.width / aspectRatio)
+        } else {
+            // If can not determine which difference is greater then the returned size should be based on the specified height
+            return CGSize(width: heightDiffence * aspectRatio, height: size.height)
+        }
     }
-    
-    //Size 1 x 1
-    public class func commentIcon(size: CGSize, color fillColor: UIColor!) -> UIImage {
-        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-        
-        //PaintCode here
-        //// Bezier Drawing
-        let bezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: frame.minX + 0.85714 * frame.width, y: frame.minY + 0.00000 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.14286 * frame.width, y: frame.minY + 0.00000 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.14286 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.06429 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.06429 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.64286 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.14286 * frame.width, y: frame.minY + 0.78571 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.72143 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.06429 * frame.width, y: frame.minY + 0.78571 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.21429 * frame.width, y: frame.minY + 0.78571 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.21429 * frame.width, y: frame.minY + 0.92857 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.28571 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.21429 * frame.width, y: frame.minY + 0.97543 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.25500 * frame.width, y: frame.minY + 1.00000 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.35714 * frame.width, y: frame.minY + 0.96314 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.31086 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.32479 * frame.width, y: frame.minY + 0.99164 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.57143 * frame.width, y: frame.minY + 0.78571 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.85714 * frame.width, y: frame.minY + 0.78571 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.64286 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.93571 * frame.width, y: frame.minY + 0.78571 * frame.height), controlPoint2: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.72143 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.14286 * frame.height))
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.85714 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.06429 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.93571 * frame.width, y: frame.minY + 0.00000 * frame.height))
-        bezierPath.close()
-        bezierPath.miterLimit = 4;
-        
-        fillColor.setFill()
-        bezierPath.fill()
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-    
-    //More action icon 320x64
+}
+
+extension UIImage {
+    /// More action icon. Aspect ratio 4:1
     public class func moreIcon(size: CGSize, color fillColor: UIColor!) -> UIImage {
-        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let aspectRatio: CGFloat = 4.0
+        let preferredSize = UIImage.preferredImageSize(for: size, with: aspectRatio)
+        let frame = CGRect(x: 0, y: 0, width: preferredSize.width, height: preferredSize.height)
+        
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
         
         //PaintCode here
-        //// frame
-        //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + floor(frame.width * 0.39925 - 0.1) + 0.6, y: frame.minY + floor(frame.height * 0.00000 + 0.5), width: floor(frame.width * 0.59950 - 0.1) - floor(frame.width * 0.39925 - 0.1), height: floor(frame.height * 1.00000 + 0.5) - floor(frame.height * 0.00000 + 0.5)))
+        let morePath = UIBezierPath()
+        morePath.move(to: CGPoint(x: frame.minX + 0.12500 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.addLine(to: CGPoint(x: frame.minX + 0.12500 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.25000 * frame.width, y: frame.minY + 0.50000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.19404 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.25000 * frame.width, y: frame.minY + 0.22386 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.12500 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.25000 * frame.width, y: frame.minY + 0.77614 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.19404 * frame.width, y: frame.minY + 1.00000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.50000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.05596 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.77614 * frame.height))
+        morePath.addLine(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.50000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.12500 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.22386 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.05596 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.close()
+        morePath.move(to: CGPoint(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.addLine(to: CGPoint(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.62500 * frame.width, y: frame.minY + 0.50000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.56904 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.62500 * frame.width, y: frame.minY + 0.22386 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.62500 * frame.width, y: frame.minY + 0.77614 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.56904 * frame.width, y: frame.minY + 1.00000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.37500 * frame.width, y: frame.minY + 0.50000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.43096 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.37500 * frame.width, y: frame.minY + 0.77614 * frame.height))
+        morePath.addLine(to: CGPoint(x: frame.minX + 0.37500 * frame.width, y: frame.minY + 0.50000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.37500 * frame.width, y: frame.minY + 0.22386 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.43096 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.close()
+        morePath.move(to: CGPoint(x: frame.minX + 0.87500 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.addLine(to: CGPoint(x: frame.minX + 0.87500 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.50000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.94404 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.22386 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.87500 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.77614 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.94404 * frame.width, y: frame.minY + 1.00000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.75000 * frame.width, y: frame.minY + 0.50000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.80596 * frame.width, y: frame.minY + 1.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.75000 * frame.width, y: frame.minY + 0.77614 * frame.height))
+        morePath.addLine(to: CGPoint(x: frame.minX + 0.75000 * frame.width, y: frame.minY + 0.50000 * frame.height))
+        morePath.addCurve(to: CGPoint(x: frame.minX + 0.87500 * frame.width, y: frame.minY + 0.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.75000 * frame.width, y: frame.minY + 0.22386 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.80596 * frame.width, y: frame.minY + 0.00000 * frame.height))
+        morePath.close()
+        morePath.usesEvenOddFillRule = true
         fillColor.setFill()
-        ovalPath.fill()
-        
-        
-        //// Oval 2 Drawing
-        let oval2Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + floor(frame.width * 0.00000 + 0.5), y: frame.minY + floor(frame.height * 0.00000 + 0.5), width: floor(frame.width * 0.20025 + 0.5) - floor(frame.width * 0.00000 + 0.5), height: floor(frame.height * 1.00000 + 0.5) - floor(frame.height * 0.00000 + 0.5)))
-        fillColor.setFill()
-        oval2Path.fill()
-        
-        
-        //// Oval 3 Drawing
-        let oval3Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + floor(frame.width * 0.79975 - 0.1) + 0.6, y: frame.minY + floor(frame.height * 0.00000 + 0.5), width: floor(frame.width * 1.00000 - 0.1) - floor(frame.width * 0.79975 - 0.1), height: floor(frame.height * 1.00000 + 0.5) - floor(frame.height * 0.00000 + 0.5)))
-        fillColor.setFill()
-        oval3Path.fill()
+        morePath.fill()
         
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
@@ -145,40 +76,44 @@ extension UIImage {
         return image
     }
     
-    //size 13x13
+    /// Cancel X icon. Aspect ratio 1:1
     public class func cancelIcon(size: CGSize, color fillColor : UIColor!) -> UIImage {
-        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let aspectRatio: CGFloat = 1.0
+        let preferredSize = UIImage.preferredImageSize(for: size, with: aspectRatio)
+        let frame = CGRect(x: 0, y: 0, width: preferredSize.width, height: preferredSize.height)
+        
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
         
-        let bounds: CGRect = frame
-        
-        //// cross Drawing
-        let crossPath = UIBezierPath()
-        crossPath.move(to: CGPoint(x: bounds.minX + 0.97466 * bounds.width, y: bounds.minY + 0.85227 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.97466 * bounds.width, y: bounds.minY + 0.97465 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 1.00845 * bounds.width, y: bounds.minY + 0.88606 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 1.00845 * bounds.width, y: bounds.minY + 0.94087 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.91347 * bounds.width, y: bounds.minY + 1.00000 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 0.95775 * bounds.width, y: bounds.minY + 0.99156 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 0.93562 * bounds.width, y: bounds.minY + 1.00000 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.85227 * bounds.width, y: bounds.minY + 0.97465 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 0.89131 * bounds.width, y: bounds.minY + 1.00000 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 0.86918 * bounds.width, y: bounds.minY + 0.99156 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.50000 * bounds.width, y: bounds.minY + 0.62238 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.14773 * bounds.width, y: bounds.minY + 0.97465 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.08653 * bounds.width, y: bounds.minY + 1.00000 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 0.13082 * bounds.width, y: bounds.minY + 0.99156 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 0.10869 * bounds.width, y: bounds.minY + 1.00000 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.02534 * bounds.width, y: bounds.minY + 0.97465 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 0.06438 * bounds.width, y: bounds.minY + 1.00000 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 0.04225 * bounds.width, y: bounds.minY + 0.99156 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.02534 * bounds.width, y: bounds.minY + 0.85227 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + -0.00845 * bounds.width, y: bounds.minY + 0.94087 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + -0.00845 * bounds.width, y: bounds.minY + 0.88606 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.37761 * bounds.width, y: bounds.minY + 0.50000 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.02534 * bounds.width, y: bounds.minY + 0.14773 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.02534 * bounds.width, y: bounds.minY + 0.02534 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + -0.00845 * bounds.width, y: bounds.minY + 0.11394 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + -0.00845 * bounds.width, y: bounds.minY + 0.05913 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.14773 * bounds.width, y: bounds.minY + 0.02534 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 0.05915 * bounds.width, y: bounds.minY + -0.00845 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 0.11392 * bounds.width, y: bounds.minY + -0.00845 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.50000 * bounds.width, y: bounds.minY + 0.37761 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.85227 * bounds.width, y: bounds.minY + 0.02534 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.97466 * bounds.width, y: bounds.minY + 0.02534 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 0.88608 * bounds.width, y: bounds.minY + -0.00845 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 0.94085 * bounds.width, y: bounds.minY + -0.00845 * bounds.height))
-        crossPath.addCurve(to: CGPoint(x: bounds.minX + 0.97466 * bounds.width, y: bounds.minY + 0.14773 * bounds.height), controlPoint1: CGPoint(x: bounds.minX + 1.00845 * bounds.width, y: bounds.minY + 0.05913 * bounds.height), controlPoint2: CGPoint(x: bounds.minX + 1.00845 * bounds.width, y: bounds.minY + 0.11394 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.62239 * bounds.width, y: bounds.minY + 0.50000 * bounds.height))
-        crossPath.addLine(to: CGPoint(x: bounds.minX + 0.97466 * bounds.width, y: bounds.minY + 0.85227 * bounds.height))
-        crossPath.close()
-        crossPath.miterLimit = 4;
-        
-        crossPath.usesEvenOddFillRule = true;
+        /// Bezier Drawing
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: frame.minX + 0.08337 * frame.width, y: frame.minY + 0.99873 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.08334 * frame.width, y: frame.minY + 0.99873 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.91546 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.03731 * frame.width, y: frame.minY + 0.99873 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.96145 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.02441 * frame.width, y: frame.minY + 0.85658 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.89338 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.00878 * frame.width, y: frame.minY + 0.87220 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.38352 * frame.width, y: frame.minY + 0.49754 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.03062 * frame.width, y: frame.minY + 0.14184 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.03102 * frame.width, y: frame.minY + 0.14227 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.03308 * frame.width, y: frame.minY + 0.02457 * frame.height), controlPoint1: CGPoint(x: frame.minX + -0.00094 * frame.width, y: frame.minY + 0.10920 * frame.height), controlPoint2: CGPoint(x: frame.minX + -0.00002 * frame.width, y: frame.minY + 0.05651 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.14881 * frame.width, y: frame.minY + 0.02457 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.06536 * frame.width, y: frame.minY + -0.00658 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.11653 * frame.width, y: frame.minY + -0.00658 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.50126 * frame.width, y: frame.minY + 0.37985 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.85673 * frame.width, y: frame.minY + 0.02437 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.85673 * frame.width, y: frame.minY + 0.02437 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.97451 * frame.width, y: frame.minY + 0.02437 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.88925 * frame.width, y: frame.minY + -0.00812 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.94198 * frame.width, y: frame.minY + -0.00812 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.97451 * frame.width, y: frame.minY + 0.14206 * frame.height), controlPoint1: CGPoint(x: frame.minX + 1.00703 * frame.width, y: frame.minY + 0.05687 * frame.height), controlPoint2: CGPoint(x: frame.minX + 1.00703 * frame.width, y: frame.minY + 0.10956 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.61868 * frame.width, y: frame.minY + 0.49797 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.97451 * frame.width, y: frame.minY + 0.85683 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.97456 * frame.width, y: frame.minY + 0.85689 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.97662 * frame.width, y: frame.minY + 0.97458 * frame.height), controlPoint1: CGPoint(x: frame.minX + 1.00766 * frame.width, y: frame.minY + 0.88882 * frame.height), controlPoint2: CGPoint(x: frame.minX + 1.00858 * frame.width, y: frame.minY + 0.94152 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.85883 * frame.width, y: frame.minY + 0.97664 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.94466 * frame.width, y: frame.minY + 1.00765 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.89193 * frame.width, y: frame.minY + 1.00857 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.85678 * frame.width, y: frame.minY + 0.97458 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.85814 * frame.width, y: frame.minY + 0.97597 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.85745 * frame.width, y: frame.minY + 0.97528 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.50079 * frame.width, y: frame.minY + 0.61562 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.14218 * frame.width, y: frame.minY + 0.97420 * frame.height))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.14188 * frame.width, y: frame.minY + 0.97450 * frame.height))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.08337 * frame.width, y: frame.minY + 0.99873 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.12635 * frame.width, y: frame.minY + 0.99002 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.10533 * frame.width, y: frame.minY + 0.99873 * frame.height))
+        bezierPath.close()
+        bezierPath.usesEvenOddFillRule = true
         fillColor.setFill()
-        crossPath.fill()
+        bezierPath.fill()
         
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
