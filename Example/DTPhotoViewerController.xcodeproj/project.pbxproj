@@ -13,7 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		847821EE1E2EE37400B6647D /* BDFPostPhotoViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821EB1E2EE37400B6647D /* BDFPostPhotoViewerController.swift */; };
+		847821EE1E2EE37400B6647D /* BDFSimplePhotoViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821EB1E2EE37400B6647D /* BDFSimplePhotoViewerController.swift */; };
 		847821F21E2EE61C00B6647D /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847821F11E2EE61B00B6647D /* UIImage.swift */; };
 		99035F1073305A5E032B5608 /* Pods_DTPhotoViewerController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 243E96D0DAF9A08CD2115585 /* Pods_DTPhotoViewerController_Tests.framework */; };
 		D3AB96A5994F02412B90F81F /* Pods_DTPhotoViewerController_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A7DAFCC6F787B08EC2D096 /* Pods_DTPhotoViewerController_Example.framework */; };
@@ -46,7 +46,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		82A3A84497E82055E136115F /* DTPhotoViewerController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DTPhotoViewerController.podspec; path = ../DTPhotoViewerController.podspec; sourceTree = "<group>"; };
-		847821EB1E2EE37400B6647D /* BDFPostPhotoViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDFPostPhotoViewerController.swift; sourceTree = "<group>"; };
+		847821EB1E2EE37400B6647D /* BDFSimplePhotoViewerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDFSimplePhotoViewerController.swift; sourceTree = "<group>"; };
 		847821F11E2EE61B00B6647D /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		A0C9CDA8CC76BE530C125324 /* Pods-DTPhotoViewerController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTPhotoViewerController_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DTPhotoViewerController_Tests/Pods-DTPhotoViewerController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A26FE45B3842A77A3C62C402 /* Pods-DTPhotoViewerController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTPhotoViewerController_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-DTPhotoViewerController_Example/Pods-DTPhotoViewerController_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				847821EB1E2EE37400B6647D /* BDFPostPhotoViewerController.swift */,
+				847821EB1E2EE37400B6647D /* BDFSimplePhotoViewerController.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				847821F11E2EE61B00B6647D /* UIImage.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -372,7 +372,7 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				847821F21E2EE61C00B6647D /* UIImage.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				847821EE1E2EE37400B6647D /* BDFPostPhotoViewerController.swift in Sources */,
+				847821EE1E2EE37400B6647D /* BDFSimplePhotoViewerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
