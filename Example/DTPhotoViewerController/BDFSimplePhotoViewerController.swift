@@ -14,6 +14,10 @@ private var kElementHeight: CGFloat { return 40 }
 private var kElementWidth: CGFloat  { return 50 }
 private var kElementBottomMargin: CGFloat  { return 10 }
 
+protocol BDFSimplePhotoViewerControllerDelegate: DTPhotoViewerControllerDelegate {
+    func simplePhotoViewerController(_ viewController: BDFSimplePhotoViewerController, savePhotoAt index: Int)
+}
+
 class BDFSimplePhotoViewerController: DTPhotoViewerController {
     lazy var cancelButton: UIButton = {
         let cancelButton = UIButton(frame: CGRect.zero)
@@ -75,8 +79,8 @@ class BDFSimplePhotoViewerController: DTPhotoViewerController {
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         let saveButton = UIAlertAction(title: "Save", style: UIAlertActionStyle.default) { (_) in
             // Save photo to Camera roll
-            if let image = self.imageView.image {
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            if let delegate = self.delegate as? BDFSimplePhotoViewerControllerDelegate {
+                delegate.simplePhotoViewerController(self, savePhotoAt: self.currentPhotoIndex)
             }
         }
         alertController.addAction(saveButton)
