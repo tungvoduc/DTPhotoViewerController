@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/DTPhotoViewerController.svg?style=flat)](http://cocoapods.org/pods/DTPhotoViewerController)
 
 ## Example
-![Screenshot](example.gif)
+![Screenshot](demo.gif)
 
 Demo video: https://youtu.be/aTLx4M4zsKk
 
