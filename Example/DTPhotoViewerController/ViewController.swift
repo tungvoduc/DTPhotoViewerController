@@ -37,6 +37,8 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         self.collectionView?.register(CollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellIdentifier)
     }
     
+    override var prefersStatusBarHidden: Bool { return true }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -87,7 +89,7 @@ extension ViewController: DTPhotoViewerControllerDataSource {
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, configureCell cell: DTPhotoCollectionViewCell, forPhotoAt index: Int) {
         // Set text for each item
         if let cell = cell as? CustomPhotoCollectionViewCell {
-            cell.extraLabel.text = "No \(index + 1)"
+            cell.extraLabel.text = "Index \(index)"
         }
     }
     
@@ -110,9 +112,13 @@ extension ViewController: DTPhotoViewerControllerDataSource {
 }
 
 //MARK: DTPhotoViewerControllerDelegate
-extension ViewController: DTPhotoViewerControllerDelegate {
+extension ViewController: BDFSimplePhotoViewerControllerDelegate {
     func photoViewerControllerDidEndPresentingAnimation(_ photoViewerController: DTPhotoViewerController) {
         photoViewerController.scrollToPhoto(at: selectedImageIndex, animated: false)
+    }
+    
+    func simplePhotoViewerController(_ viewController: BDFSimplePhotoViewerController, savePhotoAt index: Int) {
+        UIImageWriteToSavedPhotosAlbum(images[index], nil, nil, nil)
     }
 }
 
