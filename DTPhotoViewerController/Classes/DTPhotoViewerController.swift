@@ -311,7 +311,7 @@ open class DTPhotoViewerController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func _handleTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc func _handleTapGesture(_ gesture: UITapGestureRecognizer) {
         // Method to override
         didReceiveTapGesture()
         
@@ -319,7 +319,7 @@ open class DTPhotoViewerController: UIViewController {
         delegate?.photoViewerControllerDidReceiveTapGesture?(self)
     }
     
-    func _handleDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc func _handleDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
         // Method to override
         didReceiveDoubleTapGesture()
         
@@ -405,7 +405,7 @@ open class DTPhotoViewerController: UIViewController {
         return zoomRect
     }
     
-    func _handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+    @objc func _handlePanGesture(_ gesture: UIPanGestureRecognizer) {
         if let gestureView = gesture.view {
             switch gesture.state {
             case .began:
@@ -542,6 +542,44 @@ open class DTPhotoViewerController: UIViewController {
         if automaticallyUpdateReferencedViewVisibility {
             referencedView?.isHidden = false
         }
+    }
+    
+    
+    //MARK: Public behavior methods
+    open func didScrollToPhoto(at index: Int) {
+        
+    }
+    
+    open func didZoomOnPhoto(at index: Int, atScale scale: CGFloat) {
+        
+    }
+    
+    open func didEndZoomingOnPhoto(at index: Int, atScale scale: CGFloat) {
+        
+    }
+    
+    open func willZoomOnPhoto(at index: Int) {
+        
+    }
+    
+    open func didReceiveTapGesture() {
+        
+    }
+    
+    open func didReceiveDoubleTapGesture() {
+        
+    }
+    
+    open func willBegin(panGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
+        
+    }
+    
+    open func didEnd(panGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
+        
+    }
+    
+    open func didEndPresentingAnimation() {
+        
     }
 }
 
@@ -688,45 +726,6 @@ extension DTPhotoViewerController {
         return indexes.map() {
             IndexPath(item: $0, section: 0)
         }
-    }
-}
-
-//MARK: Public behavior methods
-extension DTPhotoViewerController {
-    open func didScrollToPhoto(at index: Int) {
-        
-    }
-    
-    open func didZoomOnPhoto(at index: Int, atScale scale: CGFloat) {
-        
-    }
-    
-    open func didEndZoomingOnPhoto(at index: Int, atScale scale: CGFloat) {
-        
-    }
-    
-    open func willZoomOnPhoto(at index: Int) {
-        
-    }
-    
-    open func didReceiveTapGesture() {
-        
-    }
-    
-    open func didReceiveDoubleTapGesture() {
-        
-    }
-    
-    open func willBegin(panGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
-        
-    }
-    
-    open func didEnd(panGestureRecognizer gestureRecognizer: UIPanGestureRecognizer) {
-        
-    }
-    
-    open func didEndPresentingAnimation() {
-        
     }
 }
 
