@@ -15,7 +15,7 @@ private let kDamping: CGFloat = 0.75
 /// If you wish to provide a custom transition animator, you just need to create a new class
 /// that conforms this protocol and assign
 ///
-public protocol DTPhotoViewerBaseAnimator: NSObjectProtocol, UIViewControllerAnimatedTransitioning {
+public protocol DTPhotoViewerBaseAnimator: UIViewControllerAnimatedTransitioning {
     var presentingDuration: TimeInterval {get set}
     var dismissingDuration: TimeInterval {get set}
     var spring: Bool { get set }
