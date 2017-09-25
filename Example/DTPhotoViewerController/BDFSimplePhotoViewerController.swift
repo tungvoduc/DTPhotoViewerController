@@ -88,7 +88,7 @@ class BDFSimplePhotoViewerController: DTPhotoViewerController {
         
     }
     
-    func cancelButtonTapped(_ sender: UIButton) {
+    @objc func cancelButtonTapped(_ sender: UIButton) {
         hideInfoOverlayView(false)
         dismiss(animated: true, completion: nil)
     }
@@ -128,27 +128,11 @@ class BDFSimplePhotoViewerController: DTPhotoViewerController {
         cancelButton.alpha = alpha
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-}
-
-/// These methods should not be overridden
-/// If they are overridden, super should always be called for correct implementation.
-extension BDFSimplePhotoViewerController {
     override func didReceiveTapGesture() {
         reverseInfoOverlayViewDisplayStatus()
     }
     
-    override func willZoomOnPhoto(at index: Int) {
+    @objc override func willZoomOnPhoto(at index: Int) {
         hideInfoOverlayView(false)
     }
     
@@ -181,6 +165,17 @@ extension BDFSimplePhotoViewerController {
             }
         }
     }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 class CustomPhotoCollectionViewCell: DTPhotoCollectionViewCell {
