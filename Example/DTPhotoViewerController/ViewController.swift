@@ -117,6 +117,10 @@ extension ViewController: BDFSimplePhotoViewerControllerDelegate {
         photoViewerController.scrollToPhoto(at: selectedImageIndex, animated: false)
     }
     
+    func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToPhotoAt index: Int) {
+        selectedImageIndex = index
+    }
+    
     func simplePhotoViewerController(_ viewController: BDFSimplePhotoViewerController, savePhotoAt index: Int) {
         UIImageWriteToSavedPhotosAlbum(images[index], nil, nil, nil)
     }
