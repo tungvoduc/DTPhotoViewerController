@@ -1,5 +1,5 @@
 //
-//  BDFSimplePhotoViewerController.swift
+//  SimplePhotoViewerController.swift
 //  DTPhotoViewerController
 //
 //  Created by Admin on 01/10/16.
@@ -14,11 +14,11 @@ private var kElementHeight: CGFloat { return 40 }
 private var kElementWidth: CGFloat  { return 50 }
 private var kElementBottomMargin: CGFloat  { return 10 }
 
-protocol BDFSimplePhotoViewerControllerDelegate: DTPhotoViewerControllerDelegate {
-    func simplePhotoViewerController(_ viewController: BDFSimplePhotoViewerController, savePhotoAt index: Int)
+protocol SimplePhotoViewerControllerDelegate: DTPhotoViewerControllerDelegate {
+    func simplePhotoViewerController(_ viewController: SimplePhotoViewerController, savePhotoAt index: Int)
 }
 
-class BDFSimplePhotoViewerController: DTPhotoViewerController {
+class SimplePhotoViewerController: DTPhotoViewerController {
     lazy var cancelButton: UIButton = {
         let cancelButton = UIButton(frame: CGRect.zero)
         cancelButton.setImage(UIImage.cancelIcon(size: CGSize(width: 15, height: 15), color: UIColor.white), for: UIControlState())
@@ -39,7 +39,7 @@ class BDFSimplePhotoViewerController: DTPhotoViewerController {
     }()
     
     deinit {
-        print("BDFSimplePhotoViewerController deinit")
+        print("SimplePhotoViewerController deinit")
     }
     
     override func viewDidLoad() {
@@ -79,7 +79,7 @@ class BDFSimplePhotoViewerController: DTPhotoViewerController {
         alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         let saveButton = UIAlertAction(title: "Save", style: UIAlertActionStyle.default) { (_) in
             // Save photo to Camera roll
-            if let delegate = self.delegate as? BDFSimplePhotoViewerControllerDelegate {
+            if let delegate = self.delegate as? SimplePhotoViewerControllerDelegate {
                 delegate.simplePhotoViewerController(self, savePhotoAt: self.currentPhotoIndex)
             }
         }
