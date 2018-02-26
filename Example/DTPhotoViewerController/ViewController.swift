@@ -35,9 +35,21 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         self.collectionView?.register(CollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellIdentifier)
+        
+        if #available(iOS 11.0, *) {
+            collectionView?.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        
+        title = "Example"
     }
     
-    override var prefersStatusBarHidden: Bool { return true }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        collectionViewLayout.invalidateLayout()
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -67,7 +79,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let width = collectionView.frame.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * CGFloat(kNumberOfRows - 1)
-        let itemSize = width/CGFloat(kNumberOfRows)
+        let itemSize = floor(width/CGFloat(kNumberOfRows))
         return CGSize(width: itemSize, height: itemSize)
     }
     
