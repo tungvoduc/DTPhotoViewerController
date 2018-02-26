@@ -146,6 +146,12 @@ open class DTPhotoViewerController: UIViewController {
             
             modalPresentationStyle = UIModalPresentationStyle.overFullScreen
             modalPresentationCapturesStatusBarAppearance = true
+            
+            if #available(iOS 11.0, *) {
+                collectionView.contentInsetAdjustmentBehavior = .never
+            } else {
+                automaticallyAdjustsScrollViewInsets = false
+            }
         }
         else {
             return nil
