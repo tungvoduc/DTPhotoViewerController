@@ -415,6 +415,10 @@ open class DTPhotoViewerController: UIViewController {
         if let gestureView = gesture.view {
             switch gesture.state {
             case .began:
+                
+                // Delegate method
+                delegate?.photoViewerController?(self, willBeginPanGestureRecognizer: panGestureRecognizer)
+                
                 // Update image view when starting to drag
                 updateImageView(scrollView: scrollView)
                 
@@ -429,9 +433,6 @@ open class DTPhotoViewerController: UIViewController {
                 
                 // Method to override
                 willBegin(panGestureRecognizer: panGestureRecognizer)
-                
-                // Delegate method
-                delegate?.photoViewerController?(self, willBeginPanGestureRecognizer: panGestureRecognizer)
                 
             case .changed:
                 let translation = gesture.translation(in: gestureView)
