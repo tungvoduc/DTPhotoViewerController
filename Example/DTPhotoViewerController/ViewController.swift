@@ -75,7 +75,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         selectedImageIndex = indexPath.row
         
         if let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell {
-            if let viewController = BDFSimplePhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
+            if let viewController = SimplePhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
                 viewController.dataSource = self
                 viewController.delegate = self
                 self.present(viewController, animated: true, completion: nil)
@@ -112,16 +112,25 @@ extension ViewController: DTPhotoViewerControllerDataSource {
 }
 
 //MARK: DTPhotoViewerControllerDelegate
-extension ViewController: BDFSimplePhotoViewerControllerDelegate {
+extension ViewController: SimplePhotoViewerControllerDelegate {
     func photoViewerControllerDidEndPresentingAnimation(_ photoViewerController: DTPhotoViewerController) {
         photoViewerController.scrollToPhoto(at: selectedImageIndex, animated: false)
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToPhotoAt index: Int) {
         selectedImageIndex = index
+        if let collectionView = collectionView {
+            let indexPath = IndexPath(item: selectedImageIndex, section: 0)
+            
+            // If cell for selected index path is not visible
+            if !collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                // Scroll to make cell visible
+                collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+            }
+        }
     }
     
-    func simplePhotoViewerController(_ viewController: BDFSimplePhotoViewerController, savePhotoAt index: Int) {
+    func simplePhotoViewerController(_ viewController: SimplePhotoViewerController, savePhotoAt index: Int) {
         UIImageWriteToSavedPhotosAlbum(images[index], nil, nil, nil)
     }
 }
