@@ -119,6 +119,15 @@ extension ViewController: SimplePhotoViewerControllerDelegate {
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToPhotoAt index: Int) {
         selectedImageIndex = index
+        if let collectionView = collectionView {
+            let indexPath = IndexPath(item: selectedImageIndex, section: 0)
+            
+            // If cell for selected index path is not visible
+            if !collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                // Scroll to make cell visible
+                collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+            }
+        }
     }
     
     func simplePhotoViewerController(_ viewController: SimplePhotoViewerController, savePhotoAt index: Int) {
