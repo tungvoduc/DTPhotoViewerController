@@ -57,21 +57,12 @@ class SimplePhotoViewerController: DTPhotoViewerController {
         
         let y = bottomButtonsVerticalPosition()
         
-        let insets: UIEdgeInsets
-        
-        if #available(iOS 11.0, *) {
-            insets = view.safeAreaInsets
-        }
-        else {
-            insets = UIEdgeInsets.zero
-        }
-        
         // Layout subviews
         let buttonHeight: CGFloat = kElementHeight
         let buttonWidth: CGFloat = kElementWidth
         
-        cancelButton.frame = CGRect(origin: CGPoint(x: 20 + insets.left, y: insets.top), size: CGSize(width: buttonWidth, height: buttonHeight))
-        moreButton.frame = CGRect(origin: CGPoint(x: view.bounds.width - buttonWidth - insets.right, y: y - insets.bottom), size: CGSize(width: buttonWidth, height: kElementHeight))
+        cancelButton.frame = CGRect(origin: CGPoint(x: 20, y: 0), size: CGSize(width: buttonWidth, height: buttonHeight))
+        moreButton.frame = CGRect(origin: CGPoint(x: view.bounds.width - buttonWidth, y: y), size: CGSize(width: buttonWidth, height: kElementHeight))
     }
     
     func bottomButtonsVerticalPosition() -> CGFloat {
@@ -212,17 +203,7 @@ class CustomPhotoCollectionViewCell: DTPhotoCollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let insets: UIEdgeInsets
-        
-        if #available(iOS 11.0, *) {
-            insets = safeAreaInsets
-        }
-        else {
-            insets = UIEdgeInsets.zero
-        }
-        
         let width: CGFloat = 70
-        extraLabel.frame = CGRect(x: self.bounds.size.width - width - 20 - insets.right, y: 0, width: width, height: 60)
+        extraLabel.frame = CGRect(x: self.bounds.size.width - width - 20, y: 0, width: width, height: 60)
     }
 }
