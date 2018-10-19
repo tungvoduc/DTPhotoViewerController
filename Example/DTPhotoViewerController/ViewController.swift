@@ -137,7 +137,7 @@ extension ViewController: SimplePhotoViewerControllerDelegate {
             // If cell for selected index path is not visible
             if !collectionView.indexPathsForVisibleItems.contains(indexPath) {
                 // Scroll to make cell visible
-                collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+                collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
             }
         }
     }
