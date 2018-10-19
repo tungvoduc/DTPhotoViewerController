@@ -21,20 +21,20 @@ protocol SimplePhotoViewerControllerDelegate: DTPhotoViewerControllerDelegate {
 class SimplePhotoViewerController: DTPhotoViewerController {
     lazy var cancelButton: UIButton = {
         let cancelButton = UIButton(frame: CGRect.zero)
-        cancelButton.setImage(UIImage.cancelIcon(size: CGSize(width: 15, height: 15), color: UIColor.white), for: UIControlState())
-        cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: UIControlEvents.touchUpInside)
+        cancelButton.setImage(UIImage.cancelIcon(size: CGSize(width: 15, height: 15), color: UIColor.white), for: UIControl.State())
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         cancelButton.contentHorizontalAlignment = .left
-        cancelButton.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        cancelButton.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
         return cancelButton
     }()
     
     lazy var moreButton: UIButton = {
         let moreButton = UIButton(frame: CGRect.zero)
-        moreButton.setImage(UIImage.moreIcon(size: CGSize(width: 16, height: 16), color: UIColor.white), for: UIControlState())
+        moreButton.setImage(UIImage.moreIcon(size: CGSize(width: 16, height: 16), color: UIColor.white), for: UIControl.State())
         moreButton.contentHorizontalAlignment = .right
         moreButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: kElementHorizontalMargin)
-        moreButton.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        moreButton.addTarget(self, action: #selector(moreButtonTapped(_:)), for: UIControlEvents.touchUpInside)
+        moreButton.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        moreButton.addTarget(self, action: #selector(moreButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         return moreButton
     }()
     
@@ -84,9 +84,9 @@ class SimplePhotoViewerController: DTPhotoViewerController {
     }
     
     @IBAction func moreButtonTapped(_ sender: UIButton) {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-        let saveButton = UIAlertAction(title: "Save", style: UIAlertActionStyle.default) { (_) in
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        let saveButton = UIAlertAction(title: "Save", style: UIAlertAction.Style.default) { (_) in
             // Save photo to Camera roll
             if let delegate = self.delegate as? SimplePhotoViewerControllerDelegate {
                 delegate.simplePhotoViewerController(self, savePhotoAt: self.currentPhotoIndex)
