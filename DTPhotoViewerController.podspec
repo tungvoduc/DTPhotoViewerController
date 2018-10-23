@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "DTPhotoViewerController"
-  s.version          = "1.2.1"
+  s.version          = "1.2.2"
   s.summary          = "DTPhotoViewerController provides a Facebook-like photo viewer."
   s.platform 	       = :ios, '10.0'
 # This description is used to generate tags and improve search results.
