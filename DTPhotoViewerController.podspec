@@ -8,9 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = "DTPhotoViewerController"
-  s.version          = "1.2.2"
+  s.version          = "1.2.3"
   s.summary          = "DTPhotoViewerController provides a Facebook-like photo viewer."
-  s.platform 	       = :ios, '10.0'
+  s.platform 	       = :ios, '8.3'
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
@@ -28,7 +28,7 @@ DESC
   s.source           = { :git => "https://github.com/tungvoduc/DTPhotoViewerController.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '8.3'
 
   s.source_files = 'DTPhotoViewerController/Classes/**/*'
  
