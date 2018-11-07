@@ -88,7 +88,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             container.addSubview(toView)
             
             if spring {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIView.AnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
                     photoViewerController.presentingAnimation()
                 }, completion: { (finished) in
@@ -107,7 +107,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             // Layer animation
             if let referencedView = photoViewerController.referencedView {
                 let animation = CABasicAnimation(keyPath: "cornerRadius")
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 animation.fromValue = referencedView.layer.cornerRadius
                 animation.toValue = 0
                 animation.duration = presentingDuration
@@ -116,7 +116,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 
                 // Border color
                 let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderColorAnimation.fromValue = referencedView.layer.borderColor
                 borderColorAnimation.toValue = UIColor.clear.cgColor
                 borderColorAnimation.duration = presentingDuration
@@ -125,7 +125,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 
                 // Border width
                 let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderWidthAnimation.fromValue = referencedView.layer.borderWidth
                 borderWidthAnimation.toValue = 0
                 borderWidthAnimation.duration = presentingDuration
@@ -152,7 +152,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             }
             
             if spring {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIView.AnimationOptions.curveEaseOut, animations: {
                     //Animate image view to the center
                     photoViewerController.dismissingAnimation()
                 }, completion: { (finished) in
@@ -174,7 +174,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             // Layer animation
             if let referencedView = photoViewerController.referencedView {
                 let animation = CABasicAnimation(keyPath: "cornerRadius")
-                animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 animation.fromValue = 0
                 animation.toValue = referencedView.layer.cornerRadius
                 animation.duration = dismissingDuration
@@ -183,7 +183,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 
                 // Border color
                 let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderColorAnimation.fromValue = UIColor.clear.cgColor
                 borderColorAnimation.toValue = referencedView.layer.borderColor
                 borderColorAnimation.duration = dismissingDuration
@@ -192,7 +192,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 
                 // Border width
                 let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderWidthAnimation.fromValue = 0
                 borderWidthAnimation.toValue = referencedView.layer.borderWidth
                 borderWidthAnimation.duration = dismissingDuration
