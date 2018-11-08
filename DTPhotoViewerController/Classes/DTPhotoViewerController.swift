@@ -15,7 +15,7 @@ private let kPhotoCollectionViewCellIdentifier = "Cell"
 open class DTPhotoViewerController: UIViewController {
     /// Scroll direction
     /// Default value is UICollectionViewScrollDirectionVertical
-    public var scrollDirection: UICollectionViewScrollDirection = UICollectionViewScrollDirection.horizontal {
+    public var scrollDirection: UICollectionView.ScrollDirection = UICollectionView.ScrollDirection.horizontal {
         didSet {
             // Update collection view flow layout
             (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = scrollDirection
@@ -706,7 +706,7 @@ extension DTPhotoViewerController {
         if collectionView.numberOfItems(inSection: 0) > index {
             let indexPath = IndexPath(item: index, section: 0)
             
-            let position: UICollectionViewScrollPosition
+            let position: UICollectionView.ScrollPosition
             
             if scrollDirection == .vertical {
                 position = .bottom
