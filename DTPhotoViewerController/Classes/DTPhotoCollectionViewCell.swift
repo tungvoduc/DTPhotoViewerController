@@ -54,13 +54,13 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        scrollView.frame = self.bounds
+        scrollView.frame = bounds
         
         //Set the aspect ration of the image
         if let image = imageView.image {
             let size = image.size
-            let horizontalScale = size.width / self.bounds.width
-            let verticalScale = size.height / self.bounds.height
+            let horizontalScale = size.width / bounds.width
+            let verticalScale = size.height / bounds.height
             let factor = max(horizontalScale, verticalScale)
             
             //Divide the size by the greater of the vertical or horizontal shrinkage factor
@@ -68,10 +68,10 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
             let height = size.height / factor
             
             //Then figure out offset to center vertically or horizontally
-            let x = (self.bounds.width - width) / 2
-            let y = (self.bounds.height - height) / 2
+            let x = (bounds.width - width) / 2
+            let y = (bounds.height - height) / 2
             
-            self.imageView.frame = CGRect(x: x, y: y, width: width, height: height)
+            imageView.frame = CGRect(x: x, y: y, width: width, height: height)
         }
     }
 }
@@ -87,7 +87,7 @@ extension DTPhotoCollectionViewCell: UIScrollViewDelegate {
     }
     
     public func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.updateImageViewFrameForSize(self.frame.size)
+        updateImageViewFrameForSize(frame.size)
         
         delegate?.collectionViewCellDidZoomOnPhoto(self, atScale: scrollView.zoomScale)
     }

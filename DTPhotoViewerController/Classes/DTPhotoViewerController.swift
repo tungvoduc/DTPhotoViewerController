@@ -97,20 +97,20 @@ open class DTPhotoViewerController: UIViewController {
         return collectionView
     }
     
-    /// View that has fading effect during presentation and dismissal animation or when controller is being dragged.
-    public fileprivate(set) var backgroundView: UIView
+    /// View used for fading effect during presentation and dismissal animation or when controller is being dragged.
+    public internal(set) var backgroundView: UIView
     
     /// Pan gesture for dragging controller
-    var panGestureRecognizer: UIPanGestureRecognizer!
+    public internal(set) var panGestureRecognizer: UIPanGestureRecognizer!
     
     /// Double tap gesture
-    var doubleTapGestureRecognizer: UITapGestureRecognizer!
+    public internal(set) var doubleTapGestureRecognizer: UITapGestureRecognizer!
     
     /// Single tap gesture
-    var singleTapGestureRecognizer: UITapGestureRecognizer!
+    public internal(set) var singleTapGestureRecognizer: UITapGestureRecognizer!
     
     fileprivate var _shouldHideStatusBar = false
-    fileprivate var _defaultStatusBarStyle = false
+    fileprivate var _shouldUseStatusBarStyle = false
     
     /// Transition animator
     /// Customizable if you wish to provide your own transitions.
@@ -180,7 +180,7 @@ open class DTPhotoViewerController: UIViewController {
             // imageView is only being visible during presentation or dismissal
             // For that reason, we should not update frame of imageView no matter what.
             if let strongSelf = self, let image = image, strongSelf.imageView.isHidden == true {
-                strongSelf.imageView.frame.size = strongSelf.imageViewSizeForImage(image: image)
+                strongSelf.imageView.frame.size = strongSelf.imageViewSizeForImage(image)
                 strongSelf.imageView.center = strongSelf.view.center
                 
                 // No datasource, only 1 item in collection view --> reloadData
@@ -281,7 +281,7 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     open override var preferredStatusBarStyle : UIStatusBarStyle {
-        if _defaultStatusBarStyle {
+        if _shouldUseStatusBarStyle {
             return statusBarStyleOnPresenting
         }
         return statusBarStyleOnDismissing
@@ -422,11 +422,8 @@ open class DTPhotoViewerController: UIViewController {
                 // Update image view when starting to drag
                 updateImageView(scrollView: scrollView)
                 
-                //Make status bar visible when beginning to drag image view
-                _shouldHideStatusBar = false
-                _defaultStatusBarStyle = false
-                
-                setNeedsStatusBarAppearanceUpdate()
+                // Make status bar visible when beginning to drag image view
+                updateStatusBar(isHidden: false, defaultStatusBarStyle: false)
                 
                 // Hide collection view & display image view
                 _hideImageView(false)
@@ -448,19 +445,19 @@ open class DTPhotoViewerController: UIViewController {
                 
                 backgroundView.alpha = alpha
                 
-                //Scale image
-                //Should not go smaller than max ratio
+                // Scale image
+                // Should not go smaller than max ratio
                 if let image = imageView.image, scaleWhileDragging {
                     let referenceSize = _frameForReferencedView().size
                     
-                    //If alpha = 0, then scale is max ratio, if alpha = 1, then scale is 1
+                    // If alpha = 0, then scale is max ratio, if alpha = 1, then scale is 1
                     let scale = alpha
                     
-                    //imageView.transform = CGAffineTransformMakeScale(scale, scale)
+                    // imageView.transform = CGAffineTransformMakeScale(scale, scale)
                     // Do not use transform to scale down image view
                     // Instead change width & height
                     if scale < 1 && scale >= 0 {
-                        let maxSize = imageViewSizeForImage(image: image)
+                        let maxSize = imageViewSizeForImage(image)
                         let scaleSize = CGSize(width: maxSize.width * scale, height: maxSize.height * scale)
                         
                         if scaleSize.width >= referenceSize.width || scaleSize.height >= referenceSize.height {
@@ -470,7 +467,7 @@ open class DTPhotoViewerController: UIViewController {
                 }
                 
             default:
-                //Animate back to center
+                // Animate back to center
                 if backgroundView.alpha < 0.8 {
                     _dismiss()
                 }
@@ -487,7 +484,7 @@ open class DTPhotoViewerController: UIViewController {
         }
     }
     
-    private func imageViewSizeForImage(image: UIImage?) -> CGSize {
+    private func imageViewSizeForImage(_ image: UIImage?) -> CGSize {
         if let image = image {
             let rect = AVMakeRect(aspectRatio: image.size, insideRect: view.bounds)
             return rect.size
@@ -497,26 +494,30 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     func presentingAnimation() {
-        //Hide reference view
+        // Hide reference view
         if automaticallyUpdateReferencedViewVisibility {
             referencedView?.isHidden = true
         }
         
-        //Calculate final frame
+        // Calculate final frame
         var destinationFrame = CGRect.zero
-        destinationFrame.size = imageViewSizeForImage(image: imageView.image)
+        destinationFrame.size = imageViewSizeForImage(imageView.image)
         
-        //Animate image view to the center
+        // Animate image view to the center
         imageView.frame = destinationFrame
         imageView.center = view.center
         
-        //Change status bar to black style
-        _defaultStatusBarStyle = true
-        _shouldHideStatusBar = true
-        setNeedsStatusBarAppearanceUpdate()
+        // Change status bar to black style
+        updateStatusBar(isHidden: true, defaultStatusBarStyle: true)
         
-        //Animate background alpha
+        // Animate background alpha
         backgroundView.alpha = 1.0
+    }
+    
+    private func updateStatusBar(isHidden: Bool, defaultStatusBarStyle isDefaultStyle: Bool) {
+        _shouldUseStatusBarStyle = isDefaultStyle
+        _shouldHideStatusBar = isHidden
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     func dismissingAnimation() {

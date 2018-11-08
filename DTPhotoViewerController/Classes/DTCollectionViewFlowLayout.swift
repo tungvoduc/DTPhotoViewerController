@@ -12,7 +12,7 @@ class DTCollectionViewFlowLayout: UICollectionViewFlowLayout {
     var currentIndex: Int?
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        self.invalidateLayout()
+        invalidateLayout()
         return true
     }
     

@@ -15,7 +15,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     }
     
     open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        let index = self.currentPhotoIndex
+        let index = currentPhotoIndex
         
         // Method to override
         didScrollToPhoto(at: index)
@@ -33,7 +33,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     }
     
     open func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        self.updateFrameFor(self.view.frame.size)
+        updateFrameFor(view.frame.size)
         
         //Disable pan gesture if zoom scale is not 1
         if scrollView.zoomScale != 1 {
@@ -46,8 +46,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     
     open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            let index = self.currentPhotoIndex
-            // Method to override
+            let index = currentPhotoIndex
             didScrollToPhoto(at: index)
             
             // Call delegate
@@ -56,8 +55,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     }
     
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = self.currentPhotoIndex
-        // Method to override
+        let index = currentPhotoIndex
         didScrollToPhoto(at: index)
         
         // Call delegate
@@ -101,7 +99,7 @@ extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     
     // Update image view image
     func updateImageView(scrollView: UIScrollView) {
-        let index = self.currentPhotoIndex
+        let index = currentPhotoIndex
         
         // Update image view before pan gesture happens
         if let dataSource = dataSource, dataSource.numberOfItems(in: self) > 0 {
