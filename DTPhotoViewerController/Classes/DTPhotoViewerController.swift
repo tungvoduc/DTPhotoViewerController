@@ -116,45 +116,40 @@ open class DTPhotoViewerController: UIViewController {
     /// Customizable if you wish to provide your own transitions.
     open lazy var animator: DTPhotoViewerBaseAnimator = DTPhotoAnimator()
     
-    public init?(referencedView: UIView?, image: UIImage?) {
-        if let newImage = image {
-            let flowLayout = DTCollectionViewFlowLayout()
-            flowLayout.scrollDirection = scrollDirection
-            flowLayout.sectionInset = UIEdgeInsets.zero
-            flowLayout.minimumLineSpacing = 0
-            flowLayout.minimumInteritemSpacing = 0
-            
-            // Collection view
-            collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
-            collectionView.register(DTPhotoCollectionViewCell.self, forCellWithReuseIdentifier: kPhotoCollectionViewCellIdentifier)
-            collectionView.backgroundColor = UIColor.clear
-            collectionView.isPagingEnabled = true
-            
-            backgroundView = UIView(frame: CGRect.zero)
-            
-            // Image view
-            let newImageView = DTImageView(frame: CGRect.zero)
-            imageView = newImageView
-            
-            super.init(nibName: nil, bundle: nil)
-            
-            transitioningDelegate = self
-            
-            imageView.image = newImage
-            self.referencedView = referencedView
-            collectionView.dataSource = self
-            
-            modalPresentationStyle = UIModalPresentationStyle.overFullScreen
-            modalPresentationCapturesStatusBarAppearance = true
-            
-            if #available(iOS 11.0, *) {
-                collectionView.contentInsetAdjustmentBehavior = .never
-            } else {
-                automaticallyAdjustsScrollViewInsets = false
-            }
-        }
-        else {
-            return nil
+    public init(referencedView: UIView?, image: UIImage?) {
+        let flowLayout = DTCollectionViewFlowLayout()
+        flowLayout.scrollDirection = scrollDirection
+        flowLayout.sectionInset = UIEdgeInsets.zero
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        
+        // Collection view
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: flowLayout)
+        collectionView.register(DTPhotoCollectionViewCell.self, forCellWithReuseIdentifier: kPhotoCollectionViewCellIdentifier)
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.isPagingEnabled = true
+        
+        backgroundView = UIView(frame: CGRect.zero)
+        
+        // Image view
+        let newImageView = DTImageView(frame: CGRect.zero)
+        imageView = newImageView
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        transitioningDelegate = self
+        
+        imageView.image = image
+        self.referencedView = referencedView
+        collectionView.dataSource = self
+        
+        modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+        modalPresentationCapturesStatusBarAppearance = true
+        
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
         }
     }
     
