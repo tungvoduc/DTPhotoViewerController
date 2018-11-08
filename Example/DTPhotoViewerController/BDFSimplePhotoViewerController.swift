@@ -222,7 +222,7 @@ class CustomPhotoCollectionViewCell: DTPhotoCollectionViewCell {
             insets = UIEdgeInsets.zero
         }
         
-        let width: CGFloat = 70
-        extraLabel.frame = CGRect(x: self.bounds.size.width - width - 20 - insets.right, y: 0, width: width, height: 60)
+        let width: CGFloat = 200
+        extraLabel.frame = CGRect(x: bounds.size.width - width - 20 - insets.right, y: insets.top, width: width, height: 30)
     }
 }

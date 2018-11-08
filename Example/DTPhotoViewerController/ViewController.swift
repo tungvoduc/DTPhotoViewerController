@@ -34,7 +34,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
             images.append(UIImage(named: "mario\(i%5 + 1)")!)
         }
         
-        self.collectionView?.register(CollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellIdentifier)
+        collectionView?.register(CollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellIdentifier)
         
         if #available(iOS 11.0, *) {
             collectionView?.contentInsetAdjustmentBehavior = .never
@@ -87,11 +87,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         selectedImageIndex = indexPath.row
         
         if let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell {
-            if let viewController = SimplePhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image) {
-                viewController.dataSource = self
-                viewController.delegate = self
-                self.present(viewController, animated: true, completion: nil)
-            }
+            let viewController = SimplePhotoViewerController(referencedView: cell.imageView, image: cell.imageView.image)
+            viewController.dataSource = self
+            viewController.delegate = self
+            present(viewController, animated: true, completion: nil)
         }
     }
 }
@@ -101,13 +100,13 @@ extension ViewController: DTPhotoViewerControllerDataSource {
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, configureCell cell: DTPhotoCollectionViewCell, forPhotoAt index: Int) {
         // Set text for each item
         if let cell = cell as? CustomPhotoCollectionViewCell {
-            cell.extraLabel.text = "Index \(index)"
+            cell.extraLabel.text = "Image no \(index + 1)"
         }
     }
     
     func photoViewerController(_ photoViewerController: DTPhotoViewerController, referencedViewForPhotoAt index: Int) -> UIView? {
         let indexPath = IndexPath(item: index, section: 0)
-        if let cell = self.collectionView?.cellForItem(at: indexPath) as? CollectionViewCell {
+        if let cell = collectionView?.cellForItem(at: indexPath) as? CollectionViewCell {
             return cell.imageView
         }
         
