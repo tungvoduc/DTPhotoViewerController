@@ -55,7 +55,7 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let container = transitionContext.containerView
-        let duration = self.transitionDuration(using: transitionContext)
+        let duration = transitionDuration(using: transitionContext)
         
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
         let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
