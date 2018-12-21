@@ -28,7 +28,7 @@ public class DTScrollView: UIScrollView {
     }
 }
 
-//MARK:
+//MARK: UIGestureRecognizerDelegate
 extension DTScrollView: UIGestureRecognizerDelegate {
     public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == panGestureRecognizer {

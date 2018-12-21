@@ -344,7 +344,7 @@ open class DTPhotoViewerController: UIViewController {
             
             if (cell.scrollView.zoomScale == cell.scrollView.maximumZoomScale) {
                 // Zoom out
-                cell.scrollView.minimumZoomScale = 1.0
+                cell.minimumZoomScale = 1.0
                 cell.scrollView.setZoomScale(cell.scrollView.minimumZoomScale, animated: true)
                 
             } else {
@@ -352,7 +352,7 @@ open class DTPhotoViewerController: UIViewController {
                 let center = cell.imageView.convert(location, from: view)
                 
                 // Zoom in
-                cell.scrollView.minimumZoomScale = 1.0
+                cell.minimumZoomScale = 1.0
                 let rect = zoomRect(for: cell.imageView, withScale: cell.scrollView.maximumZoomScale, withCenter: center)
                 cell.scrollView.zoom(to: rect, animated: true)
             }
@@ -385,7 +385,7 @@ open class DTPhotoViewerController: UIViewController {
         let heightScale = size.height / cell.imageView.bounds.height
         let zoomScale = min(widthScale, heightScale)
         
-        cell.scrollView.maximumZoomScale = zoomScale
+        cell.maximumZoomScale = zoomScale
     }
     
     fileprivate func zoomRect(for imageView: UIImageView, withScale scale: CGFloat, withCenter center: CGPoint) -> CGRect {

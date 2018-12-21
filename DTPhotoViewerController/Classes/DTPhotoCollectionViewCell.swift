@@ -18,6 +18,36 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
     public private(set) var scrollView: DTScrollView!
     public private(set) var imageView: UIImageView!
     
+    // default is 1.0
+    open var minimumZoomScale: CGFloat = 1.0 {
+        willSet {
+            if imageView.image == nil {
+                scrollView.minimumZoomScale = 1.0
+            } else {
+                scrollView.minimumZoomScale = newValue
+            }
+        }
+        
+        didSet {
+            correctCurrentZoomScaleIfNeeded()
+        }
+    }
+    
+    // default is 3.0.
+    open var maximumZoomScale: CGFloat = 3.0 {
+        willSet {
+            if imageView.image == nil {
+                scrollView.maximumZoomScale = 1.0
+            } else {
+                scrollView.maximumZoomScale = newValue
+            }
+        }
+        
+        didSet {
+            correctCurrentZoomScaleIfNeeded()
+        }
+    }
+    
     weak var delegate: DTPhotoCollectionViewCellDelegate?
     
     public override init(frame: CGRect) {
@@ -34,15 +64,23 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
         backgroundColor = UIColor.clear
         isUserInteractionEnabled = true
         scrollView = DTScrollView(frame: CGRect.zero)
-        scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 3.0
+        scrollView.minimumZoomScale = minimumZoomScale
+        scrollView.maximumZoomScale = 1.0 // Not allow zooming when there is no image
         
         let imageView = DTImageView(frame: CGRect.zero)
         // Layout subviews every time getting new image
         imageView.imageChangeBlock = {[weak self](image: UIImage?) -> Void in
             // Update image frame whenever image changes
-            if let strongSelf = self, let _ = image {
-                strongSelf.setNeedsLayout()
+            if let strongSelf = self {
+                if image == nil {
+                    strongSelf.scrollView.minimumZoomScale = 1.0
+                    strongSelf.scrollView.maximumZoomScale = 1.0
+                } else {
+                    strongSelf.scrollView.minimumZoomScale = strongSelf.minimumZoomScale
+                    strongSelf.scrollView.maximumZoomScale = strongSelf.maximumZoomScale
+                    strongSelf.setNeedsLayout()
+                }
+                strongSelf.correctCurrentZoomScaleIfNeeded()
             }
         }
         imageView.contentMode = .scaleAspectFit
@@ -50,17 +88,32 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
         scrollView.delegate = self
         addSubview(scrollView)
         scrollView.addSubview(imageView)
+        
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .automatic
+        }
+    }
+    
+    private func correctCurrentZoomScaleIfNeeded() {
+        if scrollView.zoomScale < scrollView.minimumZoomScale {
+            scrollView.zoomScale = scrollView.minimumZoomScale
+        }
+        
+        if scrollView.zoomScale > scrollView.maximumZoomScale {
+            scrollView.zoomScale = scrollView.maximumZoomScale
+        }
     }
     
     override open func layoutSubviews() {
         super.layoutSubviews()
+        scrollView.zoomScale = 1.0
         scrollView.frame = bounds
         
         //Set the aspect ration of the image
         if let image = imageView.image {
             let size = image.size
-            let horizontalScale = size.width / bounds.width
-            let verticalScale = size.height / bounds.height
+            let horizontalScale = size.width / scrollView.frame.width
+            let verticalScale = size.height / scrollView.frame.height
             let factor = max(horizontalScale, verticalScale)
             
             //Divide the size by the greater of the vertical or horizontal shrinkage factor
@@ -68,8 +121,8 @@ open class DTPhotoCollectionViewCell: UICollectionViewCell {
             let height = size.height / factor
             
             //Then figure out offset to center vertically or horizontally
-            let x = (bounds.width - width) / 2
-            let y = (bounds.height - height) / 2
+            let x = (scrollView.frame.width - width) / 2
+            let y = (scrollView.frame.height - height) / 2
             
             imageView.frame = CGRect(x: x, y: y, width: width, height: height)
         }
