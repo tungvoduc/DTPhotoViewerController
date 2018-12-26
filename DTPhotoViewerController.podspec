@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "DTPhotoViewerController"
-  s.version          = "1.2.4"
+  s.version          = "1.2.5"
   s.summary          = "DTPhotoViewerController provides a Facebook-like photo viewer."
   s.platform 	       = :ios, '8.3'
   s.swift_version    = '4.2'
