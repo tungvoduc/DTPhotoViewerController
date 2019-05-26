@@ -6,23 +6,22 @@
 //  Copyright © 2017 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import AVKit
 import Photos
+import UIKit
 
 extension UIImage {
-    
     public class func preferredImageSize(for size: CGSize, with aspectRatio: CGFloat) -> CGSize {
         guard aspectRatio != 1.0 else {
             return CGSize(width: size.height, height: size.height)
         }
-        
+
         let widthDifference = abs(size.width - size.height * aspectRatio) // /
         let heightDiffence = abs(size.height - size.width / aspectRatio)  // *
-        
-        if (widthDifference < heightDiffence) {
+
+        if widthDifference < heightDiffence {
             return CGSize(width: size.height * aspectRatio, height: size.height)
-        } else if (widthDifference > heightDiffence) {
+        } else if widthDifference > heightDiffence {
             return CGSize(width: size.width, height: size.width / aspectRatio)
         } else {
             // If can not determine which difference is greater then the returned size should be based on the specified height
@@ -37,9 +36,9 @@ extension UIImage {
         let aspectRatio: CGFloat = 4.0
         let preferredSize = UIImage.preferredImageSize(for: size, with: aspectRatio)
         let frame = CGRect(x: 0, y: 0, width: preferredSize.width, height: preferredSize.height)
-        
+
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-        
+
         //PaintCode here
         let morePath = UIBezierPath()
         morePath.move(to: CGPoint(x: frame.minX + 0.12500 * frame.width, y: frame.minY + 0.00000 * frame.height))
@@ -69,21 +68,22 @@ extension UIImage {
         morePath.usesEvenOddFillRule = true
         fillColor.setFill()
         morePath.fill()
-        
+
+        //swiftlint:disable force_unwrapping
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
+
         return image
     }
-    
+
     /// Cancel X icon. Aspect ratio 1:1
-    public class func cancelIcon(size: CGSize, color fillColor : UIColor!) -> UIImage {
+    public class func cancelIcon(size: CGSize, color fillColor: UIColor!) -> UIImage {
         let aspectRatio: CGFloat = 1.0
         let preferredSize = UIImage.preferredImageSize(for: size, with: aspectRatio)
         let frame = CGRect(x: 0, y: 0, width: preferredSize.width, height: preferredSize.height)
-        
+
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-        
+
         /// Bezier Drawing
         let bezierPath = UIBezierPath()
         bezierPath.move(to: CGPoint(x: frame.minX + 0.08337 * frame.width, y: frame.minY + 0.99873 * frame.height))
@@ -114,10 +114,10 @@ extension UIImage {
         bezierPath.usesEvenOddFillRule = true
         fillColor.setFill()
         bezierPath.fill()
-        
+
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
+
         return image
     }
 }
