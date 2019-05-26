@@ -178,6 +178,7 @@
 				607FACCE1AFB9204008FA782 /* Resources */,
 				BE8EE19B82FF7C796FD52309 /* Embed Pods Frameworks */,
 				83501C802243A4FB86DEC126 /* Copy Pods Resources */,
+				EBCA074A229A9DB3006745B2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -221,7 +222,6 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = 2VR9UMV88N;
 						LastSwiftMigration = 1020;
 					};
 					607FACE41AFB9204008FA782 = {
@@ -360,6 +360,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DTPhotoViewerController_Tests/Pods-DTPhotoViewerController_Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBCA074A229A9DB3006745B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -529,7 +547,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2VR9UMV88N;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DTPhotoViewerController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -545,7 +563,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2VR9UMV88N;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = DTPhotoViewerController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
