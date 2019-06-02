@@ -16,8 +16,8 @@ private let kDamping: CGFloat = 0.75
 /// that conforms this protocol and assign
 ///
 public protocol DTPhotoViewerBaseAnimator: UIViewControllerAnimatedTransitioning {
-    var presentingDuration: TimeInterval {get set}
-    var dismissingDuration: TimeInterval {get set}
+    var presentingDuration: TimeInterval { get set }
+    var dismissingDuration: TimeInterval { get set }
     var spring: Bool { get set }
 }
 
@@ -42,10 +42,8 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         //return correct duration
-        let fromViewController = transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.from)
-        let viewController = transitionContext?.viewController(forKey: UITransitionContextViewControllerKey.to)
-        let presenting = viewController?.presentingViewController == fromViewController
-        var duration = presenting ? presentingDuration : dismissingDuration
+        let isPresenting = transitionContext?.isPresenting ?? true
+        var duration = isPresenting ? presentingDuration : dismissingDuration
         if spring {
             //Spring animation's duration should be longer than normal animation
             duration = duration * 2.5
@@ -59,12 +57,12 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
         let toViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
-        let presenting = toViewController.presentingViewController == fromViewController
+        let isPresenting = transitionContext.isPresenting
         
         fromViewController.beginAppearanceTransition(false, animated: transitionContext.isAnimated)
         toViewController.beginAppearanceTransition(true, animated: transitionContext.isAnimated)
         
-        if presenting {
+        if isPresenting {
             guard let photoViewerController = toViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
@@ -204,5 +202,13 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     
     func animationEnded(_ transitionCompleted: Bool) {
         
+    }
+}
+
+extension UIViewControllerContextTransitioning {
+    var isPresenting: Bool {
+        let toViewController = viewController(forKey: .to)
+        let fromViewController = viewController(forKey: .from)
+        return toViewController?.presentingViewController === fromViewController
     }
 }
