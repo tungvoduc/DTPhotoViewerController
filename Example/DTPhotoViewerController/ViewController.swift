@@ -37,8 +37,6 @@ public class CollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = UIColor.white
-        imageView.layer.borderColor = UIColor.red.cgColor
-        imageView.layer.borderWidth = 5
         contentView.addSubview(imageView)
         contentView.backgroundColor = .clear
         backgroundColor = .clear
