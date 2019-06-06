@@ -9,50 +9,42 @@
 import UIKit
 
 private let kInitialSpringVelocity: CGFloat = 2.0
-private let kDamping: CGFloat = 0.75
+private let kDampingRatio: CGFloat = 0.7
 
-///
 /// If you wish to provide a custom transition animator, you just need to create a new class
 /// that conforms this protocol and assign
 ///
 public protocol DTPhotoViewerBaseAnimator: UIViewControllerAnimatedTransitioning {
     var presentingDuration: TimeInterval { get set }
     var dismissingDuration: TimeInterval { get set }
-    var spring: Bool { get set }
+    var usesSpringAnimation: Bool { get set }
 }
 
-class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
-    ///
+public class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
+    
     /// Preseting transition duration
-    /// Default value is 0.2
+    /// Default value is 0.4
     ///
-    var presentingDuration: TimeInterval = 0.2
+    public var presentingDuration: TimeInterval = 0.4
     
-    ///
     /// Dismissing transition duration
-    /// Default value is 0.5
+    /// Default value is 0.4
     ///
-    var dismissingDuration: TimeInterval = 0.2
+    public var dismissingDuration: TimeInterval = 0.4
     
-    ///
     /// Indicates if using spring animation
     /// Default value is true
     ///
-    var spring = true
+    public var usesSpringAnimation = true
     
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         //return correct duration
         let isPresenting = transitionContext?.isPresenting ?? true
-        var duration = isPresenting ? presentingDuration : dismissingDuration
-        if spring {
-            //Spring animation's duration should be longer than normal animation
-            duration = duration * 2.5
-        }
-        return duration
+        return isPresenting ? presentingDuration : dismissingDuration
     }
     
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let container = transitionContext.containerView
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
         let duration = transitionDuration(using: transitionContext)
         
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
@@ -62,6 +54,8 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         fromViewController.beginAppearanceTransition(false, animated: transitionContext.isAnimated)
         toViewController.beginAppearanceTransition(true, animated: transitionContext.isAnimated)
         
+        let animator: UIViewPropertyAnimator
+        
         if isPresenting {
             guard let photoViewerController = toViewController as? DTPhotoViewerController else {
                 fatalError("view controller does not conform DTPhotoViewer")
@@ -70,7 +64,28 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             let toView = toViewController.view!
             toView.frame = transitionContext.finalFrame(for: toViewController)
             
-            let completeTransition: () -> () = {
+            containerView.addSubview(toView)
+            
+            if let referencedView = photoViewerController.referencedView {
+                photoViewerController.imageView.layer.cornerRadius = referencedView.layer.cornerRadius
+                photoViewerController.imageView.layer.masksToBounds = referencedView.layer.masksToBounds
+                photoViewerController.imageView.backgroundColor = referencedView.backgroundColor
+            }
+            
+            let animation = {
+                photoViewerController.presentingAnimation()
+                photoViewerController.imageView.layer.cornerRadius = 0
+                photoViewerController.imageView.backgroundColor = .clear
+            }
+            
+            if usesSpringAnimation {
+                animator = UIViewPropertyAnimator(duration: duration, dampingRatio: kDampingRatio, animations: animation)
+            }
+            else {
+                animator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: animation)
+            }
+            
+            animator.addCompletion { _ in
                 let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
                 
@@ -83,52 +98,27 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 fromViewController.endAppearanceTransition()
             }
             
-            container.addSubview(toView)
-            
-            if spring {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                    //Animate image view to the center
-                    photoViewerController.presentingAnimation()
-                }, completion: { (finished) in
-                    completeTransition()
-                })
-            }
-            else {
-                UIView.animate(withDuration: duration, animations: {
-                    //Animate image view to the center
-                    photoViewerController.presentingAnimation()
-                }, completion: { (finished) in
-                    completeTransition()
-                })
-            }
-            
             // Layer animation
             if let referencedView = photoViewerController.referencedView {
-                let animation = CABasicAnimation(keyPath: "cornerRadius")
-                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-                animation.fromValue = referencedView.layer.cornerRadius
-                animation.toValue = 0
-                animation.duration = presentingDuration
-                photoViewerController.imageView.layer.add(animation, forKey: "cornerRadius")
-                photoViewerController.imageView.layer.cornerRadius = 0
+                let animationGroup = CAAnimationGroup()
+                animationGroup.timingFunction = CAMediaTimingFunction(name: .easeIn)
+                animationGroup.duration = presentingDuration
+                animationGroup.fillMode = .backwards
                 
                 // Border color
                 let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderColorAnimation.fromValue = referencedView.layer.borderColor
                 borderColorAnimation.toValue = UIColor.clear.cgColor
-                borderColorAnimation.duration = presentingDuration
-                photoViewerController.imageView.layer.add(animation, forKey: "borderColor")
                 photoViewerController.imageView.layer.borderColor = UIColor.clear.cgColor
                 
                 // Border width
                 let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderWidthAnimation.fromValue = referencedView.layer.borderWidth
                 borderWidthAnimation.toValue = 0
-                borderWidthAnimation.duration = presentingDuration
-                photoViewerController.imageView.layer.add(animation, forKey: "borderWidth")
                 photoViewerController.imageView.layer.borderWidth = referencedView.layer.borderWidth
+                
+                animationGroup.animations = [borderColorAnimation, borderWidthAnimation]
+                photoViewerController.imageView.layer.add(animationGroup, forKey: nil)
             }
         }
         else {
@@ -136,7 +126,25 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 fatalError("view controller does not conform DTPhotoViewer")
             }
             
-            let completeTransition: () -> () = {
+            photoViewerController.imageView.backgroundColor = .clear
+            
+            let animation = {
+                photoViewerController.dismissingAnimation()
+                
+                if let referencedView = photoViewerController.referencedView {
+                    photoViewerController.imageView.layer.cornerRadius = referencedView.layer.cornerRadius
+                    photoViewerController.imageView.backgroundColor = referencedView.backgroundColor
+                }
+            }
+            
+            if usesSpringAnimation {
+                animator = UIViewPropertyAnimator(duration: duration, dampingRatio: kDampingRatio, animations: animation)
+            }
+            else {
+                animator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: animation)
+            }
+            
+            animator.addCompletion { _ in
                 let isCancelled = transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(!isCancelled)
                 
@@ -149,58 +157,34 @@ class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
                 fromViewController.endAppearanceTransition()
             }
             
-            if spring {
-                UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: kDamping, initialSpringVelocity: kInitialSpringVelocity, options: UIView.AnimationOptions.curveEaseOut, animations: {
-                    //Animate image view to the center
-                    photoViewerController.dismissingAnimation()
-                }, completion: { (finished) in
-                    //End transition
-                    completeTransition()
-                })
-            }
-            else {
-                UIView.animate(withDuration: duration, animations: {
-                    //Animate image view to the center
-                    photoViewerController.dismissingAnimation()
-                    
-                }, completion: { (finished) in
-                    //End transition
-                    completeTransition()
-                })
-            }
-            
             // Layer animation
             if let referencedView = photoViewerController.referencedView {
-                let animation = CABasicAnimation(keyPath: "cornerRadius")
-                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
-                animation.fromValue = 0
-                animation.toValue = referencedView.layer.cornerRadius
-                animation.duration = dismissingDuration
-                photoViewerController.imageView.layer.add(animation, forKey: "cornerRadius")
-                photoViewerController.imageView.layer.cornerRadius = referencedView.layer.cornerRadius
+                let animationGroup = CAAnimationGroup()
+                animationGroup.timingFunction = CAMediaTimingFunction(name: .easeIn)
+                animationGroup.duration = presentingDuration
+                animationGroup.fillMode = .backwards
                 
                 // Border color
                 let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderColorAnimation.fromValue = UIColor.clear.cgColor
                 borderColorAnimation.toValue = referencedView.layer.borderColor
-                borderColorAnimation.duration = dismissingDuration
-                photoViewerController.imageView.layer.add(animation, forKey: "borderColor")
                 photoViewerController.imageView.layer.borderColor = referencedView.layer.borderColor
                 
                 // Border width
                 let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
                 borderWidthAnimation.fromValue = 0
                 borderWidthAnimation.toValue = referencedView.layer.borderWidth
-                borderWidthAnimation.duration = dismissingDuration
-                photoViewerController.imageView.layer.add(animation, forKey: "borderWidth")
                 photoViewerController.imageView.layer.borderWidth = referencedView.layer.borderWidth
+                
+                animationGroup.animations = [borderColorAnimation, borderWidthAnimation]
+                photoViewerController.imageView.layer.add(animationGroup, forKey: nil)
             }
         }
+        
+        animator.startAnimation()
     }
     
-    func animationEnded(_ transitionCompleted: Bool) {
+    public func animationEnded(_ transitionCompleted: Bool) {
         
     }
 }
