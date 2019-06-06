@@ -34,8 +34,14 @@ public class CollectionViewCell: UICollectionViewCell {
     private func commonInit() {
         imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = UIColor.white
+        imageView.layer.borderColor = UIColor.red.cgColor
+        imageView.layer.borderWidth = 5
         contentView.addSubview(imageView)
-        backgroundColor = UIColor.white
+        contentView.backgroundColor = .clear
+        backgroundColor = .clear
     }
 
     override public func layoutSubviews() {
