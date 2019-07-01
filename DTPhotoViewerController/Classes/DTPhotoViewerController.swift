@@ -342,12 +342,7 @@ open class DTPhotoViewerController: UIViewController {
             // Double tap
             // imageViewerControllerDidDoubleTapImageView()
             
-            if (cell.scrollView.zoomScale == cell.scrollView.maximumZoomScale) {
-                // Zoom out
-                cell.minimumZoomScale = 1.0
-                cell.scrollView.setZoomScale(cell.scrollView.minimumZoomScale, animated: true)
-                
-            } else {
+            if (cell.scrollView.zoomScale == cell.scrollView.minimumZoomScale) {
                 let location = gesture.location(in: view)
                 let center = cell.imageView.convert(location, from: view)
                 
@@ -355,6 +350,10 @@ open class DTPhotoViewerController: UIViewController {
                 cell.minimumZoomScale = 1.0
                 let rect = zoomRect(for: cell.imageView, withScale: cell.scrollView.maximumZoomScale, withCenter: center)
                 cell.scrollView.zoom(to: rect, animated: true)
+            } else {
+                // Zoom out
+                cell.minimumZoomScale = 1.0
+                cell.scrollView.setZoomScale(cell.scrollView.minimumZoomScale, animated: true)
             }
         }
     }
