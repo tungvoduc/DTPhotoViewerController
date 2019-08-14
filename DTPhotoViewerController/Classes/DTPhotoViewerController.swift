@@ -12,6 +12,7 @@ import Photos
 
 private let kPhotoCollectionViewCellIdentifier = "Cell"
 
+@available(iOS 10, *)
 open class DTPhotoViewerController: UIViewController {
     /// Scroll direction
     /// Default value is UICollectionViewScrollDirectionVertical
@@ -586,6 +587,7 @@ open class DTPhotoViewerController: UIViewController {
 }
 
 //MARK: - UIViewControllerTransitioningDelegate
+@available(iOS 10, *)
 extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return animator
@@ -597,6 +599,7 @@ extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
 }
 
 //MARK: UICollectionViewDataSource
+@available(iOS 10, *)
 extension DTPhotoViewerController: UICollectionViewDataSource {
     //MARK: Public methods
     public var currentPhotoIndex: Int {
@@ -651,6 +654,7 @@ extension DTPhotoViewerController: UICollectionViewDataSource {
 }
 
 //MARK: Open methods
+@available(iOS 10, *)
 extension DTPhotoViewerController {
     // For each reuse identifier that the collection view will use, register either a class or a nib from which to instantiate a cell.
     // If a nib is registered, it must contain exactly 1 top level object which is a DTPhotoCollectionViewCell.
@@ -732,6 +736,7 @@ extension DTPhotoViewerController {
 }
 
 //MARK: DTPhotoCollectionViewCellDelegate
+@available(iOS 10, *)
 extension DTPhotoViewerController: DTPhotoCollectionViewCellDelegate {
     open func collectionViewCellDidZoomOnPhoto(_ cell: DTPhotoCollectionViewCell, atScale scale: CGFloat) {
         if let indexPath = collectionView.indexPath(for: cell) {

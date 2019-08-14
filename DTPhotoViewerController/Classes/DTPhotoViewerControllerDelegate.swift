@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 10, *)
 @objc public protocol DTPhotoViewerControllerDelegate: NSObjectProtocol {
     @objc optional func photoViewerController(_ photoViewerController: DTPhotoViewerController, didScrollToPhotoAt index: Int)
     

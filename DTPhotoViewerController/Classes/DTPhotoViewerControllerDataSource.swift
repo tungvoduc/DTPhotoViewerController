@@ -8,6 +8,7 @@
 
 import UIKit
 
+@available(iOS 10, *)
 @objc public protocol DTPhotoViewerControllerDataSource: NSObjectProtocol {
     /// Total number of photo in viewer.
     func numberOfItems(in photoViewerController: DTPhotoViewerController) -> Int

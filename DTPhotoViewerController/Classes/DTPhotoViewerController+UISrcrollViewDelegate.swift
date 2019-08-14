@@ -9,6 +9,7 @@
 import UIKit
 
 //MARK: - UICollectionViewDelegateFlowLayout
+@available(iOS 10, *)
 extension DTPhotoViewerController: UICollectionViewDelegateFlowLayout {
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.photoViewerController?(self, scrollViewDidScroll: scrollView)
