@@ -15,3 +15,9 @@ func clip<T : Comparable>(_ x0: T, _ x1: T, _ v: T) -> T {
 func lerp<T : FloatingPoint>(_ v0: T, _ v1: T, _ t: T) -> T {
     return v0 + (v1 - v0) * t
 }
+
+extension UIView {
+    func isRightToLeft() -> Bool {
+        return UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+    }
+}

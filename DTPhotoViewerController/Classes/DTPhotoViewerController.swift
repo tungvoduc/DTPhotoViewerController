@@ -186,7 +186,7 @@ open class DTPhotoViewerController: UIViewController {
             }
         }
         
-        imageView.frame = _frameForReferencedView()
+        imageView.frame = frameForReferencedView()
         imageView.clipsToBounds = true
         
         //Scroll view
@@ -327,16 +327,7 @@ open class DTPhotoViewerController: UIViewController {
         // Delegate method
         delegate?.photoViewerControllerDidReceiveDoubleTapGesture?(self)
         
-        let indexPath: IndexPath
-        
-        if scrollDirection == .horizontal {
-            let index = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
-            indexPath = IndexPath(item: index, section: 0)
-        }
-        else {
-            let index = Int(scrollView.contentOffset.y / scrollView.bounds.size.height)
-            indexPath = IndexPath(item: index, section: 0)
-        }
+        let indexPath = IndexPath(item: currentPhotoIndex, section: 0)
         
         if let cell = collectionView.cellForItem(at: indexPath) as? DTPhotoCollectionViewCell {
             // Double tap
@@ -358,7 +349,7 @@ open class DTPhotoViewerController: UIViewController {
         }
     }
     
-    func _frameForReferencedView() -> CGRect {
+    private func frameForReferencedView() -> CGRect {
         if let referencedView = referencedView {
             if let superview = referencedView.superview {
                 var frame = (superview.convert(referencedView.frame, to: view))
@@ -376,6 +367,25 @@ open class DTPhotoViewerController: UIViewController {
         // Should be fixed in the future
         let defaultSize: CGFloat = 1
         return CGRect(x: view.frame.midX - defaultSize/2, y: view.frame.midY - defaultSize/2, width: defaultSize, height: defaultSize)
+    }
+
+    private func currentPhotoIndex(for scrollView: UIScrollView) -> Int {
+        if scrollDirection == .horizontal {
+            if scrollView.frame.width == 0 {
+                return 0
+            }
+            if view.isRightToLeft() {
+                return Int(round((scrollView.contentSize.width - scrollView.frame.width - scrollView.contentOffset.x) / scrollView.frame.width))
+            } else {
+                return Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+            }
+        }
+        else {
+            if scrollView.frame.height == 0 {
+                return 0
+            }
+            return Int(scrollView.contentOffset.y / scrollView.frame.height)
+        }
     }
     
     // Update zoom inside UICollectionViewCell
@@ -442,7 +452,7 @@ open class DTPhotoViewerController: UIViewController {
                 // Scale image
                 // Should not go smaller than max ratio
                 if let image = imageView.image, scaleWhileDragging {
-                    let referenceSize = _frameForReferencedView().size
+                    let referenceSize = frameForReferencedView().size
                     
                     // If alpha = 0, then scale is max ratio, if alpha = 1, then scale is 1
                     let scale = alpha
@@ -515,7 +525,7 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     func dismissingAnimation() {
-        imageView.frame = _frameForReferencedView()
+        imageView.frame = frameForReferencedView()
         backgroundView.alpha = 0
     }
     
@@ -600,18 +610,7 @@ extension DTPhotoViewerController: UIViewControllerTransitioningDelegate {
 extension DTPhotoViewerController: UICollectionViewDataSource {
     //MARK: Public methods
     public var currentPhotoIndex: Int {
-        if scrollDirection == .horizontal {
-            if scrollView.frame.width == 0 {
-                return 0
-            }
-            return Int(scrollView.contentOffset.x / scrollView.frame.width)
-        }
-        else {
-            if scrollView.frame.height == 0 {
-                return 0
-            }
-            return Int(scrollView.contentOffset.y / scrollView.frame.height)
-        }
+        return currentPhotoIndex(for: scrollView)
     }
     
     public var zoomScale: CGFloat {
