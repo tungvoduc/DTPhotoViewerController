@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "DTPhotoViewerController",
+    platforms: [
+        .iOS(.v10),
+    ],
     products: [
         .library(name: "DTPhotoViewerController", targets: ["DTPhotoViewerController"]),
     ],
