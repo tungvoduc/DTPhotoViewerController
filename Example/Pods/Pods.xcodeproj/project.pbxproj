@@ -26,6 +26,8 @@
 		9AD1B5CC8B38846892D5CA9CF6EC8F6E /* DTPhotoViewerController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C005ED56D0A3852268853DCE61F15682 /* DTPhotoViewerController-dummy.m */; };
 		A01A8A026F0F5FC6344D13B13D3B3BA2 /* Pods-DTPhotoViewerController_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C94527595D482DE2229985D9476BC4 /* Pods-DTPhotoViewerController_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0740406BE2BAC20072DC4F1BC455087 /* Pods-DTPhotoViewerController_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB7F71FF6F2226E171756C7770D7DDE /* Pods-DTPhotoViewerController_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EB1880802348BC3600ACF7D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB18807F2348BC3600ACF7D7 /* UIKit.framework */; };
+		EB1880812348BC3600ACF7D7 /* UIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB18807F2348BC3600ACF7D7 /* UIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,20 @@
 			remoteInfo = DTPhotoViewerController;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EB1880822348BC3600ACF7D7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EB1880812348BC3600ACF7D7 /* UIKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		001AB10BA838ADFF5BD6612146D887BE /* Pods_DTPhotoViewerController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DTPhotoViewerController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +103,7 @@
 		DDA4A5F58D760C8F4992C32598959991 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4FDF3A145839BA4123ED564C0FB958F /* Pods-DTPhotoViewerController_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DTPhotoViewerController_Example-frameworks.sh"; sourceTree = "<group>"; };
 		E5E3DCAB8946FC4718CC2A4A98D296AA /* DTPhotoViewerController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DTPhotoViewerController.xcconfig; sourceTree = "<group>"; };
+		EB18807F2348BC3600ACF7D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13040D1E84F3303EACA106444E767D9F /* Foundation.framework in Frameworks */,
+				EB1880802348BC3600ACF7D7 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +261,7 @@
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB18807F2348BC3600ACF7D7 /* UIKit.framework */,
 				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
 			);
 			name = Frameworks;
@@ -311,6 +330,7 @@
 				04F851AC15CA0E55A3950617F72B11CC /* Sources */,
 				757C0FA6ECD558E0729909F092A5777C /* Frameworks */,
 				0FA068338D4B27A2E8F2E197A8E8EBB5 /* Headers */,
+				EB1880822348BC3600ACF7D7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
