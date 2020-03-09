@@ -309,7 +309,10 @@ open class DTPhotoViewerController: UIViewController {
     }
     
     func _dismiss() {
-        dismiss(animated: true, completion: nil)
+        self.delegate?.photoViewerControllerWillPanDismiss?(self)
+        dismiss(animated: true) {
+            self.delegate?.photoViewerControllerDidPanDismiss?(self)
+        }
     }
     
     @objc func _handleTapGesture(_ gesture: UITapGestureRecognizer) {
