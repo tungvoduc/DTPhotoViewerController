@@ -256,7 +256,8 @@ open class DTPhotoViewerController: UIViewController {
         super.viewWillDisappear(animated)
         
         if !animated {
-            dismissingAnimation()
+            dismissingSpringAnimation()
+            dismissingLinearAnimation()
             dismissalAnimationDidFinish()
         }
         else {
@@ -524,9 +525,13 @@ open class DTPhotoViewerController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    func dismissingAnimation() {
-        imageView.frame = frameForReferencedView()
+    func dismissingSpringAnimation() {
+        imageView.frame.origin = frameForReferencedView().origin
         backgroundView.alpha = 0
+    }
+
+    func dismissingLinearAnimation() {
+        imageView.frame.size = frameForReferencedView().size
     }
     
     func presentationAnimationDidFinish() {

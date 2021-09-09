@@ -55,6 +55,7 @@ public class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         toViewController.beginAppearanceTransition(true, animated: transitionContext.isAnimated)
         
         let animator: UIViewPropertyAnimator
+        var linearAnimator: UIViewPropertyAnimator?
         
         if isPresenting {
             guard let photoViewerController = toViewController as? DTPhotoViewerController else {
@@ -129,7 +130,7 @@ public class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             photoViewerController.imageView.backgroundColor = .clear
             
             let animation = {
-                photoViewerController.dismissingAnimation()
+                photoViewerController.dismissingSpringAnimation()
                 
                 if let referencedView = photoViewerController.referencedView {
                     photoViewerController.imageView.layer.cornerRadius = referencedView.layer.cornerRadius
@@ -139,9 +140,15 @@ public class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
             
             if usesSpringAnimation {
                 animator = UIViewPropertyAnimator(duration: duration, dampingRatio: kDampingRatio, animations: animation)
+                linearAnimator = UIViewPropertyAnimator(duration: duration / 4, curve: .easeOut, animations: {
+                    photoViewerController.dismissingLinearAnimation()
+                })
             }
             else {
                 animator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: animation)
+                linearAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear, animations: {
+                    photoViewerController.dismissingLinearAnimation()
+                })
             }
             
             animator.addCompletion { _ in
@@ -182,6 +189,7 @@ public class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
         }
         
         animator.startAnimation()
+        linearAnimator?.startAnimation()
     }
     
     public func animationEnded(_ transitionCompleted: Bool) {
