@@ -20,7 +20,7 @@ public protocol DTPhotoViewerBaseAnimator: UIViewControllerAnimatedTransitioning
     var usesSpringAnimation: Bool { get set }
 }
 
-public class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
+open class DTPhotoAnimator: NSObject, DTPhotoViewerBaseAnimator {
     
     /// Preseting transition duration
     /// Default value is 0.4
