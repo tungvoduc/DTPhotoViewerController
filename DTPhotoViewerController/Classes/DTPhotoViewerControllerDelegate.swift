@@ -28,4 +28,8 @@ import UIKit
     @objc optional func photoViewerControllerDidEndPresentingAnimation(_ photoViewerController: DTPhotoViewerController)
     
     @objc optional func photoViewerController(_ photoViewerController: DTPhotoViewerController, scrollViewDidScroll: UIScrollView)
+
+    @objc optional func photoViewerControllerWillPanDismiss(_ photoViewerController: DTPhotoViewerController)
+
+    @objc optional func photoViewerControllerDidPanDismiss(_ photoViewerController: DTPhotoViewerController)
 }
